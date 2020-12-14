@@ -26,3 +26,7 @@ jobs:
     - run: npm i
     - run: npm run build --if-present
     - run: npm test
+
+    - name: Copy files to production
+      run: |
+        sh ~/home/soph/copyFront.sh
