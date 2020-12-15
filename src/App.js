@@ -1,11 +1,13 @@
-import 'fontsource-roboto';
-import './test.css'
+import { ChakraProvider } from "@chakra-ui/react"
+import Index from './components/index/Main'
+import theme from './theme'
 
 const App = () => {
+
   return (
-    <div className="App"> 
-      <h1>WIP</h1>
-    </div>
+    <ChakraProvider theme={theme}>
+        <Index />
+    </ChakraProvider>
   );
 }
 
