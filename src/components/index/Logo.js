@@ -33,7 +33,7 @@ const  Logo = props => {
             repeat: Infinity,
             repeatType: "reverse",
             ease: "linear",
-            duration: 30,
+            duration: 25,
         }}
         />
 
@@ -48,7 +48,8 @@ const  Logo = props => {
             repeat: Infinity,
             repeatType: "reverse",
             ease: "linear",
-            duration: 30,
+
+            duration: 25,
         }}
         />
 
@@ -166,7 +167,7 @@ const  Logo = props => {
             stroke: ["#e51837", "#d01661", "#e51837"],
           }}
           transition={{
-            duration: 5,
+            duration: 2.25,
             ease: "easeInOut",
             yoyo: Infinity
             
