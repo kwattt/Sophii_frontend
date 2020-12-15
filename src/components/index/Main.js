@@ -4,7 +4,6 @@ import Logo from './Logo'
 import Header from './Header'
 
 import { 
-  SimpleGrid,
   Box,
   Center,
   Heading,
