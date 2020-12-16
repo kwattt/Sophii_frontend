@@ -1,5 +1,6 @@
 
 import React from 'react'
+import { Link as ReachLink } from "react-router-dom"
 import {Link, Image, Box, Flex } from "@chakra-ui/react";
 import logo from '../../logo.png'
 
@@ -24,7 +25,7 @@ const Header = () => {
               src={logo} alt="Sophii Logo" />
         </Box>
         <Box paddingRight="10px">
-          <Link>Panel</Link>
+          <Link as={ReachLink} to="/panel">Panel</Link>
         </Box>
       </Flex>
     </header>
