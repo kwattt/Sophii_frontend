@@ -6,7 +6,7 @@ const IsAuthorized = () => {
   useEffect(() => {
     const fetchData = async() => {
 
-      axios.get("http://127.0.0.1:5000/api/authorized")
+      axios.get("http://127.0.0.1:5000/api/authorized") // Bueno, al trabajar en diferentes puertos por mi madre que voy a llamar esto. Production should be /api/authorized
       .then((response) => {
         if(response.data.Auth)
           setAuth(true)
@@ -22,7 +22,6 @@ const IsAuthorized = () => {
     fetchData()
   }, [])
 
-  console.log(auth)
   return auth
 }
 

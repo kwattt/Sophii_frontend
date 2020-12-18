@@ -2,7 +2,7 @@
 import React from 'react'
 import { Link as ReachLink } from "react-router-dom"
 import {Link, Image, Box, Flex } from "@chakra-ui/react";
-import logo from '../../logo.png'
+import logo from '../../logo.webp'
 
 const Header = () => {
 
@@ -20,6 +20,8 @@ const Header = () => {
       >
         <Box>
           <Image 
+              width="37px"
+              height="37px"
               boxSize="37px"
               objectFit="cover"
               src={logo} alt="Sophii Logo" />
