@@ -1,97 +1,76 @@
 import {useState} from 'react'
 import IsAuthorized from './../extra/Authorized'
 import Header from './Header'
+import Logo from './../index/Logo'
+
 
 import { 
   Spinner,
   Center,
   Box,
-  Grid,
+  SimpleGrid,
+  Tabs,
+  TabList,
+  Tab,
   Heading,
-  GridItem,
-  Divider,
-  Button,
-  Stack,
 } from '@chakra-ui/react'
 
 import ServerSelect from './ServerSelect'
-import Social from './Features/Social'
-
+import FuncSelect from './FuncSelect'
 
 const Panel = () => {
   const authorized = IsAuthorized() // Sólo deberiamos de checar autorización en un componente, de lo contrario llenariamos de llamadas la API.
 
-  const [selectedTab, setSelectedTab] = useState("None")
-  const [selectedGuild, setSelectedGuild] = useState(0)
-
+  const [selectedTab, setSelectedTab] = useState("Social")
+  const [currentInfo, setCurrentInfo] = useState({
+    guild: 0,
+    roles: [],
+    channels: []
+  })
+  
   return (<>
       {
         authorized ?
         <>
           <Header/>
 
+          <div id="Panel">
           <Box display={{md: "block", base: "none"}} marginTop="25px"> {/*Navegador*/}
-            
-            <Grid paddingX="5vw"
-              templateColumns="repeat(10, 1fr)"
-              gap={5}
-            >
-              <GridItem 
-                colSpan={2} 
-                border={lineBox} 
-              paddingTop="20px"> 
-                
-                <center>
-                    <Heading as="h5" size="sm">Servidor</Heading>
-                </center>
-            
 
-                <Divider marginTop="7px" marginBottom="17px"/>
+            <Box minWidth="120px" marginX="3vw">
+              <SimpleGrid columns={6} spacing={5}>
+                <Box height="80px">
+                  <ServerSelect sel={currentInfo} setSel={setCurrentInfo}/>
 
+                  {currentInfo.guild !== 0 && 
+                  
+                    <Tabs orientation="vertical" marginTop="1vw">
+                        <TabList>
+                          <Contents props={tList} selected={selectedTab} setSel={setSelectedTab}/>
+                        </TabList>
+                      </Tabs> 
+                  }
+                </Box>
 
-                <ServerSelect setSel={setSelectedGuild}/>
-
-
-                {selectedGuild !== 0 &&
-                    <Stack marginX="3.2vw" marginY="3.2vw" spacing="0"> 
-                      <Contents props={tList} selected={selectedTab} setSel={setSelectedTab}/>
-                    </Stack>
+                {(currentInfo.guild !== 0 && selectedTab !== "None") &&
+                  <FuncSelect selTab={selectedTab} props={currentInfo} ></FuncSelect> 
                 }
 
-              </GridItem>
-                {/* Content */}
+              </SimpleGrid>
+            </Box>
 
-              <GridItem 
-                colSpan={8} 
-                border={lineBox}
-              paddingTop="20px">
-                {(selectedGuild !== 0 && selectedTab !== "None")  &&
-                  <Box>
-                    <Center>
-                      <Heading as="h5" size="sm">{selectedTab}</Heading>
-                    </Center>
-                    <Divider marginY="7px"/>
-
-                    <Box paddingX="15px" paddingY="5px"> {/* Content box.*/} 
-
-                      {selectedTab === "Social" &&
-                        <Social/>
-                      }
-
-                    </Box>
-
-
-                  </Box>
-                }
-              </GridItem>
-
-            </Grid>
-
+            {currentInfo.guild === 0 &&
+              <center>
+                <Heading as="h3" size="lg">Seleccionar servidor.</Heading>
+                <Logo/>
+              </center>
+            }
           </Box>
 
           <Box display={{sm: "none", base: "block"}} >  {/*Movil*/} 
           </Box>
-
+          
+          </div>
         </> 
         : <Center paddingTop={"60px"}> <Spinner size="xl" /> </Center>
       }
@@ -99,26 +78,17 @@ const Panel = () => {
   )
 }
 
-
 const Contents = ({props, selected, setSel}) => {
   return (<>
     {
       props.map((val, id) => {
-        return (<Button 
+        return (<Tab 
           key={id} 
           value={val} 
-          borderRadius="base" 
-          variant={
-            selected === val ? 
-            "solid"
-            :
-            "outline"
-          } 
           onClick={() => {setSel(val)}}
-          colorScheme="purple" 
           size="sm">
             {val}
-          </Button>)
+          </Tab>)
       }) 
     }
   </>)

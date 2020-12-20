@@ -1,93 +1,81 @@
+import {useState} from 'react'
+
 import CustomScroller from 'react-custom-scroller';
+import FetchSocial from './fetchSocial'
+import SocialModal from './SocialModal'
 
 import { 
   Box,
   Button,
-  Container,
-  Heading,
-  SimpleGrid,
   Stack,
+  Heading,
+  useDisclosure
 } from "@chakra-ui/react"
 
-const Social = props => {
+const lineBox = "solid #323136 1px"
 
+const Social = ({props}) => {
+  const data = FetchSocial(props.guild) // Sólo deberiamos de checar autorización en un componente, de lo contrario llenariamos de llamadas la API.
+  const {isOpen, onOpen, onClose} = useDisclosure()
+  const [selProp, setSelProp] = useState({})
+
+  // Reminder, MAX 5 boxes. 
   return (
     <>
-      
-
-      <SimpleGrid
-        minChildWidth="120px" 
-        spacing="40px"
-      >
-
       <Box 
-        border={lineBox}
-        maxH="sm"
-      marginTop="10px">
-        
+      borderLeft={lineBox}>
+
         <center><Heading as="h4" size="md">Twitch</Heading>
 
-        <Box 
-
-        marginTop= "10px">
-        
-          <center>
-            <Button borderRadius="sm" colorScheme="green" size="sm" variant="outline">Añadir stream</Button>
-            <Heading paddingTop="10px" as="h6" size="xs">Streams activos</Heading>
-
-          <CustomScroller
-            style={{
-              marginTop: "10px",
-              height: "192px",
-              textAlign: "justify",
-            }}
-          >   
-            <Stack spacing="0px" marginRight="10px">
-              <StreamButtons props={exampleList}/>
-            </Stack>
-          </CustomScroller>
-          </center>
-        </Box>
+          <Heading paddingTop="10px" as="h6" size="xs">Streams activos</Heading>
         </center>
 
+        <Box
+          borderLeft={"solid white 2px"}
+        >
+
+          <CustomScroller
+              style={{
+                marginTop: "15px",
+                height: "192px",
+                textAlign: "justify",
+              }}
+            >   
+
+              <Stack spacing="0px" marginRight="0.4vw" paddingX="1vw">
+                <StreamButtons setSel={setSelProp} props={data} onOpen={onOpen}/>
+              </Stack>
+
+            </CustomScroller>
+
+        </Box>
+
+        <center><Button marginTop="5px" marginLeft="1vw" borderRadius="sm" colorScheme="green" size="sm" variant="outline">Añadir stream</Button></center>
+
+        <SocialModal Control={{isOpen, onClose}} guildInfo={props} props={selProp} />
+
       </Box>
-
-      <Box 
-        border={lineBox}
-        maxH="sm"
-      marginTop="10px">
-
-        <center>Test content!</center>
-
-      </Box>
-      <Box 
-        border={lineBox}
-        maxH="sm"
-      marginTop="10px">
-
-        <center>Test content!</center>
-
-      </Box>
-
-      </SimpleGrid>
-
     </>
   )
 }
 
-const lineBox = ""
-const exampleList = ["Test", "STFU", "Sophii", "Jorge", "Agua", "Perico", "Diego", "Santiago"]
-
-const StreamButtons = ({props}) => {
-
+const StreamButtons = ({props, onOpen, setSel}) => {
+  
+  const setInfo = (val) => {
+    setSel(val)
+    onOpen()
+  }
+  
   return (
     <>
-      {props.map((val) => {
-        return <Button value={val} borderRadius="sm" colorScheme="orange" variant="outline" size="sm" >{val}</Button>
+      {
+        props.map((val,id) => {
+        return <Button key={id} onClick={() => {setInfo(val)}} value={val.name} borderRadius="sm" colorScheme="orange" variant="outline" size="sm" >{val.name}</Button>
       })
       }
     </>
   )
+
 }
 
 export default Social
