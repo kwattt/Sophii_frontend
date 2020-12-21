@@ -1,5 +1,4 @@
 import FetchGuilds from './Features/fetchGuilds'
-import FetchGuildInfo from './Features/fetchGuildInfo'
 
 import axios from 'axios'
 
@@ -10,7 +9,6 @@ import {
 
 const ServerSelect = ({sel, setSel}) => {
   const guilds = FetchGuilds()
-  const Info = FetchGuildInfo(sel.guild)
 
   const changeGuild = (guild) =>{
 

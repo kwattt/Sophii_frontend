@@ -1,4 +1,4 @@
-import {useState} from 'react'
+import {useState, useEffect} from 'react'
 
 import CustomScroller from 'react-custom-scroller';
 import FetchSocial from './fetchSocial'
@@ -15,9 +15,17 @@ import {
 const lineBox = "solid #323136 1px"
 
 const Social = ({props}) => {
-  const data = FetchSocial(props.guild) // Sólo deberiamos de checar autorización en un componente, de lo contrario llenariamos de llamadas la API.
+  const data = FetchSocial(props.guild) 
+
+  const [streams, setStreams] = useState([])
+
   const {isOpen, onOpen, onClose} = useDisclosure()
   const [selProp, setSelProp] = useState({})
+
+  useEffect(() => {
+    setStreams(data)
+  }, [props, data])
+
 
   // Reminder, MAX 5 boxes. 
   return (
@@ -43,16 +51,31 @@ const Social = ({props}) => {
             >   
 
               <Stack spacing="0px" marginRight="0.4vw" paddingX="1vw">
-                <StreamButtons setSel={setSelProp} props={data} onOpen={onOpen}/>
+                <StreamButtons setSel={setSelProp} props={streams} onOpen={onOpen}/>
               </Stack>
 
             </CustomScroller>
 
         </Box>
 
-        <center><Button marginTop="5px" marginLeft="1vw" borderRadius="sm" colorScheme="green" size="sm" variant="outline">Añadir stream</Button></center>
+        <center><Button 
+          marginTop="5px" 
+          marginLeft="1vw" 
+          borderRadius="sm" 
+          colorScheme="green" 
+          size="sm" 
+          variant="outline"
+          onClick={() => {
+            setSelProp({
+              name: "Nuevo stream",
+              type: "-1",
+              channel: 0
+            });
+            onOpen()
+          }}
+          >Añadir stream</Button></center>
 
-        <SocialModal Control={{isOpen, onClose}} guildInfo={props} props={selProp} />
+        <SocialModal Control={{isOpen, onClose}} guildInfo={props} props={selProp} Values={streams} setValues={setStreams} />
 
       </Box>
     </>
