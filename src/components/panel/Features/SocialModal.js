@@ -1,5 +1,9 @@
 import {useState, useEffect} from 'react'
 
+import axios from 'axios'
+
+// Need to redo 
+
 import {
   Button,
   Drawer,
@@ -19,12 +23,54 @@ import {
 
 const SocialModal = ({guildInfo, props, Control, Values, setValues}) => {
   const [newProps, setNewProps] = useState("")
+  const [update, setUpdate] = useState(false)
 
   const {isOpen, onClose} = Control
 
   useEffect(() => {
     setNewProps(props)
   }, [props])
+
+  useEffect(() => {
+    if(update){
+
+      axios.post("http://127.0.0.1:5001/api/update_streams",
+      {
+        guild: guildInfo.guild,
+        streams: Values
+      }
+      )
+
+      setUpdate(false)
+    }
+  }, [guildInfo, update, Values])
+
+  const onDelete = () => {
+    if(props.type !== "-1"){
+      var newp = Values.filter((v) => {
+        return v.name !== newProps.name
+      })
+      setValues(newp)
+      setUpdate(true)
+    }
+  }
+
+  const onSave = () => {
+    var newp = Values
+    if(props.type !== "-1")
+    {
+      newp = newp.map(v => 
+        v.name === props.name
+        ? newProps
+        : v
+      )
+    }
+    else {
+      newp.push(newProps)
+    }
+    setValues(newp)
+    setUpdate(true)
+  }
 
   return (
     <>
@@ -46,7 +92,8 @@ const SocialModal = ({guildInfo, props, Control, Values, setValues}) => {
             <DrawerBody>
 
               <center><Heading as="h2" size="md">Canal</Heading></center>
-              <Select my={5} defaultValue={props.channel}>
+              <Select my={5} defaultValue={props.channel}
+              onChange={(e) => {setNewProps({...newProps, channel: e.target.value})}}>
                 <OptionChannel props={guildInfo.channels}/>
               </Select>
 
@@ -72,10 +119,13 @@ const SocialModal = ({guildInfo, props, Control, Values, setValues}) => {
             <DrawerFooter>
               <Button colorScheme="purple" mr={5} onClick={onClose}>Cerrar</Button>
 
-              <Button mr={2} colorScheme="red">Eliminar</Button>
+              <Button mr={2} colorScheme="red"
+              onClick={() => {onDelete(); onClose()}}>Eliminar</Button>
               {
-                (props.type !== "-1" && newProps.name !== "") &&
-                  <Button colorScheme="purple">Guardar</Button>
+                (newProps.type !== "-1") &&
+                  <Button colorScheme="purple"
+                  onClick={() => {onSave(); onClose()}}
+                  >Guardar</Button>
               }
 
             </DrawerFooter>

@@ -16,9 +16,7 @@ const lineBox = "solid #323136 1px"
 
 const Social = ({props}) => {
   const data = FetchSocial(props.guild) 
-
   const [streams, setStreams] = useState([])
-
   const {isOpen, onOpen, onClose} = useDisclosure()
   const [selProp, setSelProp] = useState({})
 
@@ -26,8 +24,6 @@ const Social = ({props}) => {
     setStreams(data)
   }, [props, data])
 
-
-  // Reminder, MAX 5 boxes. 
   return (
     <>
       <Box 
@@ -35,7 +31,7 @@ const Social = ({props}) => {
 
         <center><Heading as="h4" size="md">Twitch</Heading>
 
-          <Heading paddingTop="10px" as="h6" size="xs">Streams activos</Heading>
+          <Heading paddingTop="10px" as="h6" size="xs">Streamers activos</Heading>
         </center>
 
         <Box
@@ -78,6 +74,11 @@ const Social = ({props}) => {
         <SocialModal Control={{isOpen, onClose}} guildInfo={props} props={selProp} Values={streams} setValues={setStreams} />
 
       </Box>
+
+      <Box>
+        
+      </Box>
+
     </>
   )
 }
