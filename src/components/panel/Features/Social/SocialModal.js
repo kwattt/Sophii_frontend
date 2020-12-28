@@ -33,14 +33,11 @@ const SocialModal = ({guildInfo, props, Control, Values, setValues}) => {
 
   useEffect(() => {
     if(update){
-
       axios.post("http://127.0.0.1:5001/api/update_streams",
       {
         guild: guildInfo.guild,
         streams: Values
-      }
-      )
-
+      })
       setUpdate(false)
     }
   }, [guildInfo, update, Values])
@@ -137,10 +134,7 @@ const SocialModal = ({guildInfo, props, Control, Values, setValues}) => {
   )
 }
 
-
-
 const OptionChannel = ({props}) => {
-
   return (
     <>
       {props.map((val) => {

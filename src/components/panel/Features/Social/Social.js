@@ -44,7 +44,7 @@ const Social = ({props}) => {
                 height: "192px",
                 textAlign: "justify",
               }}
-            >   
+            >
 
               <Stack spacing="0px" marginRight="0.4vw" paddingX="1vw">
                 <StreamButtons setSel={setSelProp} props={streams} onOpen={onOpen}/>

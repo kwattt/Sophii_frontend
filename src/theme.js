@@ -3,7 +3,6 @@ import { theme, extendTheme } from "@chakra-ui/react";
 import 'fontsource-roboto';
 import 'fontsource-ubuntu';
 
-
 import {  } from "@chakra-ui/react"
 
 const extended = extendTheme({

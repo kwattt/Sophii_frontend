@@ -95,6 +95,6 @@ const Contents = ({props, selected, setSel}) => {
 }
 
 const lineBox = "solid #323136 1px"
-const tList = ["Social", "Moderación", "Mensajes", "Random", "Cumpleaños", "Extra"]
+const tList = ["Social", "Mensajes", "Moderación", "Random", "Cumpleaños", "Extra"]
 
 export default Panel
