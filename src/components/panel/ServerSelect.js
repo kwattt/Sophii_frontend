@@ -24,7 +24,10 @@ const ServerSelect = ({sel, setSel}) => {
         setSel({
           guild: guild,
           roles: response.data.roles,
-          channels: response.data.channels
+          channels: response.data.channels,
+          stalk: response.data.stalk,
+          bday: response.data.bday, 
+          welcome: response.data.welcome
         })
       })
       .catch((error) => {

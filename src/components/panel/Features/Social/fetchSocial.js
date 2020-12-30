@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 
 const FetchSocial = (selGuild) => {  
-  const [data, setData] = useState([])
+  const [data, setData] = useState("loading")
   
   useEffect(() => {
     const fetchData = async() => {
@@ -18,7 +18,7 @@ const FetchSocial = (selGuild) => {
       })
       .catch((error) => {
         console.log(error)
-        setData([])
+        setData("error")
       })
     }
     fetchData()

@@ -25,7 +25,10 @@ const Panel = () => {
   const [currentInfo, setCurrentInfo] = useState({
     guild: 0,
     roles: [],
-    channels: []
+    channels: [],
+    stalk: 0,
+    bday: 0, 
+    welcome: 0
   })
   
   return (<>
@@ -46,14 +49,14 @@ const Panel = () => {
                   
                     <Tabs orientation="vertical" marginTop="1vw">
                         <TabList>
-                          <Contents props={tList} selected={selectedTab} setSel={setSelectedTab}/>
+                          <Contents props={tList} setSel={setSelectedTab}/>
                         </TabList>
                       </Tabs> 
                   }
                 </Box>
 
                 {(currentInfo.guild !== 0 && selectedTab !== "None") &&
-                  <FuncSelect selTab={selectedTab} props={currentInfo} ></FuncSelect> 
+                  <FuncSelect selTab={selectedTab} props={currentInfo} setProps={setCurrentInfo}></FuncSelect> 
                 }
 
               </SimpleGrid>
@@ -78,7 +81,7 @@ const Panel = () => {
   )
 }
 
-const Contents = ({props, selected, setSel}) => {
+const Contents = ({props, setSel}) => {
   return (<>
     {
       props.map((val, id) => {
@@ -94,7 +97,6 @@ const Contents = ({props, selected, setSel}) => {
   </>)
 }
 
-const lineBox = "solid #323136 1px"
 const tList = ["Social", "Mensajes", "Moderación", "Random", "Cumpleaños", "Extra"]
 
 export default Panel

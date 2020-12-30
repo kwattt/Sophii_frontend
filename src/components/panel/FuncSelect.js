@@ -1,14 +1,14 @@
 import Social from './Features/Social/Social'
 import Msg from './Features/Msg/Msg'
 
-const FuncSelect = ({selTab, props}) => {
+const FuncSelect = ({selTab, props, setProps}) => {
   return (
     <>
       {selTab === "Social" &&
         <Social props={props}/>
       }
       {selTab === "Mensajes" &&
-        <Msg props={props}></Msg>
+        <Msg props={props} setProps={setProps}></Msg>
       }
     </>
   )
