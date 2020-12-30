@@ -1,6 +1,10 @@
 import {useState, useEffect} from 'react'
 
-// NEEDS HARD CLEANUP
+/* NEEDS HARD CLEANUP
+
+  El cleanup de useEffect es incorrecto, utilizar cancelación de axios (actual no utiliza cancel de manera correcta.).
+
+*/
 
 import FetchMSG from './fetchMSG'
 import updateGuild from './../updateGuild'
@@ -22,7 +26,7 @@ const lineBox = "solid #323136 1px"
 
 const Msg = ({props, setProps}) => {
   const [update, setUpdate] = useState(0)
-  var data = FetchMSG(props.guild) 
+  const data = FetchMSG(props.guild) 
   const [msg, setMsg] = useState([])
   const [oldMsg, setOldMsg] = useState([])
   const [invalid, setInvalid] = useState([false, false, false])
@@ -98,7 +102,7 @@ const Msg = ({props, setProps}) => {
       
         <Alert status="warning"
           size="sm"
-        mt={15}>
+        my={15}>
           <AlertIcon/> Utilizar ; para separar los mensajes!
         </Alert>
 
@@ -129,7 +133,6 @@ const Msg = ({props, setProps}) => {
 
       <Box>
         <Textarea
-        onBlur={() => {console.log("No more focus!")}}
         isInvalid={invalid[0] === true}
         size="sm"
         border={""}

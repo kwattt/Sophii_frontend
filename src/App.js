@@ -17,7 +17,7 @@ const App = () => {
       <Switch>
           <Route path="/" component={Index} exact />
           <Route path="/panel" component={Panel} exact />
-          <Route component={NotFound} />
+          <Route component={NotFound} status={404} />
         </Switch>
 
       </BrowserRouter>

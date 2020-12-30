@@ -97,6 +97,6 @@ const Contents = ({props, setSel}) => {
   </>)
 }
 
-const tList = ["Social", "Mensajes", "Moderación", "Random", "Cumpleaños", "Extra"]
+const tList = ["Social", "Mensajes", "Extra", "Cumpleaños", "Moderación"]
 
 export default Panel
