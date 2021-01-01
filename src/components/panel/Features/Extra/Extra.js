@@ -35,6 +35,7 @@ const Extra = ({props}) => {
   const [oldVal, setOldVal] = useState([])
   const [val, setVal] = useState([])
   const [update, setUpdate] = useState(0)
+ 
 
   useEffect(() => {
     if(update === 1){
@@ -199,7 +200,8 @@ const Extra = ({props}) => {
           resize="vertical"
           onChange={(e) => {setVal({...val, bdaymsg: e.target.value})}}
           defaultValue={val.bdaymsg}
-      height={185}/>
+      minHeight={95}
+      maxHeight={95}/>
 
       <Alert status="warning"
         size="sm">

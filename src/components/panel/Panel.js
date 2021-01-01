@@ -19,7 +19,7 @@ import ServerSelect from './ServerSelect'
 import FuncSelect from './FuncSelect'
 
 const Panel = () => {
-  const authorized = IsAuthorized() // Sólo deberiamos de checar autorización en un componente, de lo contrario llenariamos de llamadas la API.
+  const authorized = IsAuthorized()
 
   const [selectedTab, setSelectedTab] = useState("Social")
   const [currentInfo, setCurrentInfo] = useState({
@@ -42,7 +42,7 @@ const Panel = () => {
           <div id="Panel">
 
 
-          <Box display={{sm: "none", base: "block"}} >  {/*Movil*/} 
+          <Box display={{sm: "none", base: "block"}} > 
             Una versión para resoluciones menores estará disponible pronto!
             <br/> Una disculpa :(
 
@@ -82,9 +82,9 @@ const Panel = () => {
 
           </div>
         </> 
-        : 
-        <Center paddingTop={"60px"}> <Spinner size="xl" /> </Center>
+        : <Center paddingTop={"60px"}> <Spinner size="xl" /> </Center>
       }
+
     </>
   )
 }
@@ -105,6 +105,6 @@ const Contents = ({props, setSel}) => {
   </>)
 }
 
-const tList = ["Social", "Mensajes", "Extra", "Moderación"]
+const tList = ["Social", "Mensajes", "Extra", "Limpieza", "Moderación"]
 
 export default Panel
