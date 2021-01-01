@@ -28,7 +28,9 @@ const Panel = () => {
     channels: [],
     stalk: 0,
     bday: 0, 
-    welcome: 0
+    welcome: 0,
+    bdaymsg: "",
+    bdayutc: ""
   })
   
   return (<>
@@ -38,7 +40,15 @@ const Panel = () => {
           <Header/>
 
           <div id="Panel">
-          <Box display={{md: "block", base: "none"}} marginTop="25px"> {/*Navegador*/}
+
+
+          <Box display={{sm: "none", base: "block"}} >  {/*Movil*/} 
+            Una versión para resoluciones menores estará disponible pronto!
+            <br/> Una disculpa :(
+
+          </Box>
+          
+          <Box marginTop="25px"> {/*Navegador*/}
 
             <Box minWidth="120px" marginX="3vw">
               <SimpleGrid columns={6} spacing={5}>
@@ -70,12 +80,10 @@ const Panel = () => {
             }
           </Box>
 
-          <Box display={{sm: "none", base: "block"}} >  {/*Movil*/} 
-          </Box>
-          
           </div>
         </> 
-        : <Center paddingTop={"60px"}> <Spinner size="xl" /> </Center>
+        : 
+        <Center paddingTop={"60px"}> <Spinner size="xl" /> </Center>
       }
     </>
   )
@@ -97,6 +105,6 @@ const Contents = ({props, setSel}) => {
   </>)
 }
 
-const tList = ["Social", "Mensajes", "Extra", "Cumpleaños", "Moderación"]
+const tList = ["Social", "Mensajes", "Extra", "Moderación"]
 
 export default Panel

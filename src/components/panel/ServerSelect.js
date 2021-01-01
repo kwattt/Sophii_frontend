@@ -27,6 +27,8 @@ const ServerSelect = ({sel, setSel}) => {
           channels: response.data.channels,
           stalk: response.data.stalk,
           bday: response.data.bday, 
+          bdaymsg: response.data.bdaymsg, 
+          bdayutc: response.data.bdayutc,
           welcome: response.data.welcome
         })
       })
