@@ -16,7 +16,7 @@ const IsAuthorized = () => {
         } 
       })
       .catch((error) => {
-        console.log("THEFUCK?")
+        console.log("Error al autorizar :(")
         setAuth(false)
       })
     }

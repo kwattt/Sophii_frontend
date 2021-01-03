@@ -1,7 +1,9 @@
 import axios from 'axios'
 import { useEffect, useState } from 'react'
 
-const UpdatePurge = (guild, props, ogprops)  => {
+const base_url = "http://127.0.0.1:5001"
+
+const UpdatePoint = (guild, props, ogprops, point)  => {
   const [data, setData] = useState("load")
 
   useEffect(() => {
@@ -9,7 +11,7 @@ const UpdatePurge = (guild, props, ogprops)  => {
 
     const sendData = async () => {
       setData("loading")
-      axios.post("http://127.0.0.1:5001/api/updatePurge",
+      axios.post(base_url + point,
       {
         guild: guild,
         data: props
@@ -34,6 +36,7 @@ const UpdatePurge = (guild, props, ogprops)  => {
             }
             else{
               setData("invalid")
+
             } 
           } else {
             setData("error")
@@ -48,8 +51,8 @@ const UpdatePurge = (guild, props, ogprops)  => {
     return () => {
       _mounted = false
     }
-  }, [guild, props, ogprops])
+  }, [guild, props, ogprops, point])
   
   return data
 }
-export default UpdatePurge
+export default UpdatePoint

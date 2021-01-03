@@ -2,6 +2,7 @@
 import Valid from './Valid'
 import Error from './Error'
 import Load from './Load'
+import Invalid from './Invalid'
 
 const ControlAlert = ({status}) => {
   return (<>
@@ -18,6 +19,10 @@ const ControlAlert = ({status}) => {
 
     {status === "error" &&
       <Error status={true}/>
+    }
+
+    {status === "invalid" &&
+      <Invalid status={true}/>
     }
 
   </>)

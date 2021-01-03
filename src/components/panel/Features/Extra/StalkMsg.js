@@ -15,13 +15,13 @@ import {
   msg
 */
 
-import UpdateExtra from './updateExtra'
+import UpdatePoint from './../updatePoint'
 import Control from './../Alerts/Control'
 
 const StalkMsg = ({props, data}) => {
   const [vals, setVals] = useState(data)
   const [vald] = useDebounce(vals, 1000)
-  const updateVal = UpdateExtra(props.guild, vald, data)
+  const updateVal = UpdatePoint(props.guild, vald, data, "/api/updateExtra")
 
   return (<Box
     borderLeft={lineBox}>

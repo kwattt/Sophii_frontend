@@ -21,13 +21,13 @@ import {
     stalk,
     role
 */
-import UpdateExtra from './updateExtra'
+import UpdatePoint from './../updatePoint'
 import Control from './../Alerts/Control'
 
 const Stalk = ({props, data}) => {
   const [vals, setVals] = useState(data)
   const [vald] = useDebounce(vals, 1000)
-  const updateStatus = UpdateExtra(props.guild, vald, data)
+  const updateStatus = UpdatePoint(props.guild, vald, data, "/api/updateExtra")
 
 return (<>
   

@@ -11,7 +11,7 @@ import {
   Stack
 } from "@chakra-ui/react"
 
-import UpdatePurge from './updatePurge'
+import UpdatePoint from './../updatePoint'
 import PurgeModal from './PurgeModal'
 
 import Control from './../Alerts/Control'
@@ -23,7 +23,7 @@ const Purge = ({props, data}) => {
   const [sel, setSel] = useState({})
 
   const {isOpen, onOpen, onClose} = useDisclosure()
-  const updateStatus = UpdatePurge(props.guild, vald, data)
+  const updateStatus = UpdatePoint(props.guild, vald, data, "/api/updatePurge")
 
 
   useEffect(() => {

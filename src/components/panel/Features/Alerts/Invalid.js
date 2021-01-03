@@ -1,15 +1,15 @@
 import {Box, ScaleFade, Alert, Icon, DarkMode } from "@chakra-ui/react"
 
-import { MdError } from "react-icons/md";
+import { IoIosWarning } from "react-icons/io";
 
-const Error = ({status}) => {
+const Invalid = ({status}) => {
   return (<>
     <ScaleFade initialScale={0.8} in={status}>
       <Box height={30}>
         <DarkMode>
-      <Alert status="error">
-        <Icon as={MdError} w={8} h={8} color="red.500" mr={5}/>
-        Error al actualizar
+      <Alert status="warning">
+        <Icon as={IoIosWarning} w={8} h={8} color="yellow.300" mr={5}/>
+        {"Un valor no es valido :("}
       </Alert>
         </DarkMode>
       </Box>
@@ -18,4 +18,4 @@ const Error = ({status}) => {
   )
 }
 
-export default Error
+export default Invalid
