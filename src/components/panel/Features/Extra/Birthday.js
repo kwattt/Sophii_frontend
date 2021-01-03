@@ -1,6 +1,6 @@
 import { useState, memo } from 'react'
 import { useDebounce } from 'use-debounce'
-
+import { FaExternalLinkSquareAlt } from "react-icons/fa"
 import { 
   Box,
   NumberInput,
@@ -14,7 +14,8 @@ import {
   Textarea,
   InputGroup,
   Alert,
-  InputLeftAddon
+  InputLeftAddon,
+  Icon
 } from "@chakra-ui/react"
 
 import UpdateExtra from './updateExtra'
@@ -88,8 +89,11 @@ const Birthday = ({props, data}) => {
           <NumberDecrementStepper />
         </NumberInputStepper>
       </NumberInput>
+      
       {/*add https://en.wikipedia.org/wiki/List_of_UTC_time_offsets */}
+      <Icon as={FaExternalLinkSquareAlt}/>
     </InputGroup>
+    
     </DarkMode>
 
     <Control status={updateStatus}/>
@@ -97,7 +101,7 @@ const Birthday = ({props, data}) => {
     </center>
 
     </Box>
-  </>)
+  </>) 
 }
 
 const OptionChannel = memo(({props}) => {

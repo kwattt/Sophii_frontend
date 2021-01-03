@@ -26,7 +26,9 @@ const StalkMsg = ({props, data}) => {
   return (<Box
     borderLeft={lineBox}>
 
-      <center><Heading as="h4" size="md">Stalk Mensajes</Heading></center>
+      <center><Heading as="h4" size="md">Stalk Mensajes</Heading>
+      <Heading my="10px" as="h6" size="xs">Mensaje</Heading>
+      </center>
 
       <Textarea
           size="sm"
