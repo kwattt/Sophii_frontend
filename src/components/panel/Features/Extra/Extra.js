@@ -17,9 +17,10 @@ const Extra = ({props}) => {
       <>
       {data.stalk !== undefined &&
         <>
+
         <Stalk props={props} data={{stalk: data.stalk, role: data.role}}/>
         <StalkMsg props={props} data={{msg: data.msg}}/>
-        <Birthday props={props} data={{bday: data.day, bdaymsg: data.bdaymsg, bdayutc: data.bdayutc}}/>
+        <Birthday props={props} data={{bday: data.bday, bdaymsg: data.bdaymsg, bdayutc: data.bdayutc}}/>
 
         </>
       }

@@ -1,6 +1,5 @@
 import { useState, memo } from 'react'
 import { useDebounce } from 'use-debounce'
-import { FaExternalLinkSquareAlt } from "react-icons/fa"
 import { 
   Box,
   NumberInput,
@@ -15,7 +14,6 @@ import {
   InputGroup,
   Alert,
   InputLeftAddon,
-  Icon
 } from "@chakra-ui/react"
 
 import UpdateExtra from './updateExtra'
@@ -91,7 +89,6 @@ const Birthday = ({props, data}) => {
       </NumberInput>
       
       {/*add https://en.wikipedia.org/wiki/List_of_UTC_time_offsets */}
-      <Icon as={FaExternalLinkSquareAlt}/>
     </InputGroup>
     
     </DarkMode>
