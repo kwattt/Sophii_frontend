@@ -15,7 +15,7 @@ const Extra = ({props}) => {
     {data === "error" ? <Error/>
     :
       <>
-      {data.stalk !== undefined &&
+      {data !== undefined && data !== "loading" &&
         <>
 
         <Stalk props={props} data={{stalk: data.stalk, role: data.role}}/>

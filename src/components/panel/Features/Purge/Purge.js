@@ -5,7 +5,7 @@ import FetchPurge from './fetchPurge'
 
 import PurgeList from './PurgeList'
 
-const Extra = ({props}) => {
+const Purge = ({props}) => {
   const data = FetchPurge(props.guild)
   return (<>
     {data === "loading" && <Loading/>}
@@ -16,7 +16,9 @@ const Extra = ({props}) => {
       {data !== undefined && data !== "loading" &&
         
         <>
+
           <PurgeList props={props} data={data}/>
+
         </>
       }
       </>
@@ -26,4 +28,4 @@ const Extra = ({props}) => {
   </>)
 }
 
-export default Extra
+export default Purge

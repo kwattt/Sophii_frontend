@@ -1,45 +1,83 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useDebounce } from 'use-debounce'
 import CustomScroller from 'react-custom-scroller';
 
 import { 
+  useDisclosure,
   Box,
   Button, 
   DarkMode, 
+  Heading, 
   Stack
 } from "@chakra-ui/react"
 
 import UpdatePurge from './updatePurge'
+import PurgeModal from './PurgeModal'
+
+import Control from './../Alerts/Control'
 
 const Purge = ({props, data}) => {
   const [vals, setVals] = useState(data)
   const [vald] = useDebounce(vals, 1000)
+
+  const [sel, setSel] = useState({})
+
+  const {isOpen, onOpen, onClose} = useDisclosure()
   const updateStatus = UpdatePurge(props.guild, vald, data)
-  const channels = data.map((v) => {return v.channel} )
+
+
+  useEffect(() => {
+    if(data !== vald){
+    }
+  }, [vald, data])
 
   return (<>
     <Box
     borderLeft={lineBox}>
+
+      <center><Heading as="h4" size="md">Limpieza</Heading>
+
+      <Heading py="10px" as="h6" size="xs">Canales</Heading>
+
+      </center>
+
       <CustomScroller
           style={{
             marginTop: "15px",
             marginBottom: "15px",
-            height: "284px",
+            height: "214px",
             textAlign: "justify",
             borderLeft: "solid white 2px"
           }}
         >
           <Stack spacing={1}>
-            <ButtonChannels props={props.channels} selected={channels}/>
+            <ButtonChannels onOpen={onOpen} props={props.channels} setSel={setSel} vals={vals}/>
           </Stack>
         </CustomScroller>
+    
+        <center><Control status={updateStatus}/></center>
+
     </Box>
+    <PurgeModal props={sel} Control={{isOpen, onClose}} Values={vals} setValues={setVals}/>
   </>)
 }
 
 const lineBox = "solid #323136 1px"
 
-const ButtonChannels = ({props, selected}) => {
+const ButtonChannels = ({props, vals, setSel, onOpen}) => {
+  const selected = vals.map((v) => {return v.channel})
+
+  const handleClick = (val) => {
+    const res = vals.find((c) => {return c.channel === val.id})
+    if(res){
+      setSel({...res, active: 1, name: val.name})
+    }
+    else {
+      setSel({channel: val.id, name: val.name, minute: 0, utc: 0, hour: 0, active: 0})
+    }
+    onOpen()
+  }
+
   return (
     <>
       <DarkMode>
@@ -49,7 +87,9 @@ const ButtonChannels = ({props, selected}) => {
           borderRadius="50"
           colorScheme={selected.includes(val.id) ? "pink" : "gray"}
           key={val.id} 
-          value={val.id}>
+          value={val.id}
+          onClick={() => {handleClick(val)}}
+          >
             {val.name}
           </Button>
       })
