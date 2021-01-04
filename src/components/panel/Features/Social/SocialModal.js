@@ -78,6 +78,7 @@ const SocialModal = ({props, Control, Values, setValues, guildInfo}) => {
             <center><Heading my={5} as="h2" size="md">Nombre del streamer</Heading></center>
             <Input placeholder="Ingresar nombre"
               defaultValue={props.name}
+              maxLength={30}
               onChange={(e) => {setNewProps({...newProps, name: e.target.value})}}
             ></Input>
 

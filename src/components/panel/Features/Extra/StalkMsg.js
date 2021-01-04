@@ -27,13 +27,14 @@ const StalkMsg = ({props, data}) => {
     borderLeft={lineBox}>
 
       <center><Heading as="h4" size="md">Stalk Mensajes</Heading>
-      <Heading my="10px" as="h6" size="xs">Mensaje</Heading>
+      <Heading my="10px" as="h6" size="xs">Mensaje (r: {1000 - vals.msg.length})</Heading>
       </center>
 
       <Textarea
           size="sm"
           border={""}
           my={15}
+          maxLength={1000}
           borderRadius="sm"
           borderLeft="solid white 2px"
           resize="vertical"

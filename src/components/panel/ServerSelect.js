@@ -13,8 +13,7 @@ const ServerSelect = ({sel, setSel}) => {
   const changeGuild = (guild) =>{
 
     const fetchData = async() => {
-      console.log("fetched", guild)
-      axios.get("http://127.0.0.1:5001/api/get_guild_info",
+      axios.get("http://127.0.0.1:5001/api/getGuildInfo",
       {
           params: {
             guild: guild
@@ -29,7 +28,8 @@ const ServerSelect = ({sel, setSel}) => {
           bday: response.data.bday, 
           bdaymsg: response.data.bdaymsg, 
           bdayutc: response.data.bdayutc,
-          welcome: response.data.welcome
+          welcome: response.data.welcome,
+          tipo: response.data.tipo
         })
       })
       .catch((error) => {

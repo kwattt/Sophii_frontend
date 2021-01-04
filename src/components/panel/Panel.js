@@ -30,7 +30,8 @@ const Panel = () => {
     bday: 0, 
     welcome: 0,
     bdaymsg: "",
-    bdayutc: ""
+    bdayutc: "",
+    tipo: 0
   })
   
   return (<>
@@ -43,9 +44,7 @@ const Panel = () => {
 
 
           <Box display={{sm: "none", base: "block"}} > 
-            Una versión para resoluciones menores estará disponible pronto!
-            <br/> Una disculpa :(
-
+          {"Una versión para resoluciones menores estará disponible pronto! <br/> Una disculpa :("}
           </Box>
           
           <Box marginTop="25px"> {/*Navegador*/}

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useDebounce } from 'use-debounce'
 import CustomScroller from 'react-custom-scroller';
 
@@ -24,12 +24,6 @@ const Purge = ({props, data}) => {
 
   const {isOpen, onOpen, onClose} = useDisclosure()
   const updateStatus = UpdatePoint(props.guild, vald, data, "/api/updatePurge")
-
-
-  useEffect(() => {
-    if(data !== vald){
-    }
-  }, [vald, data])
 
   return (<>
     <Box
@@ -59,6 +53,7 @@ const Purge = ({props, data}) => {
 
     </Box>
     <PurgeModal props={sel} Control={{isOpen, onClose}} Values={vals} setValues={setVals}/>
+
   </>)
 }
 
@@ -68,11 +63,17 @@ const ButtonChannels = ({props, vals, setSel, onOpen}) => {
   const selected = vals.map((v) => {return v.channel})
 
   const handleClick = (val) => {
+
     const res = vals.find((c) => {return c.channel === val.id})
     if(res){
       setSel({...res, active: 1, name: val.name})
     }
     else {
+      if(selected.length >= 3){
+        alert("Solo puedes tener 3 limpiezas activas!")
+        return
+      }
+
       setSel({channel: val.id, name: val.name, minute: 0, utc: 0, hour: 0, active: 0})
     }
     onOpen()

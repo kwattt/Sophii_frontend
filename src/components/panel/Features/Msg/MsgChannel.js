@@ -27,23 +27,23 @@ const MsgChannel = ({props, data}) => {
 
       <Heading paddingTop="10px" as="h6" size="xs">Entrada/Salida</Heading>
 
-      <Select my={5} defaultValue={props.channel}
-
-      size="sm"
+      <Select 
+        my={5} 
+        defaultValue={data.channel}
+        size="sm"
       onChange={(e) => {setVals({...vals, channel: e.target.value})}}>
         <OptionChannel props={props.channels}/>
       </Select>
 
       </center>
-      
         <Alert status="warning"
           size="sm"
         my={15}>
-          <AlertIcon/> Utilizar ; para separar los mensajes!
-            <br/>
-              Utiliza {"{}"} para indicar nombre del usuario!
+          <AlertIcon/> 
+          Utilizar ; para separar los mensajes.
+          <br/>
+          Utiliza {"{}"} para indicar nombre del usuario.
         </Alert>
-      
       </DarkMode>
 
       <center><Control status={updateStatus}/></center>

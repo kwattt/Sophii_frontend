@@ -24,7 +24,7 @@ const Oraculo = ({props, data}) => {
 
       <center><Heading as="h4" size="md">Entrada</Heading>
 
-      <Heading paddingTop="10px" as="h6" size="xs">Mensajes de entrada</Heading>
+      <Heading paddingTop="10px" as="h6" size="xs">Mensajes de entrada (r: {1500 - vals.join.length})</Heading>
       </center>
 
       <Box>
@@ -33,6 +33,7 @@ const Oraculo = ({props, data}) => {
         size="sm"
         border={""}
         my={15}
+        maxLength={1500}
         borderRadius="sm"
         borderLeft="solid white 2px"
         resize="vertical"

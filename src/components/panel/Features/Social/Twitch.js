@@ -1,4 +1,4 @@
-import { useEffect, useState, memo } from 'react'
+import { useState, memo } from 'react'
 import { useDebounce } from 'use-debounce'
 import CustomScroller from 'react-custom-scroller';
 
@@ -23,10 +23,6 @@ const Purge = ({props, data}) => {
 
   const {isOpen, onOpen, onClose} = useDisclosure()
   const updateStatus = UpdatePoint(props.guild, vald, data, "/api/updateSocial")
-
-  useEffect(() => {
-    console.log(vald)
-  }, [vald])
 
   return (<>
     <Box 
@@ -55,23 +51,26 @@ const Purge = ({props, data}) => {
           </CustomScroller>
 
       </Box>
-
-      <center><Button 
-        marginTop="5px" 
-        marginLeft="1vw" 
-        borderRadius="sm" 
-        colorScheme="green" 
-        size="sm" 
-        variant="outline"
-        onClick={() => {
-          setSel({
-            name: "Nuevo stream",
-            type: "-1",
-            channel: 0
-          });
-          onOpen()
-        }}
-        >Añadir stream</Button></center>
+      { vals.twitch.length >= 3 && props.tipo !== "2" ?
+        "Solo puedes tener 3 canales activos!"
+      : 
+        <center><Button 
+          marginTop="5px" 
+          marginLeft="1vw" 
+          borderRadius="sm" 
+          colorScheme="green" 
+          size="sm" 
+          variant="outline"
+          onClick={() => {
+            setSel({
+              name: "Nuevo stream",
+              type: "-1",
+              channel: 0
+            });
+            onOpen()
+          }}
+          >Añadir stream</Button></center>
+}
 
       <center><Control status={updateStatus}/></center>
 

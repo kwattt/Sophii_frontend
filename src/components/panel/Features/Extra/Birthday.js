@@ -42,18 +42,18 @@ const Birthday = ({props, data}) => {
       <OptionChannel props={props.channels}/>
     </Select>
 
-    <Heading my="10px" as="h6" size="xs">Mensaje</Heading>
+    <Heading my="10px" as="h6" size="xs">Mensaje (r: {350 - vals.bdaymsg.length})</Heading>
 
     <DarkMode>
 
     <Textarea
-      isInvalid={updateStatus === "invalid" ? 1 : 0}
+      isInvalid={updateStatus === "invalid"}
       size="sm"
       border={""}
       my={15}
       borderRadius="sm"
+      maxLength={350}
       borderLeft="solid white 2px"
-      maxLength={150}
       resize="vertical"
       onChange={(e) => {setVals({...vals, bdaymsg: e.target.value})}}
       defaultValue={data.bdaymsg}

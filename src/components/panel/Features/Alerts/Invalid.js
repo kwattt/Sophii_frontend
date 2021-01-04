@@ -9,7 +9,7 @@ const Invalid = ({status}) => {
         <DarkMode>
       <Alert status="warning">
         <Icon as={IoIosWarning} w={8} h={8} color="yellow.300" mr={5}/>
-        {"Un valor no es valido :("}
+        {"Un valor no es válido :("}
       </Alert>
         </DarkMode>
       </Box>
