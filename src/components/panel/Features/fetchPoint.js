@@ -1,30 +1,41 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 
-const FetchSocial = (selGuild) => {  
+const base_url = "http://127.0.0.1:5001"
+
+const FetchExtra = (selGuild, point) => {  
   const [data, setData] = useState("loading")
-  
+
   useEffect(() => {
+    let _mounted = true
+
     const fetchData = async() => {
-      axios.get("http://127.0.0.1:5001/api/msg",
-        {
+      axios.get(base_url + point,
+        { 
             params: {
               guild: selGuild
             }
         }
-      ) // Bueno, al trabajar en diferentes puertos por mi madre que voy a llamar esto. Production should be /api/streams
+      ) 
       .then((response) => {
-        setData(response.data)
+        if(_mounted)
+          setData(response.data)
       })
       .catch((error) => {
         console.log(error)
-        setData("error")
+        if(_mounted)
+          setData("error")
       })
     }
     fetchData()
-  }, [selGuild])
+
+    return () => {
+      _mounted = false
+    }
+
+  }, [selGuild, point])
 
   return data
 }
 
-export default FetchSocial
+export default FetchExtra

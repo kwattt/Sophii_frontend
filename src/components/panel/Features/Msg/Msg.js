@@ -1,7 +1,7 @@
 import Loading from './../Loading'
 import Error from './../Error'
 
-import FetchMSG from './fetchMSG'
+import FetchPoint from './../fetchPoint'
 
 import MsgChannel from './MsgChannel'
 import Oraculo from './Oraculo'
@@ -9,7 +9,7 @@ import Join from './Join'
 import Leave from './Leave'
 
 const Extra = ({props}) => {
-  const data = FetchMSG(props.guild)
+  const data = FetchPoint(props.guild, "/api/msg")
 
   return (<>
     {data === "loading" && <Loading/>}

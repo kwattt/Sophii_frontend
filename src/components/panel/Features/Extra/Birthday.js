@@ -62,8 +62,7 @@ const Birthday = ({props, data}) => {
 
       <Alert status="warning"
         size="sm">
-          Utilizar {"{}"} para indicar el nombre. 
-          Carácteres restantes: {150 - vals.bdaymsg.length}
+          Utilizar {"{}"} para indicar el nombre.
       </Alert>
 
     <Heading my="10px" as="h6" size="xs">Zona horaria</Heading>

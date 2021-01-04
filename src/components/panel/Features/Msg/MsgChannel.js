@@ -15,7 +15,7 @@ import Control from './../Alerts/Control'
 
 const MsgChannel = ({props, data}) => {
   const [vals, setVals] = useState(data)
-  const [vald] = useDebounce(vals, 1000)
+  const [vald] = useDebounce(vals, 200)
 
   const updateStatus = UpdatePoint(props.guild, vald, data, "/api/updateMsg")
 

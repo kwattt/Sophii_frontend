@@ -1,12 +1,12 @@
 import Loading from './../Loading'
 import Error from './../Error'
 
-import FetchSocial from './fetchSocial'
+import FetchPoint from './../fetchPoint'
 
 import Twitch from './Twitch'
 
 const Purge = ({props}) => {
-  const data = FetchSocial(props.guild)
+  const data = FetchPoint(props.guild, "/api/streams")
   return (<>
     {data === "loading" && <Loading/>}
 

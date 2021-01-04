@@ -1,12 +1,12 @@
 import Loading from './../Loading'
 import Error from './../Error'
 
-import FetchPurge from './fetchPurge'
+import FetchPoint from './../fetchPoint'
 
 import PurgeList from './PurgeList'
 
 const Purge = ({props}) => {
-  const data = FetchPurge(props.guild)
+  const data = FetchPoint(props.guild, "/api/purge")
   return (<>
     {data === "loading" && <Loading/>}
 

@@ -1,13 +1,14 @@
 import Loading from './../Loading'
 import Error from './../Error'
 
-import FetchExtra from './fetchExtras'
+import FetchPoint from './../fetchPoint'
+
 import Stalk from './Stalk'
 import StalkMsg from './StalkMsg'
 import Birthday from './Birthday'
 
 const Extra = ({props}) => {
-  const data = FetchExtra(props.guild)
+  const data = FetchPoint(props.guild, "/api/extra")
 
   return (<>
     {data === "loading" && <Loading/>}

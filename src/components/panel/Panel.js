@@ -1,4 +1,4 @@
-import {useState} from 'react'
+import {useEffect, useState} from 'react'
 import IsAuthorized from './../extra/Authorized'
 import Header from './Header'
 import Logo from './../index/Logo'
@@ -21,7 +21,6 @@ import FuncSelect from './FuncSelect'
 const Panel = () => {
   const authorized = IsAuthorized()
 
-  const [selectedTab, setSelectedTab] = useState("Social")
   const [currentInfo, setCurrentInfo] = useState({
     guild: 0,
     roles: [],
@@ -34,55 +33,64 @@ const Panel = () => {
     tipo: 0
   })
   
+  const [tabIndex, setTabIndex] = useState(0)
+
+  useEffect(() => {
+    setTabIndex(0)
+  }, [currentInfo])
+
+  const handleTabsChange = (index) => {
+    setTabIndex(index)
+  }
+
   return (<>
-      {
-        authorized ?
-        <>
-          <Header/>
+    {
+      authorized ?
+      <>
+        <Header/>
 
-          <div id="Panel">
+        <div id="Panel">
 
+        <Box display={{sm: "none", base: "block"}} > 
+        {"Una versión para resoluciones menores estará disponible pronto. Una disculpa :("}
+        </Box>
+        
+        <Box marginTop="25px"> 
 
-          <Box display={{sm: "none", base: "block"}} > 
-          {"Una versión para resoluciones menores estará disponible pronto. Una disculpa :("}
-          </Box>
-          
-          <Box marginTop="25px"> {/*Navegador*/}
+          <Box minWidth="120px" marginX="3vw">
+            <SimpleGrid columns={6} spacing={5}>
+              <Box height="80px">
+                <ServerSelect sel={currentInfo} setSel={setCurrentInfo}/>
 
-            <Box minWidth="120px" marginX="3vw">
-              <SimpleGrid columns={6} spacing={5}>
-                <Box height="80px">
-                  <ServerSelect sel={currentInfo} setSel={setCurrentInfo}/>
-
-                  {currentInfo.guild !== 0 && 
-                  
-                    <Tabs orientation="vertical" marginTop="1vw">
-                        <TabList>
-                          <Contents props={tList} setSel={setSelectedTab}/>
-                        </TabList>
-                      </Tabs> 
-                  }
-                </Box>
-
-                {(currentInfo.guild !== 0 && selectedTab !== "None") &&
-                  <FuncSelect selTab={selectedTab} props={currentInfo} setProps={setCurrentInfo}></FuncSelect> 
+                {currentInfo.guild !== 0 && 
+                
+                  <Tabs index={tabIndex} onChange={handleTabsChange} orientation="vertical" marginTop="1vw">
+                      <TabList>
+                        <Contents props={tList} />
+                      </TabList>
+                    </Tabs> 
                 }
+              </Box>
 
-              </SimpleGrid>
-            </Box>
+              {(currentInfo.guild !== 0) &&
+                <FuncSelect selTab={tList[tabIndex]} props={currentInfo}></FuncSelect> 
+              }
 
-            {currentInfo.guild === 0 &&
-              <center>
-                <Heading as="h3" size="lg">Seleccionar servidor.</Heading>
-                <Logo/>
-              </center>
-            }
+            </SimpleGrid>
           </Box>
 
-          </div>
-        </> 
-        : <Center paddingTop={"60px"}> <Spinner size="xl" /> </Center>
-      }
+          {currentInfo.guild === 0 &&
+            <center>
+              <Heading as="h3" size="lg">Seleccionar servidor.</Heading>
+              <Logo/>
+            </center>
+          }
+        </Box>
+
+        </div>
+      </> 
+      : <Center paddingTop={"60px"}> <Spinner size="xl" /> </Center>
+    }
 
     </>
   )
@@ -95,7 +103,6 @@ const Contents = ({props, setSel}) => {
         return (<Tab 
           key={id} 
           value={val} 
-          onClick={() => {setSel(val)}}
           size="sm">
             {val}
           </Tab>)
@@ -104,6 +111,6 @@ const Contents = ({props, setSel}) => {
   </>)
 }
 
-const tList = ["Social", "Mensajes", "Extra", "Limpieza", "Moderación"]
+const tList = ["Inicio", "Social", "Mensajes", "Extra", "Limpieza"]
 
 export default Panel
