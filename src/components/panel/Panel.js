@@ -44,7 +44,7 @@ const Panel = () => {
 
 
           <Box display={{sm: "none", base: "block"}} > 
-          {"Una versión para resoluciones menores estará disponible pronto! <br/> Una disculpa :("}
+          {"Una versión para resoluciones menores estará disponible pronto. Una disculpa :("}
           </Box>
           
           <Box marginTop="25px"> {/*Navegador*/}

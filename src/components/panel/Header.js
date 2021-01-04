@@ -2,7 +2,9 @@
 import {useState} from 'react'
 import logo from '../../logo.webp'
 
-import {BiLogOut, BiWrench, BiMenu} from 'react-icons/bi'
+import {BiLogOut,BiMenu} from 'react-icons/bi'
+
+import Account from './Account/Account'
 
 import {
   Image,
@@ -56,13 +58,13 @@ const Header = () => {
         }>
 
           <Flex>
-            <Button marginRight="10px" leftIcon={<BiWrench />} colorScheme="teal" variant="outline">
-              Cuenta
-            </Button>
 
-            <Button leftIcon={<BiLogOut />} colorScheme="pink" variant="outline">
+            <Account/>
+
+            <Button borderRadius={0} size="sm" leftIcon={<BiLogOut />} colorScheme="pink" variant="outline">
               Desconectarse
             </Button>
+
           </Flex>
 
         </Box>

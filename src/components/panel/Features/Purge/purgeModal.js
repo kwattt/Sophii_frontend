@@ -18,7 +18,6 @@ import {
   Badge
 } from "@chakra-ui/react"
 
-
 const PurgeModal = ({props, Control, Values, setValues}) => {
   const {isOpen, onClose} = Control
   const [newProps, setNewProps] = useState(props)
