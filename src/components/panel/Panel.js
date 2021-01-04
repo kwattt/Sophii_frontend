@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react'
+import {useState} from 'react'
 import IsAuthorized from './../extra/Authorized'
 import Header from './Header'
 import Logo from './../index/Logo'

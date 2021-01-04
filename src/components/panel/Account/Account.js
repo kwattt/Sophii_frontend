@@ -5,7 +5,7 @@ import {BiWrench} from 'react-icons/bi'
 
 import axios from 'axios'
 
-const base_url = process.env.LOCAL_MODE === 'True' ? "http://127.0.0.1:5001" : ""
+const base_url = process.env.REACT_APP_BASE_URL
 
 
 const Account = () => {

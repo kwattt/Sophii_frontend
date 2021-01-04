@@ -1,8 +1,7 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 
-const base_url = process.env.LOCAL_MODE === 'True' ? "http://127.0.0.1:5001" : ""
-
+const base_url = process.env.REACT_APP_BASE_URL
 
 const IsAuthorized = () => {  
   const [auth, setAuth] = useState(false)
