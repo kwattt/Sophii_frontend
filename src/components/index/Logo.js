@@ -13,8 +13,8 @@ const  Logo = props => {
     >
       <defs>
         <linearGradient id="logo_svg__d">
-          <stop offset={0} stopColor="#4b2c30" />
-          <stop offset={1} stopColor="#ff969c" stopOpacity={0} />
+          <stop offset={0} stopColor="#4b2c30" stopOpacity={0.804}/>
+          <stop offset={1} stopColor="#ff969c" stopOpacity={0.804} />
         </linearGradient>
         <linearGradient id="logo_svg__c">
           <stop offset={0} stopColor="#2a1015" stopOpacity={0.827} />
@@ -33,7 +33,7 @@ const  Logo = props => {
             repeat: Infinity,
             repeatType: "reverse",
             ease: "linear",
-            duration: 30,
+            duration: 25,
         }}
         />
 
@@ -48,16 +48,50 @@ const  Logo = props => {
             repeat: Infinity,
             repeatType: "reverse",
             ease: "linear",
-            duration: 30,
+
+            duration: 25,
         }}
         />
 
         </linearGradient>
 
         <linearGradient id="logo_svg__a">
-          <stop offset={0} stopColor="#aa1740" />
-          <stop offset={1} stopColor="#dd6be2" stopOpacity={0.471} />
+
+        <motion.stop
+        animate={{
+            stopColor: [
+              "#aa1740", "#dd6be2", "#aa1740"
+            ],
+        }}
+        transition={{
+            repeat: Infinity,
+            repeatType: "reverse",
+            ease: "linear",
+
+            duration: 5,
+        }}
+        />
+
+        <motion.stop
+        offset="50%"
+        stopOpacity={0.471}
+        animate={{
+            stopColor: [
+              "#dd6be2", "#aa1740", "#dd6be2"
+            ],
+        }}
+        transition={{
+            repeat: Infinity,
+            repeatType: "reverse",
+            ease: "linear",
+
+            duration: 5,
+        }}
+        />
         </linearGradient>
+
+
+
         <linearGradient
           xlinkHref="#logo_svg__a"
           id="logo_svg__g"
@@ -139,7 +173,11 @@ const  Logo = props => {
         stroke="#000"
         strokeWidth={1.415}
       />
+
+
+
       <path d="M171.587 473c0 2 .713 2 94.685 2 93.971 0 94.684 0 94.684-2s-.713-2-94.684-2c-93.972 0-94.685 0-94.685 2zM197.488 595c0 2 .731 2 80.512 2 79.78 0 80.512 0 80.512-2s-.731-2-80.512-2c-79.78 0-80.512 0-80.512 2zM524.497 849.073c0 134.42 0 135.153 2 135.153s2-.733 2-135.153 0-135.154-2-135.154-2 .734-2 135.154zM686.26 473.348c0 2 .733 2 97.395 2 96.661 0 97.394 0 97.394-2s-.733-2-97.394-2c-96.662 0-97.395 0-97.395 2zM688.364 594.857c0 2 .745 2 82.033 2s82.034 0 82.034-2-.746-2-82.034-2c-81.288 0-82.033 0-82.033 2z" />
+      
       <g>
         <path
           d="M506.656 713.168c-11.486-1.108-24.171-3.916-37.056-8.203-47.459-15.79-86.543-51.667-106.32-97.597-11.743-27.269-16.392-56.251-13.832-86.223 5.264-61.627 44.41-117.88 100.469-144.374 23.966-11.327 46.448-16.404 72.776-16.435 52.246-.061 100.7 22.65 134.433 63.01 22.046 26.378 37.185 62.03 40.236 94.757 1.164 12.486.453 37.552-1.382 48.682-2.47 14.986-9.307 35.58-16.653 50.169-32.412 64.361-101.838 103.046-172.67 96.214z"
@@ -166,7 +204,7 @@ const  Logo = props => {
             stroke: ["#e51837", "#d01661", "#e51837"],
           }}
           transition={{
-            duration: 5,
+            duration: 2.05,
             ease: "easeInOut",
             yoyo: Infinity
             
