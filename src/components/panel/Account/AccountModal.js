@@ -27,7 +27,7 @@ import UpdatePoint from './../Features/updatePoint'
 
 const Account = ({data, Control}) => {
   const [vals, setVals] = useState(data)
-  const [vald] = useDebounce(vals, 300)
+  const [vald] = useDebounce(vals, 1000)
 
   const {isOpen, onClose} = Control
 

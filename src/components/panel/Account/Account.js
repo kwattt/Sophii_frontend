@@ -1,9 +1,12 @@
-import {useEffect, useState} from 'react'
+import { useState} from 'react'
 import AccountModal from './AccountModal'
 import { useDisclosure, Button } from '@chakra-ui/react'
 import {BiWrench} from 'react-icons/bi'
 
 import axios from 'axios'
+
+const base_url = process.env.LOCAL_MODE === 'True' ? "http://127.0.0.1:5001" : ""
+
 
 const Account = () => {
   const [data, setData] = useState(undefined)
@@ -11,7 +14,7 @@ const Account = () => {
 
   const handleClick = () => {
     const fetchData = async() => {
-      axios.get("http://127.0.0.1:5001/api/account",
+      axios.get(base_url + "/api/account",
       ) // Bueno, al trabajar en diferentes puertos por mi madre que voy a llamar esto. Production should be /api/streams
       .then((response) => {
         setData(response.data)

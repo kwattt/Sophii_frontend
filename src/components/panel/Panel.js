@@ -35,10 +35,6 @@ const Panel = () => {
   
   const [tabIndex, setTabIndex] = useState(0)
 
-  useEffect(() => {
-    setTabIndex(0)
-  }, [currentInfo])
-
   const handleTabsChange = (index) => {
     setTabIndex(index)
   }
@@ -60,7 +56,7 @@ const Panel = () => {
           <Box minWidth="120px" marginX="3vw">
             <SimpleGrid columns={6} spacing={5}>
               <Box height="80px">
-                <ServerSelect sel={currentInfo} setSel={setCurrentInfo}/>
+                <ServerSelect sel={currentInfo} setSel={setCurrentInfo} setTabIndex={setTabIndex}/>
 
                 {currentInfo.guild !== 0 && 
                 

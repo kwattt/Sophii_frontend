@@ -5,7 +5,6 @@ import Purge from './Features/Purge/Purge'
 import Sophii from './Features/Sophii'
 
 const FuncSelect = ({selTab, props}) => {
-  console.log("render!")
 
   return (
     <>

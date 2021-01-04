@@ -61,7 +61,14 @@ const Header = () => {
 
             <Account/>
 
-            <Button borderRadius={0} size="sm" leftIcon={<BiLogOut />} colorScheme="pink" variant="outline">
+            <Button 
+              borderRadius={0} 
+              size="sm" 
+              leftIcon={<BiLogOut />} 
+              colorScheme="pink" 
+              variant="outline"
+              onClick={() => {window.location.href = "/api/revoke"}}
+            >
               Desconectarse
             </Button>
 

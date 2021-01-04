@@ -1,5 +1,4 @@
 import FetchGuilds from './Features/fetchGuilds'
-
 import axios from 'axios'
 
 import {
@@ -7,19 +6,22 @@ import {
   Select
 } from '@chakra-ui/react'
 
-const ServerSelect = ({sel, setSel}) => {
+const base_url = process.env.LOCAL_MODE === 'True' ? "http://127.0.0.1:5001" : ""
+
+const ServerSelect = ({setSel, setTabIndex}) => {
   const guilds = FetchGuilds()
 
   const changeGuild = (guild) =>{
-
     const fetchData = async() => {
-      axios.get("http://127.0.0.1:5001/api/getGuildInfo",
+      axios.get(base_url + "/api/getGuildInfo",
       {
           params: {
             guild: guild
           }
-      }) // Bueno, al trabajar en diferentes puertos por mi madre que voy a llamar esto. Production should be /api/get_guild_info
+      })
       .then((response) => {
+        setTabIndex(0)
+
         setSel({
           guild: guild,
           roles: response.data.roles,
