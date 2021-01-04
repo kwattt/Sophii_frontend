@@ -14,6 +14,7 @@
     "@testing-library/user-event": "^12.1.10",
     "axios": "^0.21.0",
     "dotenv": "^8.2.0",
+    "env-cmd": "^10.1.0",
     "fontsource-roboto": "^3.1.5",
     "fontsource-ubuntu": "^3.1.5",
     "framer-motion": "^2.9.5",
@@ -30,7 +31,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "start:development": "env-cmd -f .env.development yarn react-scripts start",
+    "build:production": "env-cmd -f .env.production yarn react-scripts build"
   },
   "eslintConfig": {
     "extends": [
