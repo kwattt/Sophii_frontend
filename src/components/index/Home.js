@@ -52,7 +52,14 @@ const Index = () => {
 
       <Box style={gridI} rounded="md">
         <center>
-          <Button colorScheme="purple" variant="solid" marginTop="25px"> <RiDiscordLine/> <p>Invítame!</p></Button>
+          <Button 
+            colorScheme="purple" 
+            variant="solid" 
+            marginTop="25px"
+            onClick={() => {window.location.href = 'https://discord.com/oauth2/authorize?client_id=657839781509857302&scope=bot&permissions=8'}}>
+              <RiDiscordLine/> <p>Invítame!</p>
+            </Button>
+
         </center>
       </Box>
 
