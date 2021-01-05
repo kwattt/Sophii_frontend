@@ -8,7 +8,6 @@ import {
   ModalHeader,
   ModalFooter,
   ModalBody,
-  ModalCloseButton,
   Button,
   NumberInput,
   NumberInputField,
@@ -61,7 +60,7 @@ const Account = ({data, Control}) => {
             </Flex>
             <Divider my={2}/>
           </ModalHeader>
-          <ModalBody pb={10}>
+          <ModalBody>
 
             <Flex align="center" justify="space-between" wrap="wrap">
               <Heading as="h5" size="sm" py={2}>Cumpleaños</Heading>
@@ -109,6 +108,9 @@ const Account = ({data, Control}) => {
             }
 
             </ModalBody>
+            <ModalFooter mb={0}>
+              <Button colorScheme="blue" mr={3} onClick={onClose}>Cerrar</Button>  
+            </ModalFooter>
           </ModalContent>
         </Modal>
     </>

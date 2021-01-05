@@ -16,7 +16,14 @@ const components = {
     baseStyle: (props) => ({
       color: mode('blue.400', 'blue.300')(props)
     })
-  }
+  },
+  Drawer: {
+    baseStyle: (props) => ({
+      dialog: {
+        bg: mode('white', 'gray.800')(props) 
+      }
+    }),
+  },
 };
 
 const config = {

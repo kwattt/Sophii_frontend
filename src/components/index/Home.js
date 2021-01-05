@@ -2,6 +2,7 @@ import React from 'react'
 
 import Logo from './Logo'
 import Header from './Header'
+import Footer from './Footer'
 
 import { RiDiscordLine } from "react-icons/ri";
 //import { BiLinkExternal } from "react-icons/bi";
@@ -33,42 +34,49 @@ const Index = () => {
 
   return ( <>
 
-    <Header/>
-    <Box> 
-      <Center>
-        <Logo/>
-      </Center>
-      <center>
-        <Heading as="h2" size="xl">Sophii 💗</Heading>
-        <Heading as="h4" size="md" fontFamily="sans-serif">---</Heading>
-      </center>
-    </Box>
-    <br/>
-
-    <SimpleGrid minChildWidth="160px" paddingX="100px" spacingX="90px">
-      <Box style={gridI} border={line_box} rounded="md">
-          <Funciones/>
-      </Box>
-
-      <Box style={gridI} rounded="md">
+    <Box
+      display="flex"
+      flexDir="column"
+      minH="calc(100vh - 93px)"
+    >
+      <Header/>
+      <Box> 
+        <Center>
+          <Logo/>
+        </Center>
         <center>
-          <Button 
-            colorScheme="purple" 
-            variant="solid" 
-            marginTop="25px"
-            onClick={() => {window.location.href = 'https://discord.com/oauth2/authorize?client_id=657839781509857302&scope=bot&permissions=8'}}>
-              <RiDiscordLine/> <p>Invítame!</p>
-            </Button>
-
+          <Heading as="h2" size="xl">Sophii 💗</Heading>
+          <Heading as="h4" size="md" fontFamily="sans-serif">---</Heading>
         </center>
       </Box>
+      <br/>
 
-      <Box style={gridI} border={line_box} rounded="md">
-        <Stats/>
-      </Box>
-    </SimpleGrid>
-    </>
-  )
+      <SimpleGrid minChildWidth="160px" paddingX="100px" spacingX="90px">
+
+        <Box style={gridI} border={line_box} rounded="md">
+            <Funciones/>
+        </Box>
+
+        <Box style={gridI} rounded="md">
+          <center>
+            <Button 
+              colorScheme="purple" 
+              variant="solid" 
+              marginTop="25px"
+              onClick={() => {window.location.href = 'https://discord.com/oauth2/authorize?client_id=657839781509857302&scope=bot&permissions=8'}}>
+                <RiDiscordLine/> <p>Invítame!</p>
+              </Button>
+          </center>
+        </Box>
+
+        <Box style={gridI} border={line_box} rounded="md">
+          <Stats/>
+        </Box>
+
+      </SimpleGrid>
+    </Box>
+    <Footer/>
+  </>)
 
 }
 

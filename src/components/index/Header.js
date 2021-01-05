@@ -1,7 +1,7 @@
 
 import React from 'react'
 import { Link as ReachLink } from "react-router-dom"
-import {Link, Image, Box, Flex, useColorModeValue } from "@chakra-ui/react";
+import {Link, Image, Heading, Box, Flex, Text, useColorModeValue } from "@chakra-ui/react";
 import logo from '../../logo.webp'
 
 const Header = () => {
@@ -25,9 +25,11 @@ const Header = () => {
               height="37px"
               boxSize="37px"
               objectFit="cover"
-              src={logo} alt="Sophii Logo" />
-          Sophii
-        </Flex>
+              src={logo} alt="Sophii Logo"
+              />
+        <Heading as="h3" size="md">
+          <Text as={ReachLink} to="/">{"Sophii <3"}</Text>
+        </Heading>        </Flex>
         <Box paddingRight="10px">
           <Link as={ReachLink} to="/panel">Panel</Link>
         </Box>
