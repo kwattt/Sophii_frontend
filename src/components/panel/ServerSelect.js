@@ -3,7 +3,9 @@ import axios from 'axios'
 
 import {
   Box,
-  Select
+  Select,
+  DarkMode,
+  Spinner
 } from '@chakra-ui/react'
 
 const base_url = process.env.REACT_APP_BASE_URL
@@ -46,18 +48,23 @@ const ServerSelect = ({setSel, setTabIndex}) => {
 
   return (
     <>
+      {guilds !== undefined ?
       <Box>
-
-      <Select 
-        border="solid white 1px"
-        onChange={(e)=>{changeGuild(e.target.value)}}
-        size="sm"
-        defaultValue="0"
-        >
-        <option value="0" disabled>Servidor</option>
-        <Options props={guilds}/>    
-      </Select>
-      </Box>
+        <DarkMode>
+          <Select 
+            border="solid white 1px"
+            onChange={(e)=>{changeGuild(e.target.value)}}
+            size="sm"
+            defaultValue="0"
+            >
+            <option value="0" disabled>Servidor</option>
+            <Options props={guilds}/>    
+          </Select>
+        </DarkMode>
+      </Box>      
+      :<>
+        <Spinner/>
+      </>}
     </>
   )
 

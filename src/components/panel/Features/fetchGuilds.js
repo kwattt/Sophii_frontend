@@ -4,7 +4,7 @@ import axios from 'axios';
 const base_url = process.env.REACT_APP_BASE_URL
 
 const FetchGuilds = () => {  
-  const [data, setData] = useState([])
+  const [data, setData] = useState(undefined)
   
   useEffect(() => {
     const fetchData = async() => {
