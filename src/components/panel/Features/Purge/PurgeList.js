@@ -6,7 +6,6 @@ import {
   useDisclosure,
   Box,
   Button, 
-  DarkMode, 
   Heading, 
   Stack
 } from "@chakra-ui/react"
@@ -81,7 +80,6 @@ const ButtonChannels = ({props, vals, setSel, onOpen}) => {
 
   return (
     <>
-      <DarkMode>
       {props.map((val) => {
         return <Button 
           size="sm"
@@ -95,7 +93,6 @@ const ButtonChannels = ({props, vals, setSel, onOpen}) => {
           </Button>
       })
       }
-      </DarkMode>
     </>
   )
 }

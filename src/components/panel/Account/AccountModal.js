@@ -2,60 +2,74 @@ import { useState } from 'react'
 import { useDebounce } from 'use-debounce'
 
 import {
-  Drawer,
-  DrawerBody,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerOverlay,
-  DrawerContent,
-  DrawerCloseButton,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
   Button,
   NumberInput,
   NumberInputField,
   NumberInputStepper,
   NumberIncrementStepper,
   NumberDecrementStepper,
-  DarkMode,
   Heading,
   InputGroup,
   InputLeftAddon,
-  Stack
+  Stack,
+  Avatar,
+  Flex,
+  Divider,
+  IconButton,
+  useColorMode,
+  Switch
 } from "@chakra-ui/react"
 
+import {BsMoon, BsSun} from 'react-icons/bs'
 
 import UpdatePoint from './../Features/updatePoint'
 
 const Account = ({data, Control}) => {
   const [vals, setVals] = useState(data)
-  const [vald] = useDebounce(vals, 1000)
+  const [vald] = useDebounce(vals, 100)
+  const { colorMode, toggleColorMode } = useColorMode()
 
   const {isOpen, onClose} = Control
 
   UpdatePoint(0, vald, data, "/api/updateAccount")
-
+  // BsMoon
   return (
     <>
+        <Modal
+          isOpen={isOpen}
+          onClose={onClose}
+        >
+          <ModalOverlay />
+          <ModalContent>
+          <ModalHeader pb={0}>
+            <Flex align="center" justify="space-between" wrap="wrap">
+              <Flex align="center" >
+                <Avatar name={data.name} src={data.avatar}/>
+                <Heading as="h5" size="sm" ml={2}>{data.name}</Heading>
+              </Flex>
+              <IconButton 
+                aria-label="Tema"  
+                onClick={toggleColorMode}
+                icon={colorMode === "light" ? <BsSun /> : <BsMoon/>} />
+            </Flex>
+            <Divider my={2}/>
+          </ModalHeader>
+          <ModalBody>
 
-      <DarkMode>
-      <Drawer
-        isOpen={isOpen}
-        placement="right"
-        onClose={onClose}
-      >
-        <DrawerOverlay>
-          <DrawerContent>
-            <DrawerCloseButton />
-            <DrawerHeader>Cuenta</DrawerHeader>
+            <Flex align="center" justify="space-between" wrap="wrap">
+              <Heading as="h5" size="sm" py={2}>Cumpleaños</Heading>
+              <Switch defaultIsChecked={data.enabled} onChange={(e) => {setVals({enabled: e.target.checked, day: 1, month: 1}); onClose()}}/>
+            </Flex>
+            
+            {data.enabled === 1 &&
 
-            <DrawerBody>
-
-              <Heading mb={6} as="h5" size="sm">
-                Cumpleaños
-              </Heading>
-
-              {data.enabled === 1 ? 
-
-                <Stack>
+              <Stack spacing={1}>
 
                 <InputGroup size="sm">
                 <InputLeftAddon children="Mes" />
@@ -89,47 +103,16 @@ const Account = ({data, Control}) => {
                   </NumberInput>              
                 </InputGroup>
 
-                <center>
-                  <Button 
-                    size="sm" 
-                    borderRadius={0} 
-                    colorScheme="red"
-                    onClick={() => {setVals({enabled: 0, day: 1, month: 1}); onClose()}}
-                  >
-                    Deshabilitar
-                  </Button>
-                </center>
+              </Stack>
 
-                </Stack>
+            }
 
-              :
-
-                <center>
-                  <Button 
-                    size="sm" 
-                    borderRadius={0} 
-                    colorScheme="green"
-                    onClick={() => {setVals({enabled: 1, day: 1, month: 1}); onClose()}}
-                  >
-                    Habilitar
-                  </Button>
-                </center>
-
-              }
-
-            </DrawerBody>
-
-            <DrawerFooter>
-
-              <Button variant="outline" mr={3} onClick={onClose}>
-                Cerrar
-              </Button>
-            </DrawerFooter>
-          </DrawerContent>
-        </DrawerOverlay>
-      </Drawer>
-      </DarkMode>
-
+            </ModalBody>
+            <ModalFooter mb={0}>
+              <Button colorScheme="blue" mr={3} onClick={onClose}>Cerrar</Button>  
+            </ModalFooter>
+          </ModalContent>
+        </Modal>
     </>
   )
 }

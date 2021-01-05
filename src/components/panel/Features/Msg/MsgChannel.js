@@ -5,7 +5,6 @@ import {
   Alert,
   AlertIcon,
   Box,
-  DarkMode,
   Heading,
   Select
 } from '@chakra-ui/react'
@@ -22,7 +21,6 @@ const MsgChannel = ({props, data}) => {
   return (<Box
     borderLeft={lineBox}>
 
-      <DarkMode>
       <center><Heading as="h4" size="md">Canales</Heading>
 
       <Heading paddingTop="10px" as="h6" size="xs">Entrada/Salida</Heading>
@@ -44,8 +42,6 @@ const MsgChannel = ({props, data}) => {
           <br/>
           Utiliza {"{}"} para indicar nombre del usuario.
         </Alert>
-      </DarkMode>
-
       <center><Control status={updateStatus}/></center>
 
   </Box>)

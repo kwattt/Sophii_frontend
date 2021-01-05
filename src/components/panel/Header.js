@@ -1,6 +1,7 @@
 
 import {useState} from 'react'
 import logo from '../../logo.webp'
+import { Link as ReachLink } from "react-router-dom"
 
 import {BiLogOut,BiMenu} from 'react-icons/bi'
 
@@ -11,12 +12,15 @@ import {
   Box,
   IconButton,
   Flex,
+  Text,
   Button,
   Heading,
+  useColorModeValue
 } from "@chakra-ui/react";
 
 const Header = () => {
   const [menu, setMenu] = useState(false)
+  const bg = useColorModeValue("gray.400", "gray.900")
 
   return (
     <div>
@@ -27,7 +31,7 @@ const Header = () => {
         justify="space-between"
         wrap="wrap"
         padding="10px"
-        bg="gray.800"
+        bg={bg}
         color="white"
       >
 
@@ -40,7 +44,7 @@ const Header = () => {
         src={logo} alt="Sophii Logo" />
 
         <Heading as="h3" size="md">
-          {"Sophii <3"}
+          <Text as={ReachLink} to="/">{"Sophii <3"}</Text>
         </Heading>
       </Flex>
 

@@ -3,6 +3,7 @@ import IsAuthorized from './../extra/Authorized'
 import Header from './Header'
 import Logo from './../index/Logo'
 
+import Footer from './../index/Footer'
 
 import { 
   Spinner,
@@ -40,9 +41,16 @@ const Panel = () => {
   }
 
   return (<>
-    {
-      authorized ?
+      <Box
+        display="flex"
+        flexDir="column"
+        minH="calc(100vh - 93px)"
+      >    
+      
+      { authorized ?
       <>
+
+
         <Header/>
 
         <div id="Panel">
@@ -87,6 +95,8 @@ const Panel = () => {
       </> 
       : <Center paddingTop={"60px"}> <Spinner size="xl" /> </Center>
     }
+    </Box>
+    <Footer/>
 
     </>
   )

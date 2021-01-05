@@ -4,7 +4,6 @@ import axios from 'axios'
 import {
   Box,
   Select,
-  DarkMode,
   Spinner
 } from '@chakra-ui/react'
 
@@ -50,7 +49,6 @@ const ServerSelect = ({setSel, setTabIndex}) => {
     <>
       {guilds !== undefined ?
       <Box>
-        <DarkMode>
           <Select 
             border="solid white 1px"
             onChange={(e)=>{changeGuild(e.target.value)}}
@@ -60,7 +58,6 @@ const ServerSelect = ({setSel, setTabIndex}) => {
             <option value="0" disabled>Servidor</option>
             <Options props={guilds}/>    
           </Select>
-        </DarkMode>
       </Box>      
       :<>
         <Spinner/>

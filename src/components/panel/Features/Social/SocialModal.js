@@ -96,13 +96,13 @@ const SocialModal = ({props, Control, Values, setValues, guildInfo}) => {
           </DrawerBody>
 
           <DrawerFooter>
-            <Button colorScheme="purple" mr={5} onClick={onClose}>Cerrar</Button>
+            <Button mr={5} onClick={onClose}>Cerrar</Button>
 
-            <Button mr={2} colorScheme="red"
+            <Button mr={2} colorScheme="red" variant="outline"
             onClick={() => {onDelete(); onClose()}}>Eliminar</Button>
             {
               (newProps.type !== "-1") &&
-                <Button colorScheme="purple"
+                <Button colorScheme="purple" variant="outline"
                 onClick={() => {onSave(); onClose()}}
                 >Guardar</Button>
             }

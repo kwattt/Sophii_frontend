@@ -3,7 +3,6 @@ import { useDebounce } from 'use-debounce'
 
 import { 
   Box,
-  DarkMode,
   Heading,
   Textarea,
   Alert,
@@ -42,14 +41,11 @@ const StalkMsg = ({props, data}) => {
           defaultValue={vals.msg}
       height={185}/>
 
-      <DarkMode>
       <Alert status="warning"
           size="sm"
         my={15}>
           <AlertIcon/> Utilizar ; para separar los mensajes!
-        </Alert>
-      </DarkMode>
-
+      </Alert>
       <center><Control status={updateVal}/></center>
 
     </Box>
