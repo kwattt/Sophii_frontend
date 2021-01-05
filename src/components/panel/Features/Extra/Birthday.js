@@ -9,7 +9,6 @@ import {
   NumberIncrementStepper,
   Heading,
   Select,
-  DarkMode,
   Textarea,
   InputGroup,
   Alert,
@@ -44,7 +43,6 @@ const Birthday = ({props, data}) => {
 
     <Heading my="10px" as="h6" size="xs">Mensaje (r: {350 - vals.bdaymsg.length})</Heading>
 
-    <DarkMode>
 
     <Textarea
       isInvalid={updateStatus === "invalid"}
@@ -90,8 +88,6 @@ const Birthday = ({props, data}) => {
       {/*add https://en.wikipedia.org/wiki/List_of_UTC_time_offsets */}
     </InputGroup>
     
-    </DarkMode>
-
     <Control status={updateStatus}/>
 
     </center>

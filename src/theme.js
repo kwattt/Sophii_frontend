@@ -1,43 +1,33 @@
-import { theme, extendTheme } from "@chakra-ui/react";
+import { extendTheme } from '@chakra-ui/react';
+import { mode } from '@chakra-ui/theme-tools';
 
-import 'fontsource-roboto';
-import 'fontsource-ubuntu';
+// setup light/dark mode global defaults
+const styles = {
+  global: (props) => ({
+    body: {
+      color: mode('gray.800', 'whiteAlpha.900')(props),
+      bg: mode('white', 'gray.800')(props)
+    }
+  })
+};
 
-import {  } from "@chakra-ui/react"
+const components = {
+  Link: {
+    baseStyle: (props) => ({
+      color: mode('blue.400', 'blue.300')(props)
+    })
+  }
+};
 
-const extended = extendTheme({
-  components: {
-    Drawer: {
-      baseStyle: {
-        dialog: {
-          bg: "gray.800"
-        }
-      },
-    },
-  },
-})
-
-const customTheme = {
-  ...theme,
-  ...extended,
-  colors: {
-    ...theme.colors,
-  },
-
-  styles: {
-    global: {
-      body: {
-        bg: "gray.900",
-        color: "white",
-      },  
-    },
-  },
-
-  fonts: {
-    heading: '"Roboto", Ubuntu',
-    body: "system-ui, sans-serif",
-    mono: "Menlo, monospace",
-  },
+const config = {
+  useSystemColorMode: false,
+  initialColorMode: "dark",
 }
 
-export default customTheme
+const theme = extendTheme({
+  config,
+  components,
+  styles
+});
+
+export default theme

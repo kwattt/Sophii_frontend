@@ -14,7 +14,6 @@ import {
   Heading,
   Stack,
   InputLeftAddon,
-  DarkMode,
   Badge
 } from "@chakra-ui/react"
 
@@ -54,8 +53,6 @@ const PurgeModal = ({props, Control, Values, setValues}) => {
             </DrawerHeader>
 
             <DrawerBody>
-              <DarkMode>
-
                 <center>
                   <Heading as="h4" size="md" mt={13}>Estado</Heading>
                   {props.active ?
@@ -78,7 +75,6 @@ const PurgeModal = ({props, Control, Values, setValues}) => {
                     <Input type="number" borderRadius={0} defaultValue={props.utc} onChange={(e) => setNewProps({...newProps, utc: e.target.value})}/>
                   </InputGroup>
                 </Stack>
-              </DarkMode>
             </DrawerBody>
 
             <DrawerFooter>

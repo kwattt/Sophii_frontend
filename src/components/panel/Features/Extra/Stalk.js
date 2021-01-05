@@ -4,7 +4,6 @@ import CustomScroller from 'react-custom-scroller';
 
 import { 
   Box,
-  DarkMode,
   Heading,
   NumberInput,
   NumberInputField,
@@ -34,7 +33,6 @@ return (<>
   <Box
     borderLeft={lineBox}>
   
-      <DarkMode>
       <center><Heading as="h4" size="md">Stalk</Heading>
 
       <Heading py="10px" as="h6" size="xs">Porcentaje (0-30)</Heading>
@@ -82,7 +80,6 @@ return (<>
 
         </Box>
           <center><Control status={updateStatus}/></center>
-      </DarkMode>
     </Box>
   </>
   )

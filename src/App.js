@@ -1,6 +1,6 @@
 import { BrowserRouter, Switch, Route} from "react-router-dom";
 
-import { ChakraProvider } from "@chakra-ui/react"
+import { ChakraProvider, ColorModeScript } from "@chakra-ui/react"
 
 import Index from './components/index/Home'
 import Panel from './components/panel/Panel'
@@ -10,7 +10,8 @@ import theme from './theme'
 
 const App = () => {
 
-  return (
+  return (<>
+    <ColorModeScript initialColorMode="dark" />
     <ChakraProvider theme={theme}>
 
       <BrowserRouter>
@@ -23,7 +24,7 @@ const App = () => {
       </BrowserRouter>
 
     </ChakraProvider>
-  )
+  </>)
 }
 
 export default App;

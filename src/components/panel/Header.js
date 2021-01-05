@@ -13,10 +13,12 @@ import {
   Flex,
   Button,
   Heading,
+  useColorModeValue
 } from "@chakra-ui/react";
 
 const Header = () => {
   const [menu, setMenu] = useState(false)
+  const bg = useColorModeValue("gray.400", "gray.900")
 
   return (
     <div>
@@ -27,7 +29,7 @@ const Header = () => {
         justify="space-between"
         wrap="wrap"
         padding="10px"
-        bg="gray.800"
+        bg={bg}
         color="white"
       >
 
