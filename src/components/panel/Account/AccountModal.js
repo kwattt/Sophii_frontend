@@ -56,7 +56,7 @@ const Account = ({data, Control}) => {
               <IconButton 
                 aria-label="Tema"  
                 onClick={toggleColorMode}
-                icon={colorMode === "light" ? <BsSun /> : <BsMoon/>} />
+                icon={colorMode === "light" ? <BsMoon/> : <BsSun/>} />
             </Flex>
             <Divider my={2}/>
           </ModalHeader>

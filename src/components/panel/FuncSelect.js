@@ -2,14 +2,18 @@ import Social from './Features/Social/Social'
 import Msg from './Features/Msg/Msg'
 import Extra from './Features/Extra/Extra'
 import Purge from './Features/Purge/Purge'
-import Sophii from './Features/Sophii'
+import Default from './Features/Default/Default'
+import Basic from './Features/Basic/Basic'
 
 const FuncSelect = ({selTab, props}) => {
 
   return (
     <>
       {selTab === "Inicio" &&
-        <Sophii/>
+        <Default props={props}/>
+      }
+      {selTab === "Basico" &&
+        <Basic props={props}/>
       }
       {selTab === "Social" &&
         <Social props={props}/>
