@@ -3,13 +3,8 @@ import { BrowserRouter, Switch, Route} from "react-router-dom";
 import { ChakraProvider, ColorModeScript } from "@chakra-ui/react"
 /*
 
-import CookieConsent from "react-cookie-consent";
 
-    <CookieConsent
-      buttonText="Aceptar"
-    >
-      Este sitio utiliza cookies para ofrecer una mejor experiencia. 
-    </CookieConsent>
+
 
 */
 import Index from './components/index/Home'
@@ -19,6 +14,8 @@ import NotFound from './components/extra/NotFound'
 import Terms from './components/legal/Terms'
 import Privacy from './components/legal/Privacy'
 import theme from './theme'
+
+import CookieConsent from "react-cookie-consent";
 
 const App = () => {
   return (<>
@@ -34,6 +31,11 @@ const App = () => {
         </Switch>
         </BrowserRouter>
     </ChakraProvider>
+    <CookieConsent
+      buttonText="Aceptar"
+    >
+      Este sitio utiliza cookies para ofrecer una mejor experiencia. 
+    </CookieConsent>
   </>)
 }
 

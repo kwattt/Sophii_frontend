@@ -32,7 +32,8 @@ const ServerSelect = ({setSel, setTabIndex}) => {
           bdaymsg: response.data.bdaymsg, 
           bdayutc: response.data.bdayutc,
           welcome: response.data.welcome,
-          tipo: response.data.tipo
+          tipo: response.data.tipo,
+          stats: response.data.stats
         })
       })
       .catch((error) => {

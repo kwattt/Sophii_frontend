@@ -8,6 +8,7 @@ import { RiDiscordLine } from "react-icons/ri";
 //import { BiLinkExternal } from "react-icons/bi";
 import { BsFillGearFill } from "react-icons/bs";
 import { BsCheck } from "react-icons/bs";
+import fetchPoint from './../panel/Features/fetchPoint'
 
 import { 
   Box,
@@ -23,7 +24,6 @@ import {
   Button
 } from '@chakra-ui/react'
 
-//const line = "solid white 3px"
 const line_box = "solid #323136 1px"
 const gridI = {
   paddingTop: "6px",
@@ -80,20 +80,40 @@ const Index = () => {
 
 }
 
+const stupidFacts = () => {
+  const facts = [
+    "Los búhos son las únicas aves que pueden ver el color azul",
+    "La orina del gato brilla bajo la luz negra",
+    "Una vaca puede subir escaleras, pero no bajarlas",
+    "Los cuacs de los patos no producen eco",
+    "El diablo anda suelto, anda pisando el pavimento",
+    "Las jurafas duermen mas que tu (Y eso que duermen 2 horas al día!)",
+    "Los delfines tienen menos confianza que tu ex tóxica por lo que duermen con un ojo abierto",
+    "Agua",
+    "La mayoría de las naranjas son verdes",
+    "La pizza con piña será ilegal en 2077"
+  ]
+  return facts[Math.floor(Math.random() * facts.length)]
+}
+
 const Stats = () => {
-return (
+  const data = fetchPoint(0, '/api/bot')
+  return (
   <center>
     <Heading as="h5" size="sm">Stats</Heading>
     <Stack paddingX="30px" paddingTop="5px">
 
-      {/* <b>Servidores activos</b> fetchData blablah */ }
-      <Skeleton height="20px" />
+      <Skeleton height="20px" isLoaded={data !== "loading"}>
+        <b>Servidores activos: </b>{data.guilds}
+      </Skeleton>
 
-      {/* <b>Miembros totales</b> fetchData blablah */ }
-      <Skeleton height="20px" />
+      <Skeleton height="20px" isLoaded={data !== "loading"}>
+        <b>Usuarios activos: </b>{data.users}
+      </Skeleton>
 
-      {/* <b>Otra cosa interesante :)</b> fetchData blablah */ }
-      <Skeleton height="20px" />
+      <Skeleton height="20px"  isLoaded={data !== "loading"}>
+        {stupidFacts()}
+      </Skeleton>
 
     </Stack>
   </center>
