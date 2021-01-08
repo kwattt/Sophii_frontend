@@ -10,7 +10,11 @@ import {
   DrawerContent,
   DrawerCloseButton,
   InputGroup,
-  Input,
+  NumberInput,
+  NumberInputField,
+  NumberInputStepper,
+  NumberIncrementStepper,
+  NumberDecrementStepper,  
   Heading,
   Stack,
   InputLeftAddon,
@@ -64,15 +68,60 @@ const PurgeModal = ({props, Control, Values, setValues}) => {
                 <Stack spacing={1}>
                 <InputGroup size ="sm">
                     <InputLeftAddon children="Hora"/>
-                    <Input type="number" borderRadius={0} defaultValue={props.hour} onChange={(e) => setNewProps({...newProps, hour: e.target.value})}/>
+                    <NumberInput 
+                      size="sm" 
+                      step={1} 
+                      borderRadius={2} 
+                      max={23} 
+                      min={0} 
+                      inputMode="number"
+                      defaultValue={props.hour}
+                      onChange={(e) => {setNewProps({...newProps, hour: e})}}>
+                      <NumberInputField />
+                      <NumberInputStepper>
+                        <NumberIncrementStepper />
+                        <NumberDecrementStepper />
+                      </NumberInputStepper>
+                    </NumberInput>
+
                   </InputGroup>
                   <InputGroup size ="sm">
                     <InputLeftAddon children="Minuto"/>
-                    <Input type="number" borderRadius={0} defaultValue={props.minute} onChange={(e) => setNewProps({...newProps, minute: e.target.value})}/>
+                    <NumberInput 
+                      size="sm" 
+                      step={1} 
+                      borderRadius={2} 
+                      max={59} 
+                      min={0} 
+                      inputMode="number"
+                      defaultValue={props.minute}
+                      onChange={(e) => {setNewProps({...newProps, minute: e})}}>
+                      <NumberInputField />
+                      <NumberInputStepper>
+                        <NumberIncrementStepper />
+                        <NumberDecrementStepper />
+                      </NumberInputStepper>
+                    </NumberInput>
+
                   </InputGroup>
                   <InputGroup size ="sm">
                     <InputLeftAddon children="UTC"/>
-                    <Input type="number" borderRadius={0} defaultValue={props.utc} onChange={(e) => setNewProps({...newProps, utc: e.target.value})}/>
+                    <NumberInput 
+                      size="sm" 
+                      step={1} 
+                      borderRadius={2} 
+                      max={14} 
+                      min={-12} 
+                      disabled={1}
+                      inputMode="number"
+                      defaultValue={props.utc}
+                      onChange={(e) => {setNewProps({...newProps, utc: e})}}>
+                      <NumberInputField />
+                      <NumberInputStepper>
+                        <NumberIncrementStepper />
+                        <NumberDecrementStepper />
+                      </NumberInputStepper>
+                    </NumberInput>
                   </InputGroup>
                 </Stack>
             </DrawerBody>
