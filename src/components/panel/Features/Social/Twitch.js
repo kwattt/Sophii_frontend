@@ -10,10 +10,10 @@ import {
   Stack
 } from "@chakra-ui/react"
 
-import UpdatePoint from '../updatePoint'
-import SocialModal from './SocialModal'
+import UpdatePoint from './../updatePoint'
+import SocialModal from './TwitchModal'
 
-import Control from '../Alerts/Control'
+import Control from './../Alerts/Control'
 
 const Purge = ({props, data}) => {
   const [vals, setVals] = useState(data)

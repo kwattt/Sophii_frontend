@@ -18,7 +18,6 @@ const Purge = ({props}) => {
         <>
 
           <Twitch props={props} data={{"twitch": data.twitch}}/>
-
         </>
       }
       </>

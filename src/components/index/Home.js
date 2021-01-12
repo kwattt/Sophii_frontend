@@ -80,22 +80,6 @@ const Index = () => {
 
 }
 
-const stupidFacts = () => {
-  const facts = [
-    "Los búhos son las únicas aves que pueden ver el color azul",
-    "La orina del gato brilla bajo la luz negra",
-    "Una vaca puede subir escaleras, pero no bajarlas",
-    "Los cuacs de los patos no producen eco",
-    "El diablo anda suelto, anda pisando el pavimento",
-    "Las jurafas duermen mas que tu (Y eso que duermen 2 horas al día!)",
-    "Los delfines tienen menos confianza que tu ex tóxica por lo que duermen con un ojo abierto",
-    "Agua",
-    "La mayoría de las naranjas son verdes",
-    "La pizza con piña será ilegal en 2077"
-  ]
-  return facts[Math.floor(Math.random() * facts.length)]
-}
-
 const Stats = () => {
   const data = fetchPoint(0, '/api/bot')
   return (
@@ -112,7 +96,7 @@ const Stats = () => {
       </Skeleton>
 
       <Skeleton height="20px"  isLoaded={data !== "loading"}>
-        {stupidFacts()}
+        {data.msg}
       </Skeleton>
 
     </Stack>

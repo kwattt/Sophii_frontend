@@ -46,7 +46,7 @@ const SocialModal = ({props, Control, Values, setValues, guildInfo}) => {
       )
     }
     else {
-      newp.push(newProps)
+      newp = [...newp, newProps]
     }
     setValues({twitch: newp})
   }
@@ -85,7 +85,7 @@ const SocialModal = ({props, Control, Values, setValues, guildInfo}) => {
             <center><Heading my={5} as="h2" size="md">Aviso</Heading></center>
               <RadioGroup 
                 defaultValue={props.type}
-              onChange={(value) => {newProps.type = value}}>
+              onChange={(value) => {setNewProps({...newProps, type: value})}}>
                 <Stack direction="row">
                 <Radio value={"0"}>Ninguno</Radio>
                 <Radio value={"1"}>@Here</Radio>
@@ -98,8 +98,11 @@ const SocialModal = ({props, Control, Values, setValues, guildInfo}) => {
           <DrawerFooter>
             <Button mr={5} onClick={onClose}>Cerrar</Button>
 
+          {props.name !== "Nuevo stream" &&
             <Button mr={2} colorScheme="red" variant="outline"
             onClick={() => {onDelete(); onClose()}}>Eliminar</Button>
+          }
+
             {
               (newProps.type !== "-1") &&
                 <Button colorScheme="purple" variant="outline"
