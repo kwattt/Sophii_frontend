@@ -4,6 +4,7 @@ import Extra from './Features/Extra/Extra'
 import Purge from './Features/Purge/Purge'
 import Default from './Features/Default/Default'
 import Basic from './Features/Basic/Basic'
+import Levels from './Features/Levels/Levels'
 
 const FuncSelect = ({selTab, props}) => {
 
@@ -26,6 +27,9 @@ const FuncSelect = ({selTab, props}) => {
       }
       {selTab === "Limpieza" &&
         <Purge props={props}/>
+      }
+      {selTab === "Niveles" &&
+        <Levels props={props}/>
       }
     </>
   )

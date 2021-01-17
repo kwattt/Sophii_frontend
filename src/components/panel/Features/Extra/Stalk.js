@@ -71,7 +71,8 @@ return (<>
             <CheckboxGroup 
               colorScheme="purple"
               defaultValue={data.role}
-            onChange={(e) => {setVals({...vals, role: e})}}>
+              onChange={(e) => {setVals({...vals, role: e})}}
+            >
               <Stack spacing="0px" marginRight="0.4vw" paddingX="1vw">
                 <CheckboxRole props={props.roles}/>
               </Stack>
