@@ -16,12 +16,12 @@ import {
 import UpdatePoint from './../updatePoint'
 import Control from './../Alerts/Control'
 
-const Stalk = ({props, data}) => {
+const ToggleLevel = ({props, data}) => {
   const [vals, setVals] = useState(data)
   const [vald] = useDebounce(vals, 1000)
   const updateStatus = UpdatePoint(props.guild, vald, data, "/api/updateLevels")
-  console.log(data)
-return (<>
+
+  return (<>
   
   <Box
     borderLeft={lineBox}>
@@ -89,4 +89,4 @@ const CheckboxChannel = memo(({props}) => {
   )
 })
 
-export default Stalk
+export default ToggleLevel

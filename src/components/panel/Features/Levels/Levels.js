@@ -4,8 +4,9 @@ import Error from './../Error'
 import FetchPoint from './../fetchPoint'
 
 import LevelToggle from './LevelToggle'
+import Store from './Shop'
 
-const Purge = ({props}) => {
+const Levels = ({props}) => {
   const data = FetchPoint(props.guild, "/api/levels")
   return (<>
     {data === "loading" && <Loading/>}
@@ -17,7 +18,8 @@ const Purge = ({props}) => {
         
         <>
 
-          <LevelToggle props={props} data={data}/>
+          <LevelToggle props={props} data={{enabled: data.enabled, channels: data.channels}}/>
+          <Store props={props} data={{shop: data.shop}}/>
 
         </>
       }
@@ -26,4 +28,4 @@ const Purge = ({props}) => {
   </>)
 }
 
-export default Purge
+export default Levels
