@@ -4,9 +4,10 @@ import Error from './../Error'
 import FetchPoint from './../fetchPoint'
 
 import Twitch from './Twitch'
+import Facebook from './Facebook'
 
 const Purge = ({props}) => {
-  const data = FetchPoint(props.guild, "/api/streams")
+  const data = FetchPoint(props.guild, "/api/social")
   return (<>
     {data === "loading" && <Loading/>}
 
@@ -14,15 +15,14 @@ const Purge = ({props}) => {
     :
       <>
       {data !== undefined && data !== "loading" &&
-        
         <>
-
+          {console.log(data)}
           <Twitch props={props} data={{"twitch": data.twitch}}/>
+          <Facebook props={props} data={{"facebook": data.facebook}}/>
         </>
       }
       </>
     }
-
 
   </>)
 }

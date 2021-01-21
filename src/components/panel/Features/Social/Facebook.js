@@ -11,7 +11,7 @@ import {
 } from "@chakra-ui/react"
 
 import UpdatePoint from './../updatePoint'
-import SocialModal from './TwitchDrawer'
+import SocialModal from './FacebookDrawer'
 
 import Control from './../Alerts/Control'
 
@@ -27,9 +27,9 @@ const Purge = ({props, data}) => {
   return (<>
     <Box 
     borderLeft={lineBox}>
-      <center><Heading as="h4" size="md">Twitch</Heading>
+      <center><Heading as="h4" size="md">Facebook</Heading>
 
-        <Heading paddingTop="10px" as="h6" size="xs">Streamers activos</Heading>
+        <Heading paddingTop="10px" as="h6" size="xs">Páginas activas</Heading>
       </center>
 
       <Box
@@ -45,14 +45,14 @@ const Purge = ({props, data}) => {
           >
 
             <Stack spacing="0px" marginRight="0.4vw" paddingX="1vw">
-              <StreamButtons setSel={setSel} props={vals.twitch} onOpen={onOpen}/>
+              <FbButtons setSel={setSel} props={vals.facebook} onOpen={onOpen}/>
             </Stack>
 
           </CustomScroller>
 
       </Box>
-      { vals.twitch.length >= 4 && props.tipo !== "2" ?
-        "Solo puedes tener 4 canales activos!"
+      { vals.facebook.length >= 5 && props.tipo !== "2" ?
+        "Solo puedes tener 5 páginas activos!"
       : 
         <center><Button 
           marginTop="5px" 
@@ -63,26 +63,26 @@ const Purge = ({props, data}) => {
           variant="outline"
           onClick={() => {
             setSel({
-              name: "Nuevo stream",
-              type: "-1",
+              name: "Nuevo página",
+              type: "0",
               channel: 0
             });
             onOpen()
           }}
-          >Añadir stream</Button></center>
+          >Añadir página</Button></center>
 }
 
       <center><Control status={updateStatus}/></center>
 
     </Box>
-    <SocialModal Control={{isOpen, onClose}} guildInfo={props} props={sel} Values={vals.twitch} setValues={setVals} />
+    <SocialModal Control={{isOpen, onClose}} guildInfo={props} props={sel} Values={vals.facebook} setValues={setVals} />
 
   </>)
 }
 
 const lineBox = "solid #323136 1px"
 
-const StreamButtons = memo(({props, onOpen, setSel}) => {
+const FbButtons = memo(({props, onOpen, setSel}) => {
   
   const setInfo = (val) => {
     setSel(val)

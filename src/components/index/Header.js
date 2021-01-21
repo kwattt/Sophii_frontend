@@ -29,7 +29,9 @@ const Header = () => {
               />
         <Heading as="h3" size="md">
           <Text as={ReachLink} to="/">{"Sophii <3"}</Text>
-        </Heading>        </Flex>
+        </Heading>        
+        </Flex>
+        
         <Box paddingRight="10px">
           <Link as={ReachLink} to="/panel">Panel</Link>
         </Box>
