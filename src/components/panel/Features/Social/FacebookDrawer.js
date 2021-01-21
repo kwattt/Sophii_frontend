@@ -103,7 +103,8 @@ const SocialModal = ({props, Control, Values, setValues, guildInfo}) => {
             onClick={() => {onDelete(); onClose()}}>Eliminar</Button>
           }
 
-            {(newProps.name !== "Nueva página") &&
+            {
+              (newProps.type !== "-1") &&
                 <Button colorScheme="purple" variant="outline"
                 onClick={() => {onSave(); onClose()}}
                 >Guardar</Button>

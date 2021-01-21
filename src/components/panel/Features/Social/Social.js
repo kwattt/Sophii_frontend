@@ -16,7 +16,6 @@ const Purge = ({props}) => {
       <>
       {data !== undefined && data !== "loading" &&
         <>
-          {console.log(data)}
           <Twitch props={props} data={{"twitch": data.twitch}}/>
           <Facebook props={props} data={{"facebook": data.facebook}}/>
         </>
