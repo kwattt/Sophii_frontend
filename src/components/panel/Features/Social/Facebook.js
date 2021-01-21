@@ -64,7 +64,7 @@ const Purge = ({props, data}) => {
           onClick={() => {
             setSel({
               name: "Nuevo página",
-              type: "0",
+              type: "-1",
               channel: 0
             });
             onOpen()
