@@ -27,17 +27,17 @@ const SocialModal = ({props, Control, Values, setValues, guildInfo}) => {
   }, [props])
 
   const onDelete = () => {
-    if(props.name !== "Nueva página"){
+    if(props.name !== "Nuevo perfil"){
       var newp = Values.filter((v) => {
         return v.name !== newProps.name
       })
-      setValues({facebook: newp})
+      setValues({twitter: newp})
     }
   }
 
   const onSave = () => {
     var newp = Values
-    if(props.name !== "Nueva página")
+    if(props.name !== "Nuevo perfil")
     {
       newp = newp.map(v => 
         v.name === props.name
@@ -48,7 +48,7 @@ const SocialModal = ({props, Control, Values, setValues, guildInfo}) => {
     else {
       newp = [...newp, newProps]
     }
-    setValues({facebook: newp})
+    setValues({twitter: newp})
   }
 
   return (<>
@@ -73,7 +73,7 @@ const SocialModal = ({props, Control, Values, setValues, guildInfo}) => {
               <OptionChannel props={guildInfo.channels}/>
             </Select>
 
-            <center><Heading my={5} as="h2" size="md">Nombre de la página</Heading></center>
+            <center><Heading my={5} as="h2" size="md">Nombre del perfil</Heading></center>
             <Input placeholder="Ingresar nombre"
               defaultValue={props.name}
               maxLength={30}
@@ -85,13 +85,13 @@ const SocialModal = ({props, Control, Values, setValues, guildInfo}) => {
           <DrawerFooter>
             <Button mr={5} onClick={onClose}>Cerrar</Button>
 
-          {props.name !== "Nueva página" &&
+          {props.name !== "Nuevo perfil" &&
             <Button mr={2} colorScheme="red" variant="outline"
             onClick={() => {onDelete(); onClose()}}>Eliminar</Button>
           }
 
             {
-              (newProps.name !== "Nueva página") &&
+              (newProps.name !== "Nuevo perfil") &&
                 <Button colorScheme="purple" variant="outline"
                 onClick={() => {onSave(); onClose()}}
                 >Guardar</Button>

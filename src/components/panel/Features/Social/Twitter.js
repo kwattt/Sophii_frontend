@@ -11,7 +11,7 @@ import {
 } from "@chakra-ui/react"
 
 import UpdatePoint from './../updatePoint'
-import SocialModal from './FacebookDrawer'
+import SocialModal from './TwitterDrawer'
 
 import Control from './../Alerts/Control'
 
@@ -27,9 +27,9 @@ const Purge = ({props, data}) => {
   return (<>
     <Box 
     borderLeft={lineBox}>
-      <center><Heading as="h4" size="md">Facebook</Heading>
+      <center><Heading as="h4" size="md">Twitter</Heading>
 
-        <Heading paddingTop="10px" as="h6" size="xs">Páginas activas</Heading>
+        <Heading paddingTop="10px" as="h6" size="xs">Perfiles activas</Heading>
       </center>
 
       <Box
@@ -45,16 +45,17 @@ const Purge = ({props, data}) => {
           >
 
             <Stack spacing="0px" marginRight="0.4vw" paddingX="1vw">
-              <FbButtons setSel={setSel} props={vals.facebook} onOpen={onOpen}/>
+              <FbButtons setSel={setSel} props={vals.twitter} onOpen={onOpen}/>
             </Stack>
 
           </CustomScroller>
 
       </Box>
-      { vals.facebook.length >= 5 && props.tipo !== "2" ?
-        "Solo puedes tener 5 páginas activos!"
+      { vals.twitter.length >= 5 && props.tipo !== "2" ?
+        "Solo puedes tener 5 perfiles activos!"
       : 
-        <center><Button 
+        <center>
+        <Button 
           marginTop="5px" 
           marginLeft="1vw" 
           borderRadius="sm" 
@@ -63,19 +64,22 @@ const Purge = ({props, data}) => {
           variant="outline"
           onClick={() => {
             setSel({
-              name: "Nueva página",
-              channel: 0,
-              type: "-1"
+              name: "Nuevo perfil",
+              type: "-1",
+              channel: 0
             });
             onOpen()
           }}
-          >Añadir página</Button></center>
+        >
+          Añadir perfil
+        </Button>
+        </center>
 }
 
       <center><Control status={updateStatus}/></center>
 
     </Box>
-    <SocialModal Control={{isOpen, onClose}} guildInfo={props} props={sel} Values={vals.facebook} setValues={setVals} />
+    <SocialModal Control={{isOpen, onClose}} guildInfo={props} props={sel} Values={vals.twitter} setValues={setVals} />
 
   </>)
 }
