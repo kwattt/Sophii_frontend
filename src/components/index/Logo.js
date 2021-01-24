@@ -141,29 +141,7 @@ const Logo = props => {
         </filter>
       </defs>
       <g>
-        <motion.g 
-        animate={{
-          rotate: [0, 180, 0]
-        }}
-        transition={{
-          duration: 5,
-          loop: Infinity 
-        }}
-        >
 
-<circle
-        cx={523.00995}
-        cy={550.52167}
-        r={437.27069}
-        opacity={0.996}
-        filter="url(#logo_svg__f)"
-        fill="url(#logo_svg__b)"
-        fillOpacity={0.804}
-        stroke="#000"
-        strokeWidth={0.3}
-  />
-
-        </motion.g>
       </g>
 
       <path
