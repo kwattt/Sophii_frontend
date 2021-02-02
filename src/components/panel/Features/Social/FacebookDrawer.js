@@ -113,4 +113,4 @@ const OptionChannel = memo(({props}) => {
   )
 })
 
-export default SocialModal
+export default SocialModal    
