@@ -13,7 +13,10 @@ import {
   Input,
   Heading,
   Badge,
-  Box
+  Box,
+  RadioGroup,
+  Radio,
+  Stack
 } from "@chakra-ui/react"
 
 // we need to verify the channel id in the drawer before saving the data.
@@ -139,19 +142,31 @@ const SocialModal = ({props, Control, Values, setValues, guildInfo}) => {
             }
           </Box>
 
+          <center><Heading my={5} as="h2" size="md">Aviso</Heading></center>
+            <RadioGroup 
+              defaultValue={props.type}
+              onChange={(value) => {setNewProps({...newProps, type: value})}}
+            >
+              <Stack direction="row">
+                <Radio value={"0"}>Ninguno</Radio>
+                <Radio value={"1"}>@Here</Radio>
+                <Radio value={"2"}>@Everyone</Radio>
+              </Stack>
+          </RadioGroup>
+
           </DrawerBody>
 
           <DrawerFooter>
 
           <Button mr={5} onClick={onClose}>Cerrar</Button>
 
-            {props.name !== "Nuevo canal" &&
+            {(props.name !== "Nuevo canal") &&
               <Button mr={2} colorScheme="red" variant="outline"
               onClick={() => {onDelete(); onClose()}}>Eliminar</Button>
             }
 
             {
-              (verified) &&
+              (verified && newProps.type !== "-1") &&
                 <Button colorScheme="purple" variant="outline"
                 onClick={() => {onSave(); onClose()}}
                 >Guardar</Button>

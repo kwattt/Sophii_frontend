@@ -85,13 +85,14 @@ const SocialModal = ({props, Control, Values, setValues, guildInfo}) => {
             <center><Heading my={5} as="h2" size="md">Aviso</Heading></center>
               <RadioGroup 
                 defaultValue={props.type}
-              onChange={(value) => {setNewProps({...newProps, type: value})}}>
+                onChange={(value) => {setNewProps({...newProps, type: value})}}
+              >
                 <Stack direction="row">
-                <Radio value={"0"}>Ninguno</Radio>
-                <Radio value={"1"}>@Here</Radio>
-                <Radio value={"2"}>@Everyone</Radio>
+                  <Radio value={"0"}>Ninguno</Radio>
+                  <Radio value={"1"}>@Here</Radio>
+                  <Radio value={"2"}>@Everyone</Radio>
                 </Stack>
-              </RadioGroup>
+            </RadioGroup>
 
           </DrawerBody>
 
@@ -104,7 +105,7 @@ const SocialModal = ({props, Control, Values, setValues, guildInfo}) => {
           }
 
             {
-              (newProps.type !== "-1") &&
+              (newProps.name !== "Nuevo stream" && newProps.type !== "-1") &&
                 <Button colorScheme="purple" variant="outline"
                 onClick={() => {onSave(); onClose()}}
                 >Guardar</Button>

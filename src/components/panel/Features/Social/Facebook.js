@@ -63,6 +63,7 @@ const Purge = ({props, data}) => {
           variant="outline"
           onClick={() => {
             setSel({
+              id: -1,
               name: "Nueva página",
               channel: 0,
               type: "-1"
