@@ -1,4 +1,4 @@
-import {useState, useEffect, memo} from 'react'
+import {useState, useEffect} from 'react'
 
 import {
   Button,
@@ -19,13 +19,21 @@ import {
   Stack
 } from "@chakra-ui/react"
 
-// we need to verify the channel id in the drawer before saving the data.
-
 import axios from 'axios'
+import { channelInfoT, ControlT, guildInfoT, optionChannelT } from '../../Panel.d'
 
 const base_url = process.env.REACT_APP_BASE_URL
 
-const SocialModal = ({props, Control, Values, setValues, guildInfo}) => {
+type YoutubeDrawerT = {
+  props: any,
+  Control: ControlT,
+  Values: any,
+  setValues: any,
+  guildInfo: guildInfoT
+}
+
+
+const YoutubeDrawer = ({props, Control, Values, setValues, guildInfo} : YoutubeDrawerT) => {
   const {isOpen, onClose} = Control
   const [newProps, setNewProps] = useState(props)
   const [verified, setVerified] = useState(false)
@@ -34,6 +42,7 @@ const SocialModal = ({props, Control, Values, setValues, guildInfo}) => {
   useEffect(() => {
     if(props.channel_name === "Nuevo canal") setVerified(false)
     else setVerified(true)
+
     setNewProps({...props, error: false})
   }, [props])  
 
@@ -62,7 +71,7 @@ const SocialModal = ({props, Control, Values, setValues, guildInfo}) => {
 
   }, [toVerify, guildInfo, newProps])
 
-  const onIdChange = (nId) => {
+  const onIdChange = (nId : string) => {
     if(nId !== newProps.name){
       setVerified(false)
     }
@@ -72,7 +81,7 @@ const SocialModal = ({props, Control, Values, setValues, guildInfo}) => {
 
   const onDelete = () => {
     if(props.name !== "Nuevo canal"){
-      var newp = Values.filter((v) => {
+      var newp = Values.filter((v : any) => {
         return v.name !== newProps.name
       })
       setValues({youtube: newp})
@@ -83,7 +92,7 @@ const SocialModal = ({props, Control, Values, setValues, guildInfo}) => {
     var newp = Values
     if(props.name !== "Nuevo canal")
     {
-      newp = newp.map(v => 
+      newp = newp.map((v : any) => 
         v.name === props.name
         ? newProps
         : v
@@ -112,13 +121,13 @@ const SocialModal = ({props, Control, Values, setValues, guildInfo}) => {
           </DrawerHeader>
           <DrawerBody>
 
-          <center><Heading as="h2" size="md">Canal</Heading></center>
+          <Box textAlign="center"><Heading as="h2" size="md">Canal</Heading></Box>
             <Select my={5} defaultValue={props.channel}
             onChange={(e) => {setNewProps({...newProps, channel: e.target.value})}}>
               <OptionChannel props={guildInfo.channels}/>
           </Select>
 
-          <center><Heading my={5} as="h2" size="md"><b>ID</b> del canal</Heading></center>
+          <Box textAlign="center"><Heading my={5} as="h2" size="md"><b>ID</b> del canal</Heading></Box>
             <Input placeholder="Ingresar nombre"
               defaultValue={props.name}
               maxLength={200}
@@ -142,7 +151,7 @@ const SocialModal = ({props, Control, Values, setValues, guildInfo}) => {
             }
           </Box>
 
-          <center><Heading my={5} as="h2" size="md">Aviso</Heading></center>
+          <Box textAlign="center"><Heading my={5} as="h2" size="md">Aviso</Heading></Box>
             <RadioGroup 
               defaultValue={props.type}
               onChange={(value) => {setNewProps({...newProps, type: value})}}
@@ -180,15 +189,15 @@ const SocialModal = ({props, Control, Values, setValues, guildInfo}) => {
   </>)
 }
 
-const OptionChannel = memo(({props}) => {
+const OptionChannel = ({props} : optionChannelT) => {
   return (
     <>
-      {props.map((val) => {
+      {props.map((val : channelInfoT) => {
         return <option key={val.id} value={val.id}>{val.name}</option>
       })
       }
     </>
   )
-})
+}
 
-export default SocialModal
+export default YoutubeDrawer;

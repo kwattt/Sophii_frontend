@@ -8,7 +8,9 @@ import Oraculo from './Oraculo'
 import Join from './Join'
 import Leave from './Leave'
 
-const Extra = ({props}) => {
+import {propBType} from './../../Panel.d'
+
+const Extra = ({props} : propBType) => {
   const data = FetchPoint(props.guild, "/api/msg")
 
   return (<>

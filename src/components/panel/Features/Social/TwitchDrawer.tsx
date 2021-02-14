@@ -1,4 +1,4 @@
-import {useState, useEffect, memo} from 'react'
+import {useState, useEffect} from 'react'
 
 import {
   Button,
@@ -14,11 +14,20 @@ import {
   Heading,
   Stack,
   Radio,
-  RadioGroup
+  RadioGroup,
+  Box
 } from "@chakra-ui/react"
+import { channelInfoT, ControlT, guildInfoT, optionChannelT } from '../../Panel.d'
 
+type TwitchDrawerT = {
+  props: any,
+  Control: ControlT,
+  Values: any,
+  setValues: any,
+  guildInfo: guildInfoT
+}
 
-const SocialModal = ({props, Control, Values, setValues, guildInfo}) => {
+const TwitchDrawer = ({props, Control, Values, setValues, guildInfo} : TwitchDrawerT) => {
   const {isOpen, onClose} = Control
   const [newProps, setNewProps] = useState(props)
 
@@ -28,7 +37,7 @@ const SocialModal = ({props, Control, Values, setValues, guildInfo}) => {
 
   const onDelete = () => {
     if(props.type !== "-1"){
-      var newp = Values.filter((v) => {
+      var newp = Values.filter((v : any) => {
         return v.name !== newProps.name
       })
       setValues({twitch: newp})
@@ -39,7 +48,7 @@ const SocialModal = ({props, Control, Values, setValues, guildInfo}) => {
     var newp = Values
     if(props.type !== "-1")
     {
-      newp = newp.map(v => 
+      newp = newp.map((v : any) => 
         v.name === props.name
         ? newProps
         : v
@@ -69,20 +78,20 @@ const SocialModal = ({props, Control, Values, setValues, guildInfo}) => {
 
           <DrawerBody>
 
-            <center><Heading as="h2" size="md">Canal</Heading></center>
+            <Box textAlign="center"><Heading as="h2" size="md">Canal</Heading></Box>
             <Select my={5} defaultValue={props.channel}
             onChange={(e) => {setNewProps({...newProps, channel: e.target.value})}}>
               <OptionChannel props={guildInfo.channels}/>
             </Select>
 
-            <center><Heading my={5} as="h2" size="md">Nombre del streamer</Heading></center>
+            <Box textAlign="center"><Heading my={5} as="h2" size="md">Nombre del streamer</Heading></Box>
             <Input placeholder="Ingresar nombre"
               defaultValue={props.name}
               maxLength={30}
               onChange={(e) => {setNewProps({...newProps, name: e.target.value})}}
             ></Input>
 
-            <center><Heading my={5} as="h2" size="md">Aviso</Heading></center>
+            <Box textAlign="center"><Heading my={5} as="h2" size="md">Aviso</Heading></Box>
               <RadioGroup 
                 defaultValue={props.type}
                 onChange={(value) => {setNewProps({...newProps, type: value})}}
@@ -119,15 +128,15 @@ const SocialModal = ({props, Control, Values, setValues, guildInfo}) => {
   </>)
 }
 
-const OptionChannel = memo(({props}) => {
+const OptionChannel = ({props} : optionChannelT) => {
   return (
     <>
-      {props.map((val) => {
+      {props.map((val : channelInfoT) => {
         return <option key={val.id} value={val.id}>{val.name}</option>
       })
       }
     </>
   )
-})
+}
 
-export default SocialModal
+export default TwitchDrawer;

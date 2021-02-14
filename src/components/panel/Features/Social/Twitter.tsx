@@ -1,21 +1,28 @@
-import { useState, memo } from 'react'
+import { useState } from 'react'
 import { useDebounce } from 'use-debounce'
-import CustomScroller from 'react-custom-scroller';
+import Scrollbars from 'react-custom-scrollbars-2';
 
 import { 
   useDisclosure,
   Box,
   Button, 
   Heading, 
-  Stack
+  Stack,
+  Center
 } from "@chakra-ui/react"
 
 import UpdatePoint from './../updatePoint'
 import SocialModal from './TwitterDrawer'
 
 import Control from './../Alerts/Control'
+import { guildInfoT } from '../../Panel.d';
 
-const Purge = ({props, data}) => {
+type TwitterT = {
+  props: guildInfoT,
+  data: any 
+}
+
+const Twitter = ({props, data} : TwitterT) => {
   const [vals, setVals] = useState(data)
   const [vald] = useDebounce(vals, 1000)
 
@@ -27,16 +34,16 @@ const Purge = ({props, data}) => {
   return (<>
     <Box 
     borderLeft={lineBox}>
-      <center><Heading as="h4" size="md">Twitter</Heading>
-
+      <Box textAlign="center">
+        <Heading as="h4" size="md">Twitter</Heading>
         <Heading paddingTop="10px" as="h6" size="xs">Perfiles activas</Heading>
-      </center>
+      </Box>
 
       <Box
         borderLeft={"solid white 2px"}
       >
 
-        <CustomScroller
+        <Scrollbars
             style={{
               marginTop: "15px",
               height: "192px",
@@ -45,39 +52,39 @@ const Purge = ({props, data}) => {
           >
 
             <Stack spacing="0px" marginRight="0.4vw" paddingX="1vw">
-              <FbButtons setSel={setSel} props={vals.twitter} onOpen={onOpen}/>
+              <TwButtons setSel={setSel} props={vals.twitter} onOpen={onOpen}/>
             </Stack>
 
-          </CustomScroller>
+          </Scrollbars>
 
       </Box>
-      { vals.twitter.length >= 5 && props.tipo !== "2" ?
+      { vals.twitter.length >= 5 && props.tipo !== 2 ?
         "Solo puedes tener 5 perfiles activos!"
       : 
-        <center>
-        <Button 
-          marginTop="5px" 
-          marginLeft="1vw" 
-          borderRadius="sm" 
-          colorScheme="green" 
-          size="sm" 
-          variant="outline"
-          onClick={() => {
-            setSel({
-              id: -1,
-              name: "Nuevo perfil",
-              type: "-1",
-              channel: 0
-            });
-            onOpen()
-          }}
-        >
-          Añadir perfil
-        </Button>
-        </center>
+        <Box textAlign="center">
+          <Button 
+            marginTop="5px" 
+            marginLeft="1vw" 
+            borderRadius="sm" 
+            colorScheme="green" 
+            size="sm" 
+            variant="outline"
+            onClick={() => {
+              setSel({
+                id: -1,
+                name: "Nuevo perfil",
+                type: "-1",
+                channel: 0
+              });
+              onOpen()
+            }}
+          >
+            Añadir perfil
+          </Button>
+        </Box>
 }
 
-      <center><Control status={updateStatus}/></center>
+      <Center><Control status={updateStatus}/></Center>
 
     </Box>
     <SocialModal Control={{isOpen, onClose}} guildInfo={props} props={sel} Values={vals.twitter} setValues={setVals} />
@@ -87,9 +94,15 @@ const Purge = ({props, data}) => {
 
 const lineBox = "solid #323136 1px"
 
-const FbButtons = memo(({props, onOpen, setSel}) => {
+type TwButtonsT = {
+  props: any, 
+  onOpen: () => void, 
+  setSel: any
+}
+
+const TwButtons = ({props, onOpen, setSel} : TwButtonsT) => {
   
-  const setInfo = (val) => {
+  const setInfo = (val : any) => {
     setSel(val)
     onOpen()
   }
@@ -97,12 +110,12 @@ const FbButtons = memo(({props, onOpen, setSel}) => {
   return (
     <>
       {
-        props.map((val,id) => {
+        props.map((val : any, id : number) => {
         return <Button key={id} onClick={() => {setInfo(val)}} value={val.name} borderRadius="sm" colorScheme="orange" variant="outline" size="sm" >{val.name}</Button>
       })
       }
     </>
   )
-})
+}
 
-export default Purge
+export default Twitter;

@@ -21,11 +21,21 @@ import {
   InputGroup,
   InputLeftAddon,
   Select,
+  Box
 
 } from "@chakra-ui/react"
 
+import {guildInfoT, ControlT, channelInfoT, roleInfoT, optionChannelT, optionRolesT} from './../../Panel.d'
 
-const ShopDrawer = ({props, Control, Values, setValues, guildInfo}) => {
+type ShopDrawerT = {
+  props: any,
+  Control: ControlT,
+  Values: any,
+  setValues: any,
+  guildInfo: guildInfoT
+}
+
+const ShopDrawer = ({props, Control, Values, setValues, guildInfo} : ShopDrawerT) => {
   const {isOpen, onClose} = Control
   const [newProps, setNewProps] = useState(props)
 
@@ -35,7 +45,7 @@ const ShopDrawer = ({props, Control, Values, setValues, guildInfo}) => {
 
   const onDelete = () => {
     if(props.type !== "-1"){
-      var newp = Values.filter((v) => {
+      var newp = Values.filter((v : any) => {
         return v.name !== newProps.name
       })
       setValues({...Values, shop: newp})
@@ -47,7 +57,7 @@ const ShopDrawer = ({props, Control, Values, setValues, guildInfo}) => {
 
     if(props.type !== "-1")
     {
-      newp = newp.map(v => 
+      newp = newp.map((v : any) => 
         v.name === props.name
         ? newProps
         : v
@@ -77,7 +87,7 @@ const ShopDrawer = ({props, Control, Values, setValues, guildInfo}) => {
           </DrawerHeader>
 
           <DrawerBody>
-            <center><Heading as="h3" size="sm">Nombre</Heading></center>
+            <Box textAlign="center"><Heading as="h3" size="sm">Nombre</Heading></Box>
         
             <Input 
               mt={2}
@@ -86,7 +96,7 @@ const ShopDrawer = ({props, Control, Values, setValues, guildInfo}) => {
               onChange={(e) => {setNewProps({...newProps, name: e.target.value})}}
             />
 
-            <center><Heading as="h3" size="sm" mt={5}>Precio</Heading></center>
+            <Box textAlign="center"><Heading as="h3" size="sm" mt={5}>Precio</Heading></Box>
 
             <InputGroup 
               size="sm"
@@ -104,7 +114,7 @@ const ShopDrawer = ({props, Control, Values, setValues, guildInfo}) => {
                   </NumberInput>              
                 </InputGroup>
 
-            <center><Heading as="h3" size="sm" mt={5}>Tipo</Heading></center>
+            <Box textAlign="center"><Heading as="h3" size="sm" mt={5}>Tipo</Heading></Box>
 
             <Select
               mt={2}
@@ -119,7 +129,7 @@ const ShopDrawer = ({props, Control, Values, setValues, guildInfo}) => {
 
             { newProps.type === "1" && <>
 
-              <center><Heading as="h4" size="xs" my={2}>Rol</Heading></center>
+              <Box textAlign="center"><Heading as="h4" size="xs" my={2}>Rol</Heading></Box>
 
               <Select
                 size="sm"
@@ -131,7 +141,7 @@ const ShopDrawer = ({props, Control, Values, setValues, guildInfo}) => {
               </>
             }
 
-            <center><Heading as="h3" size="sm" mt={5}>Canal de alerta</Heading></center>
+            <Box textAlign="center"><Heading as="h3" size="sm" mt={5}>Canal de alerta</Heading></Box>
 
             <Select
                 mt={2}
@@ -170,12 +180,11 @@ const ShopDrawer = ({props, Control, Values, setValues, guildInfo}) => {
   </>)
 }
 
-
-const SelectRole = ({props}) => {
+const SelectRole = ({props} : optionRolesT) => {
   
   return (
     <>
-      {props.map((val) => {
+      {props.map((val : roleInfoT) => {
         return <option key={val.id} value={val.id}>{val.name}</option>
       })
       }
@@ -183,11 +192,11 @@ const SelectRole = ({props}) => {
   )
 }
 
-const SelectChannel = ({props}) => {
+const SelectChannel = ({props} : optionChannelT) => {
   
   return (
     <>
-      {props.map((val) => {
+      {props.map((val : channelInfoT) => {
         return <option key={val.id} value={val.id}>{val.name}</option>
       })
       }

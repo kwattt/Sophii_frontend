@@ -18,10 +18,20 @@ import {
   Heading,
   Stack,
   InputLeftAddon,
-  Badge
+  Badge,
+  Box
 } from "@chakra-ui/react"
 
-const PurgeModal = ({props, Control, Values, setValues}) => {
+import {ControlT} from './../../Panel.d'
+
+type PurgeDrawerT = {
+  props: any,
+  Control: ControlT,
+  Values: any,
+  setValues: any,
+}
+
+const PurgeDrawer = ({props, Control, Values, setValues} : PurgeDrawerT) => {
   const {isOpen, onClose} = Control
   const [newProps, setNewProps] = useState(props)
 
@@ -30,7 +40,7 @@ const PurgeModal = ({props, Control, Values, setValues}) => {
   }, [props])
 
   const onDelete = () => {
-    var newp = Values.filter((v) => {
+    var newp = Values.filter((v : any) => {
       return v.channel !== newProps.channel
     })
     setValues(newp)
@@ -57,14 +67,14 @@ const PurgeModal = ({props, Control, Values, setValues}) => {
             </DrawerHeader>
 
             <DrawerBody>
-                <center>
+                <Box textAlign="center">
                   <Heading as="h4" size="md" mt={13}>Estado</Heading>
                   {props.active ?
                     <Badge ml="1" fontSize="0.8em" mb={13} colorScheme="green">Activo</Badge>
                   :
                     <Badge ml="1" fontSize="0.8em" mb={13} colorScheme="red">Inactivo</Badge>
                   }
-                </center>
+                </Box>
                 <Stack spacing={1}>
                 <InputGroup size ="sm">
                     <InputLeftAddon children="Hora"/>
@@ -74,7 +84,7 @@ const PurgeModal = ({props, Control, Values, setValues}) => {
                       borderRadius={2} 
                       max={23} 
                       min={0} 
-                      inputMode="number"
+                      inputMode="numeric"
                       defaultValue={props.hour}
                       onChange={(e) => {setNewProps({...newProps, hour: e})}}>
                       <NumberInputField />
@@ -93,7 +103,7 @@ const PurgeModal = ({props, Control, Values, setValues}) => {
                       borderRadius={2} 
                       max={59} 
                       min={0} 
-                      inputMode="number"
+                      inputMode="numeric"
                       defaultValue={props.minute}
                       onChange={(e) => {setNewProps({...newProps, minute: e})}}>
                       <NumberInputField />
@@ -113,7 +123,7 @@ const PurgeModal = ({props, Control, Values, setValues}) => {
                       max={14} 
                       min={-12} 
                       disabled={1}
-                      inputMode="number"
+                      inputMode="numeric"
                       defaultValue={props.utc}
                       onChange={(e) => {setNewProps({...newProps, utc: e})}}>
                       <NumberInputField />
@@ -145,4 +155,4 @@ const PurgeModal = ({props, Control, Values, setValues}) => {
     </>)
 }
 
-export default PurgeModal
+export default PurgeDrawer;

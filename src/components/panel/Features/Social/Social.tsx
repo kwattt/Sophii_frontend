@@ -8,7 +8,9 @@ import Facebook from './Facebook'
 import Twitter from './Twitter'
 import Youtube from './Youtube'
 
-const Purge = ({props}) => {
+import {propBType} from './../../Panel.d'
+
+const Purge = ({props} : propBType) => {
   const data = FetchPoint(props.guild, "/api/social")
   return (<>
     {data === "loading" && <Loading/>}

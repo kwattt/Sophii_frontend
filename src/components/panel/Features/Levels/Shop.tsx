@@ -85,12 +85,10 @@ const Store = ({props, data} : StoreT) => {
     </Box>
 
     <ShopDrawer Control={{isOpen, onClose}} guildInfo={props} props={sel} Values={vals.shop} setValues={setVals} />
-
   </>
-
   )
-
 }
+
 const lineBox = "solid #323136 1px"
 
 type StoreItemsT = {

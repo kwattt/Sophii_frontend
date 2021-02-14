@@ -1,4 +1,4 @@
-import {useState, useEffect, memo} from 'react'
+import {useState, useEffect} from 'react'
 
 import {
   Button,
@@ -11,14 +11,24 @@ import {
   DrawerCloseButton,
   Select,
   Input,
+  Box,
   Heading,
   RadioGroup,
   Radio,
   Stack
 } from "@chakra-ui/react"
 
+import { channelInfoT, ControlT, guildInfoT, optionChannelT } from '../../Panel.d'
 
-const SocialModal = ({props, Control, Values, setValues, guildInfo}) => {
+type FacebookDrawerT = {
+  props: any,
+  Control: ControlT,
+  Values: any,
+  setValues: any,
+  guildInfo: guildInfoT
+}
+
+const FacebookDrawer = ({props, Control, Values, setValues, guildInfo} : FacebookDrawerT) => {
   const {isOpen, onClose} = Control
   const [newProps, setNewProps] = useState(props)
 
@@ -28,7 +38,7 @@ const SocialModal = ({props, Control, Values, setValues, guildInfo}) => {
 
   const onDelete = () => {
     if(props.name !== "Nueva página"){
-      var newp = Values.filter((v) => {
+      var newp = Values.filter((v : any) => {
         return v.name !== newProps.name
       })
       setValues({facebook: newp})
@@ -39,7 +49,7 @@ const SocialModal = ({props, Control, Values, setValues, guildInfo}) => {
     var newp = Values
     if(props.name !== "Nueva página")
     {
-      newp = newp.map(v => 
+      newp = newp.map((v : any) => 
         v.name === props.name
         ? newProps
         : v
@@ -67,29 +77,34 @@ const SocialModal = ({props, Control, Values, setValues, guildInfo}) => {
 
           <DrawerBody>
 
-            <center><Heading as="h2" size="md">Canal</Heading></center>
-            <Select my={5} defaultValue={props.channel}
-            onChange={(e) => {setNewProps({...newProps, channel: e.target.value})}}>
+            <Box textAlign="center"><Heading as="h2" size="md">Canal</Heading></Box>
+
+            <Select 
+              my={5} 
+              defaultValue={props.channel}
+              onChange={(e) => {setNewProps({...newProps, channel: e.target.value})}}
+            >
               <OptionChannel props={guildInfo.channels}/>
             </Select>
 
-            <center><Heading my={5} as="h2" size="md">Nombre de la página</Heading></center>
+            <Box textAlign="center"><Heading my={5} as="h2" size="md">Nombre de la página</Heading></Box>
             <Input placeholder="Ingresar nombre"
               defaultValue={props.name}
               maxLength={200}
               onChange={(e) => {setNewProps({...newProps, name: e.target.value})}}
-            ></Input>
+            />
 
-            <center><Heading my={5} as="h2" size="md">Aviso</Heading></center>
-              <RadioGroup 
-                defaultValue={props.type}
-                onChange={(value) => {setNewProps({...newProps, type: value})}}
-              >
-                <Stack direction="row">
-                  <Radio value={"0"}>Ninguno</Radio>
-                  <Radio value={"1"}>@Here</Radio>
-                  <Radio value={"2"}>@Everyone</Radio>
-                </Stack>
+            <Box textAlign="center"><Heading my={5} as="h2" size="md">Aviso</Heading></Box>
+            
+            <RadioGroup 
+              defaultValue={props.type}
+              onChange={(value) => {setNewProps({...newProps, type: value})}}
+            >
+              <Stack direction="row">
+                <Radio value={"0"}>Ninguno</Radio>
+                <Radio value={"1"}>@Here</Radio>
+                <Radio value={"2"}>@Everyone</Radio>
+              </Stack>
             </RadioGroup>
           </DrawerBody>
 
@@ -116,15 +131,15 @@ const SocialModal = ({props, Control, Values, setValues, guildInfo}) => {
   </>)
 }
 
-const OptionChannel = memo(({props}) => {
+const OptionChannel = ({props} : optionChannelT) => {
   return (
     <>
-      {props.map((val) => {
+      {props.map((val : channelInfoT) => {
         return <option key={val.id} value={val.id}>{val.name}</option>
       })
       }
     </>
   )
-})
+}
 
-export default SocialModal    
+export default FacebookDrawer;

@@ -1,6 +1,3 @@
-
-
-
 import { useState } from 'react'
 import { useDebounce } from 'use-debounce'
 
@@ -8,13 +5,22 @@ import {
   Textarea,
   Box,
   Heading,
+  Center,
 
 } from '@chakra-ui/react'
 
 import UpdatePoint from './../updatePoint'
 import Control from './../Alerts/Control'
 
-const Oraculo = ({props, data}) => {
+import { guildInfoT } from '../../Panel.d'
+
+type JoinT = {
+  props: guildInfoT,
+  data: any
+}
+
+
+const Join = ({props, data} : JoinT) => {
   const [vals, setVals] = useState(data)
   const [vald] = useDebounce(vals, 1000)
   const updateStatus = UpdatePoint(props.guild, vald, data, "/api/updateMsg")
@@ -22,12 +28,12 @@ const Oraculo = ({props, data}) => {
   return (<Box
     borderLeft={lineBox}>
 
-      <center><Heading as="h4" size="md">Oráculo</Heading>
+      <Box textAlign="center">
+        <Heading as="h4" size="md">Entrada</Heading>
+        <Heading paddingTop="10px" as="h6" size="xs">Mensajes de entrada (r: {1500 - vals.join.length})</Heading>
+      </Box>
 
-      <Heading paddingTop="10px" as="h6" size="xs">Mensajes activos  (r: {1500 - vals.oraculo.length})</Heading>
-      </center>
-
-      <Box>
+      <Box textAlign="center">
         <Textarea
         isInvalid={updateStatus === "invalid"}
         size="sm"
@@ -37,17 +43,17 @@ const Oraculo = ({props, data}) => {
         borderRadius="sm"
         borderLeft="solid white 2px"
         resize="vertical"
-        onChange={(e) => {setVals({...vals, oraculo: e.target.value})}}
-        defaultValue={vals.oraculo}
+        onChange={(e) => {setVals({...vals, join: e.target.value})}}
+        defaultValue={vals.join}
         height={185}
-        />
+      />
 
       </Box>
-      <center><Control status={updateStatus}/></center>
+      <Center><Control status={updateStatus}/></Center>
 
     </Box>)
 }
 
 const lineBox = "solid #323136 1px"
 
-export default Oraculo
+export default Join;

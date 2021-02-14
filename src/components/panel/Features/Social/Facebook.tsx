@@ -1,21 +1,28 @@
-import { useState, memo } from 'react'
+import { useState } from 'react'
 import { useDebounce } from 'use-debounce'
-import CustomScroller from 'react-custom-scroller';
+import Scrollbars from 'react-custom-scrollbars-2';
 
 import { 
   useDisclosure,
   Box,
   Button, 
   Heading, 
-  Stack
+  Stack,
+  Center
 } from "@chakra-ui/react"
 
 import UpdatePoint from './../updatePoint'
 import SocialModal from './FacebookDrawer'
 
 import Control from './../Alerts/Control'
+import { guildInfoT } from '../../Panel.d';
 
-const Purge = ({props, data}) => {
+type FacebookT = {
+  props: guildInfoT,
+  data: any
+}
+
+const Facebook = ({props, data} : FacebookT) => {
   const [vals, setVals] = useState(data)
   const [vald] = useDebounce(vals, 1000)
 
@@ -27,16 +34,16 @@ const Purge = ({props, data}) => {
   return (<>
     <Box 
     borderLeft={lineBox}>
-      <center><Heading as="h4" size="md">Facebook</Heading>
+      <Box textAlign="center"><Heading as="h4" size="md">Facebook</Heading>
 
         <Heading paddingTop="10px" as="h6" size="xs">Páginas activas</Heading>
-      </center>
+      </Box>
 
       <Box
         borderLeft={"solid white 2px"}
       >
 
-        <CustomScroller
+        <Scrollbars
             style={{
               marginTop: "15px",
               height: "192px",
@@ -48,32 +55,36 @@ const Purge = ({props, data}) => {
               <FbButtons setSel={setSel} props={vals.facebook} onOpen={onOpen}/>
             </Stack>
 
-          </CustomScroller>
+          </Scrollbars>
 
       </Box>
-      { vals.facebook.length >= 5 && props.tipo !== "2" ?
+      { vals.facebook.length >= 5 && props.tipo !== 2 ?
         "Solo puedes tener 5 páginas activos!"
       : 
-        <center><Button 
-          marginTop="5px" 
-          marginLeft="1vw" 
-          borderRadius="sm" 
-          colorScheme="green" 
-          size="sm" 
-          variant="outline"
-          onClick={() => {
-            setSel({
-              id: -1,
-              name: "Nueva página",
-              channel: 0,
-              type: "-1"
-            });
-            onOpen()
-          }}
-          >Añadir página</Button></center>
+        <Box textAlign="center">
+          <Button 
+            marginTop="5px" 
+            marginLeft="1vw" 
+            borderRadius="sm" 
+            colorScheme="green" 
+            size="sm" 
+            variant="outline"
+            onClick={() => {
+              setSel({
+                id: -1,
+                name: "Nueva página",
+                channel: 0,
+                type: "-1"
+              });
+              onOpen()
+            }}
+          >
+            Añadir página
+          </Button>
+        </Box>
 }
 
-      <center><Control status={updateStatus}/></center>
+      <Center><Control status={updateStatus}/></Center>
 
     </Box>
     <SocialModal Control={{isOpen, onClose}} guildInfo={props} props={sel} Values={vals.facebook} setValues={setVals} />
@@ -83,9 +94,14 @@ const Purge = ({props, data}) => {
 
 const lineBox = "solid #323136 1px"
 
-const FbButtons = memo(({props, onOpen, setSel}) => {
-  
-  const setInfo = (val) => {
+type FbButtonsT = {
+  props: any,
+  onOpen: () => void,
+  setSel: any
+} 
+
+const FbButtons = ({props, onOpen, setSel}: FbButtonsT) => {
+  const setInfo = (val : any) => {
     setSel(val)
     onOpen()
   }
@@ -93,12 +109,12 @@ const FbButtons = memo(({props, onOpen, setSel}) => {
   return (
     <>
       {
-        props.map((val,id) => {
+        props.map((val : any, id : number) => {
         return <Button key={id} onClick={() => {setInfo(val)}} value={val.name} borderRadius="sm" colorScheme="orange" variant="outline" size="sm" >{val.name}</Button>
       })
       }
     </>
   )
-})
+}
 
-export default Purge
+export default Facebook;

@@ -2,11 +2,13 @@ import Loading from './../Loading'
 import Error from './../Error'
 
 import FetchPoint from './../fetchPoint'
-
 import PurgeList from './PurgeList'
 
-const Purge = ({props}) => {
+import { propBType } from './../../Panel.d'
+
+const Purge = ({props} : propBType) => {
   const data = FetchPoint(props.guild, "/api/purge")
+
   return (<>
     {data === "loading" && <Loading/>}
 

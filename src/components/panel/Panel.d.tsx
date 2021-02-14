@@ -1,3 +1,8 @@
+export type ControlT = {
+  isOpen: boolean,
+  onClose: () => void
+}
+
 export type ContentsT = {
   props: Array<string>
 }

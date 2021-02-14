@@ -1,6 +1,6 @@
-import { useState, memo } from 'react'
+import { useState } from 'react'
 import { useDebounce } from 'use-debounce'
-import CustomScroller from 'react-custom-scroller';
+import Scrollbars from 'react-custom-scrollbars-2';
 
 import { 
   useDisclosure,
@@ -14,8 +14,14 @@ import UpdatePoint from './../updatePoint'
 import SocialModal from './YoutubeDrawer'
 
 import Control from './../Alerts/Control'
+import { guildInfoT } from '../../Panel.d';
 
-const Purge = ({props, data}) => {
+type YoutubeT = {
+  props: guildInfoT,
+  data: any
+}
+
+const Youtube = ({props, data} : YoutubeT) => {
   const [vals, setVals] = useState(data)
   const [vald] = useDebounce(vals, 1000)
 
@@ -27,16 +33,16 @@ const Purge = ({props, data}) => {
   return (<>
     <Box 
     borderLeft={lineBox}>
-      <center><Heading as="h4" size="md">Youtube</Heading>
-
+      <Box textAlign="center">
+        <Heading as="h4" size="md">Youtube</Heading>
         <Heading paddingTop="10px" as="h6" size="xs">Canales activos</Heading>
-      </center>
+      </Box>
 
       <Box
         borderLeft={"solid white 2px"}
       >
 
-        <CustomScroller
+        <Scrollbars
             style={{
               marginTop: "15px",
               height: "192px",
@@ -48,37 +54,37 @@ const Purge = ({props, data}) => {
               <YtButtons setSel={setSel} props={vals.youtube} onOpen={onOpen}/>
             </Stack>
 
-          </CustomScroller>
+          </Scrollbars>
 
       </Box>
-      { vals.youtube.length >=35 && props.tipo !== "2" ?
+      { vals.youtube.length >=35 && props.tipo !== 2 ?
         "Solo puedes tener 3 canales activos!"
       : 
-        <center>
-        <Button 
-          marginTop="5px" 
-          marginLeft="1vw" 
-          borderRadius="sm" 
-          colorScheme="green" 
-          size="sm" 
-          variant="outline"
-          onClick={() => {
-            setSel({
-              id: -1,
-              name: "Nuevo canal",
-              channel_name: "Nuevo canal",
-              type: "-1",
-              channel: 0
-            });
-            onOpen()
-          }}
-        >
-          Añadir canal
-        </Button>
-        </center>
+        <Box textAlign="center">
+          <Button 
+            marginTop="5px" 
+            marginLeft="1vw" 
+            borderRadius="sm" 
+            colorScheme="green" 
+            size="sm" 
+            variant="outline"
+            onClick={() => {
+              setSel({
+                id: -1,
+                name: "Nuevo canal",
+                channel_name: "Nuevo canal",
+                type: "-1",
+                channel: 0
+              });
+              onOpen()
+            }}
+          >
+            Añadir canal
+          </Button>
+        </Box>
 }
 
-      <center><Control status={updateStatus}/></center>
+      <Box textAlign="center"><Control status={updateStatus}/></Box>
 
     </Box>
     <SocialModal Control={{isOpen, onClose}} guildInfo={props} props={sel} Values={vals.youtube} setValues={setVals} />
@@ -88,9 +94,15 @@ const Purge = ({props, data}) => {
 
 const lineBox = "solid #323136 1px"
 
-const YtButtons = memo(({props, onOpen, setSel}) => {
+type YtButtonsT = {
+  props: any
+  onOpen: () =>  void,
+  setSel: any
+}
 
-  const setInfo = (val) => {
+const YtButtons = ({props, onOpen, setSel} : YtButtonsT) => {
+
+  const setInfo = (val : any) => {
     setSel(val)
     onOpen()
   }
@@ -98,12 +110,12 @@ const YtButtons = memo(({props, onOpen, setSel}) => {
   return (
     <>
       {
-        props.map((val,id) => {
+        props.map((val: any, id : number) => {
         return <Button key={id} onClick={() => {setInfo(val)}} value={val.name} borderRadius="sm" colorScheme="orange" variant="outline" size="sm" >{val.channel_name}</Button>
       })
       }
     </>
   )
-})
+}
 
-export default Purge
+export default Youtube;

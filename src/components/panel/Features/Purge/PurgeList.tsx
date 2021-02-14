@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useDebounce } from 'use-debounce'
-import CustomScroller from 'react-custom-scroller';
+import Scrollbars from 'react-custom-scrollbars-2'
 
 import { 
   useDisclosure,
@@ -11,11 +11,17 @@ import {
 } from "@chakra-ui/react"
 
 import UpdatePoint from './../updatePoint'
-import PurgeModal from './PurgeModal'
+import PurgeDrawer from './PurgeDrawer'
 
 import Control from './../Alerts/Control'
+import { guildInfoT, channelInfoT } from '../../Panel.d'
 
-const Purge = ({props, data}) => {
+type PurgeT = {
+  props : guildInfoT 
+  data: any 
+}
+
+const Purge = ({props, data} : PurgeT) => {
   const [vals, setVals] = useState(data)
   const [vald] = useDebounce(vals, 1000)
 
@@ -28,13 +34,13 @@ const Purge = ({props, data}) => {
     <Box
     borderLeft={lineBox}>
 
-      <center><Heading as="h4" size="md">Limpieza</Heading>
+      <Box textAlign="center"><Heading as="h4" size="md">Limpieza</Heading>
 
       <Heading py="10px" as="h6" size="xs">Canales</Heading>
 
-      </center>
+      </Box>
 
-      <CustomScroller
+      <Scrollbars
           style={{
             marginTop: "15px",
             marginBottom: "15px",
@@ -46,24 +52,32 @@ const Purge = ({props, data}) => {
           <Stack spacing={1}>
             <ButtonChannels onOpen={onOpen} props={props.channels} setSel={setSel} vals={vals}/>
           </Stack>
-        </CustomScroller>
+        </Scrollbars>
     
-        <center><Control status={updateStatus}/></center>
+        <Box textAlign="center"><Control status={updateStatus}/></Box>
 
     </Box>
-    <PurgeModal props={sel} Control={{isOpen, onClose}} Values={vals} setValues={setVals}/>
+    <PurgeDrawer props={sel} Control={{isOpen, onClose}} Values={vals} setValues={setVals}/>
 
   </>)
 }
 
 const lineBox = "solid #323136 1px"
 
-const ButtonChannels = ({props, vals, setSel, onOpen}) => {
-  const selected = vals.map((v) => {return v.channel})
+type ButtonChannelsT = {
+  props: Array<channelInfoT>,
+  vals: any,
+  setSel: any, 
+  onOpen: () => void
+}
 
-  const handleClick = (val) => {
+const ButtonChannels = ({props, vals, setSel, onOpen} : ButtonChannelsT) => {
 
-    const res = vals.find((c) => {return c.channel === val.id})
+  const selected = vals.map((v : any) => {return v.channel})
+
+  const handleClick = (val : channelInfoT) => {
+
+    const res = vals.find((c : any) => {return c.channel === val.id})
     if(res){
       setSel({...res, active: 1, name: val.name})
     }
@@ -80,7 +94,7 @@ const ButtonChannels = ({props, vals, setSel, onOpen}) => {
 
   return (
     <>
-      {props.map((val) => {
+      {props.map((val : channelInfoT) => {
         return <Button 
           size="sm"
           borderRadius="50"
