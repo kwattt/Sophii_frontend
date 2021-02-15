@@ -27,6 +27,7 @@ const Panel = () => {
     guild: "0",
     roles: [],
     channels: [],
+    voices: [],
     stalk: 0,
     bday: 0, 
     welcome: 0,
@@ -63,7 +64,7 @@ const Panel = () => {
         <div id="Panel">
 
         <Box display={{sm: "none", base: "block"}} > 
-        {"Una versión para resoluciones menores estará disponible pronto. Una disculpa :("}
+          {"Una versión para resoluciones menores estará disponible pronto. Una disculpa :("}
         </Box>
         
         <Box marginTop="25px"> 
@@ -124,6 +125,6 @@ const Contents = ({props} : ContentsT) => {
   </>)
 }
 
-const tList: Array<string> = ["Inicio", "Basico", "Social", "Mensajes", "Extra", "Limpieza", "Niveles"]
+const tList: Array<string> = ["Inicio", "Basico", "Social", "Mensajes", "Extra", "Extra II", "Niveles"]
 
-export default Panel
+export default Panel;

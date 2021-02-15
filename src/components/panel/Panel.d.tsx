@@ -21,6 +21,7 @@ export interface guildInfoT {
   guild: string,
   roles: Array<roleInfoT>,
   channels: Array<channelInfoT>,
+  voices: Array<channelInfoT>,
   stalk: number,
   bday: number,
   welcome: number,
@@ -42,11 +43,6 @@ export type optionChannelT = {
 
 export type optionRolesT = {
   props: Array<roleInfoT>
-}
-
-export type serverSelectT = {
-  setSel: any, 
-  setTabIndex: any   
 }
 
 export type guildData = {

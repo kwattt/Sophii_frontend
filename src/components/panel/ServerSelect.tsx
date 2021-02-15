@@ -7,15 +7,20 @@ import {
   Spinner
 } from '@chakra-ui/react'
 
-import {serverSelectT, guildData} from './Panel.d'
+import { guildData, guildInfoT } from './Panel.d'
+import { Dispatch } from 'react'
 const base_url = process.env.REACT_APP_BASE_URL
+
+type serverSelectT = {
+  setSel: Dispatch<guildInfoT>,
+  setTabIndex: Dispatch<number>
+}
 
 const ServerSelect = ({setSel, setTabIndex} : serverSelectT) => {
   const guilds = FetchGuilds()
 
   const changeGuild = (guild : string) =>{
     const fetchData = async() => {
-      console.log("fetching", guild)
       axios.get(base_url + "/api/getGuildInfo",
       {
           params: {
@@ -29,6 +34,7 @@ const ServerSelect = ({setSel, setTabIndex} : serverSelectT) => {
           guild: guild,
           roles: response.data.roles,
           channels: response.data.channels,
+          voices: response.data.voices,
           stalk: response.data.stalk,
           bday: response.data.bday, 
           bdaymsg: response.data.bdaymsg, 

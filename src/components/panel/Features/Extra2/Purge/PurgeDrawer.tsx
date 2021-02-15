@@ -22,7 +22,7 @@ import {
   Box
 } from "@chakra-ui/react"
 
-import {ControlT} from './../../Panel.d'
+import {ControlT} from '../../../Panel.d'
 
 type PurgeDrawerT = {
   props: any,

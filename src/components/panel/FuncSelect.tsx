@@ -1,7 +1,7 @@
 import Social from './Features/Social/Social'
 import Msg from './Features/Msg/Msg'
 import Extra from './Features/Extra/Extra'
-import Purge from './Features/Purge/Purge'
+import Extra2 from './Features/Extra2/Extra2'
 import Default from './Features/Default/Default'
 import Basic from './Features/Basic/Basic'
 import Levels from './Features/Levels/Levels'
@@ -31,8 +31,8 @@ const FuncSelect = ({selTab, props} : FuncSelectT) => {
       {selTab === "Extra" &&
         <Extra props={props}/>
       }
-      {selTab === "Limpieza" &&
-        <Purge props={props}/>
+      {selTab === "Extra II" &&
+        <Extra2 props={props}/>
       }
       {selTab === "Niveles" &&
         <Levels props={props}/>

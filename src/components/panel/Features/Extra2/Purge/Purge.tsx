@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { Dispatch, useState } from 'react'
 import { useDebounce } from 'use-debounce'
 import Scrollbars from 'react-custom-scrollbars-2'
 
@@ -10,54 +10,59 @@ import {
   Stack
 } from "@chakra-ui/react"
 
-import UpdatePoint from './../updatePoint'
+import UpdatePoint from '../../updatePoint'
 import PurgeDrawer from './PurgeDrawer'
 
-import Control from './../Alerts/Control'
-import { guildInfoT, channelInfoT } from '../../Panel.d'
+import Control from '../../Alerts/Control'
+import { guildInfoT, channelInfoT } from '../../../Panel.d'
 
-type PurgeT = {
+import {PurgeT} from './../Extra2.d'
+
+type PurgeDT = {
   props : guildInfoT 
-  data: any 
+  data: Array<PurgeT> 
 }
 
-const Purge = ({props, data} : PurgeT) => {
-  const [vals, setVals] = useState(data)
+const Purge = ({props, data} : PurgeDT) => {
+  const [vals, setVals] = useState<PurgeT[]>(data)
   const [vald] = useDebounce(vals, 1000)
 
-  const [sel, setSel] = useState({})
+  const [sel, setSel] = useState<PurgeT | undefined>(undefined)
 
   const {isOpen, onOpen, onClose} = useDisclosure()
   const updateStatus = UpdatePoint(props.guild, vald, data, "/api/updatePurge")
 
   return (<>
     <Box
-    borderLeft={lineBox}>
+      borderLeft={lineBox}
+    >
 
-      <Box textAlign="center"><Heading as="h4" size="md">Limpieza</Heading>
-
-      <Heading py="10px" as="h6" size="xs">Canales</Heading>
-
+      <Box textAlign="center">
+        <Heading as="h4" size="md">Limpieza</Heading>
+        <Heading py="10px" as="h6" size="xs">Canales</Heading>
       </Box>
 
       <Scrollbars
-          style={{
-            marginTop: "15px",
-            marginBottom: "15px",
-            height: "214px",
-            textAlign: "justify",
-            borderLeft: "solid white 2px"
-          }}
-        >
-          <Stack spacing={1}>
-            <ButtonChannels onOpen={onOpen} props={props.channels} setSel={setSel} vals={vals}/>
-          </Stack>
-        </Scrollbars>
+        style={{
+          marginTop: "15px",
+          marginBottom: "15px",
+          height: "214px",
+          textAlign: "justify",
+          borderLeft: "solid white 2px"
+        }}
+      >
+        <Stack spacing={1}>
+          <ButtonChannels onOpen={onOpen} props={props.channels} setSel={setSel} vals={vals}/>
+        </Stack>
+      </Scrollbars>
     
         <Box textAlign="center"><Control status={updateStatus}/></Box>
 
     </Box>
-    <PurgeDrawer props={sel} Control={{isOpen, onClose}} Values={vals} setValues={setVals}/>
+    {
+      typeof sel !== "undefined" &&
+        <PurgeDrawer props={sel} Control={{isOpen, onClose}} Values={vals} setValues={setVals}/>
+    }
 
   </>)
 }
@@ -66,18 +71,18 @@ const lineBox = "solid #323136 1px"
 
 type ButtonChannelsT = {
   props: Array<channelInfoT>,
-  vals: any,
-  setSel: any, 
+  vals: Array<PurgeT>,
+  setSel: Dispatch<PurgeT>, 
   onOpen: () => void
 }
 
 const ButtonChannels = ({props, vals, setSel, onOpen} : ButtonChannelsT) => {
 
-  const selected = vals.map((v : any) => {return v.channel})
-
+  const selected = vals.map((v : PurgeT) => {return v.channel})
+ 
   const handleClick = (val : channelInfoT) => {
 
-    const res = vals.find((c : any) => {return c.channel === val.id})
+    const res = vals.find((c : PurgeT) => {return c.channel === val.id})
     if(res){
       setSel({...res, active: 1, name: val.name})
     }
