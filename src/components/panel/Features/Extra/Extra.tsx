@@ -8,9 +8,10 @@ import StalkMsg from './StalkMsg'
 import Birthday from './Birthday'
 
 import {propBType} from './../../Panel.d'
+import { ExtraT } from './Extra.d'
 
 const Extra = ({props} : propBType) => {
-  const data = FetchPoint(props.guild, "/api/extra")
+  const data : ExtraT | string = FetchPoint(props.guild, "/api/extra")
 
   return (<>
     {data === "loading" && <Loading/>}
@@ -18,11 +19,12 @@ const Extra = ({props} : propBType) => {
     {data === "error" ? <Error/>
     :
       <>
-      {data !== undefined && data !== "loading" &&
+      {data !== "loading" &&
+      typeof data !== "string" && 
         <>
-
+        
         <Stalk props={props} data={{stalk: data.stalk, role: data.role}}/>
-        <StalkMsg props={props} data={{msg: data.msg}}/>
+        <StalkMsg props={props} data={data.msg}/>
         <Birthday props={props} data={{bday: data.bday, bdaymsg: data.bdaymsg, bdayutc: data.bdayutc}}/>
 
         </>

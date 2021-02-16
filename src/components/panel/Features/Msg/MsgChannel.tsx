@@ -13,17 +13,18 @@ import {
 import UpdatePoint from './../updatePoint'
 import Control from './../Alerts/Control'
 import { guildInfoT, optionChannelT, channelInfoT } from '../../Panel.d'
+import { channel } from './Msg.d'
 
 type MsgChannelT = {
   props: guildInfoT,
-  data: any 
+  data: channel 
 }
 
 const MsgChannel = ({props, data} : MsgChannelT) => {
   const [vals, setVals] = useState(data)
   const [vald] = useDebounce(vals, 200)
 
-  const updateStatus = UpdatePoint(props.guild, vald, data, "/api/updateMsg")
+  const updateStatus = UpdatePoint(props.guild, vald, data, "/api/updateMsg", "channel")
 
   return (<Box
     borderLeft={lineBox}>
@@ -34,9 +35,10 @@ const MsgChannel = ({props, data} : MsgChannelT) => {
 
       <Select 
         my={5} 
-        defaultValue={data.channel}
+        defaultValue={data}
         size="sm"
-      onChange={(e) => {setVals({...vals, channel: e.target.value})}}>
+      onChange={(e) => {setVals(e.target.value)}}>
+        <option value="0">Deshabilitado</option>
         <OptionChannel props={props.channels}/>
       </Select>
 

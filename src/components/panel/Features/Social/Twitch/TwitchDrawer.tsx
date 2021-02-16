@@ -1,4 +1,4 @@
-import {useState, useEffect} from 'react'
+import {useState, useEffect, Dispatch} from 'react'
 
 import {
   Button,
@@ -17,13 +17,14 @@ import {
   RadioGroup,
   Box
 } from "@chakra-ui/react"
-import { channelInfoT, ControlT, guildInfoT, optionChannelT } from '../../Panel.d'
+import { channelInfoT, ControlT, guildInfoT, optionChannelT } from '../../../Panel.d'
+import { TwitchT } from './Twitch.d'
 
 type TwitchDrawerT = {
-  props: any,
+  props: TwitchT,
   Control: ControlT,
-  Values: any,
-  setValues: any,
+  Values: Array<TwitchT>,
+  setValues: Dispatch<TwitchT[]>,
   guildInfo: guildInfoT
 }
 
@@ -36,19 +37,19 @@ const TwitchDrawer = ({props, Control, Values, setValues, guildInfo} : TwitchDra
   }, [props])
 
   const onDelete = () => {
-    if(props.type !== "-1"){
-      var newp = Values.filter((v : any) => {
+    if(props.type !== -1){
+      var newp = Values.filter((v : TwitchT) => {
         return v.name !== newProps.name
       })
-      setValues({twitch: newp})
+      setValues(newp)
     }
   }
 
   const onSave = () => {
     var newp = Values
-    if(props.type !== "-1")
+    if(props.type !== -1)
     {
-      newp = newp.map((v : any) => 
+      newp = newp.map((v : TwitchT) => 
         v.name === props.name
         ? newProps
         : v
@@ -57,7 +58,7 @@ const TwitchDrawer = ({props, Control, Values, setValues, guildInfo} : TwitchDra
     else {
       newp = [...newp, newProps]
     }
-    setValues({twitch: newp})
+    setValues(newp)
   }
 
   return (<>
@@ -71,7 +72,7 @@ const TwitchDrawer = ({props, Control, Values, setValues, guildInfo} : TwitchDra
           <DrawerCloseButton />
 
           <DrawerHeader>  
-            {props.type !== "-1" 
+            {props.type !== -1 
             ? props.name
             : "Nuevo stream"}
           </DrawerHeader>
@@ -93,8 +94,8 @@ const TwitchDrawer = ({props, Control, Values, setValues, guildInfo} : TwitchDra
 
             <Box textAlign="center"><Heading my={5} as="h2" size="md">Aviso</Heading></Box>
               <RadioGroup 
-                defaultValue={props.type}
-                onChange={(value) => {setNewProps({...newProps, type: value})}}
+                defaultValue={props.type.toString()}
+                onChange={(value) => {setNewProps({...newProps, type: Number(value)})}}
               >
                 <Stack direction="row">
                   <Radio value={"0"}>Ninguno</Radio>
@@ -114,7 +115,7 @@ const TwitchDrawer = ({props, Control, Values, setValues, guildInfo} : TwitchDra
           }
 
             {
-              (newProps.name !== "Nuevo stream" && newProps.type !== "-1") &&
+              (newProps.name !== "Nuevo stream" && newProps.type !== -1) &&
                 <Button colorScheme="purple" variant="outline"
                 onClick={() => {onSave(); onClose()}}
                 >Guardar</Button>

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { Dispatch, useState } from 'react'
 import { useDebounce } from 'use-debounce'
 import Scrollbars from 'react-custom-scrollbars-2';
 
@@ -11,25 +11,26 @@ import {
   Center
 } from "@chakra-ui/react"
 
-import UpdatePoint from './../updatePoint'
+import UpdatePoint from './../../updatePoint'
 import SocialModal from './TwitterDrawer'
 
-import Control from './../Alerts/Control'
-import { guildInfoT } from '../../Panel.d';
+import Control from './../../Alerts/Control'
+import { guildInfoT } from '../../../Panel.d';
+import { TwitterT } from './Twitter.d';
 
-type TwitterT = {
+type TwiT = {
   props: guildInfoT,
-  data: any 
+  data: Array<TwitterT>
 }
 
-const Twitter = ({props, data} : TwitterT) => {
+const Twitter = ({props, data} : TwiT) => {
   const [vals, setVals] = useState(data)
   const [vald] = useDebounce(vals, 1000)
 
-  const [sel, setSel] = useState({})
+  const [sel, setSel] = useState<TwitterT | undefined>(undefined)
 
   const {isOpen, onOpen, onClose} = useDisclosure()
-  const updateStatus = UpdatePoint(props.guild, vald, data, "/api/updateSocial")
+  const updateStatus = UpdatePoint(props.guild, vald, data, "/api/updateSocial", "twitter")
 
   return (<>
     <Box 
@@ -52,13 +53,13 @@ const Twitter = ({props, data} : TwitterT) => {
           >
 
             <Stack spacing="0px" marginRight="0.4vw" paddingX="1vw">
-              <TwButtons setSel={setSel} props={vals.twitter} onOpen={onOpen}/>
+              <TwButtons setSel={setSel} props={vals} onOpen={onOpen}/>
             </Stack>
 
           </Scrollbars>
 
       </Box>
-      { vals.twitter.length >= 5 && props.tipo !== 2 ?
+      { vals.length >= 5 && props.tipo !== 2 ?
         "Solo puedes tener 5 perfiles activos!"
       : 
         <Box textAlign="center">
@@ -73,8 +74,8 @@ const Twitter = ({props, data} : TwitterT) => {
               setSel({
                 id: -1,
                 name: "Nuevo perfil",
-                type: "-1",
-                channel: 0
+                type: -1,
+                channel: "0"
               });
               onOpen()
             }}
@@ -87,7 +88,9 @@ const Twitter = ({props, data} : TwitterT) => {
       <Center><Control status={updateStatus}/></Center>
 
     </Box>
-    <SocialModal Control={{isOpen, onClose}} guildInfo={props} props={sel} Values={vals.twitter} setValues={setVals} />
+    {typeof sel !== "undefined" &&
+      <SocialModal Control={{isOpen, onClose}} guildInfo={props} props={sel} Values={vals} setValues={setVals} />
+    }
 
   </>)
 }
@@ -95,14 +98,14 @@ const Twitter = ({props, data} : TwitterT) => {
 const lineBox = "solid #323136 1px"
 
 type TwButtonsT = {
-  props: any, 
+  props: Array<TwitterT>, 
   onOpen: () => void, 
-  setSel: any
+  setSel: Dispatch<TwitterT>
 }
 
 const TwButtons = ({props, onOpen, setSel} : TwButtonsT) => {
   
-  const setInfo = (val : any) => {
+  const setInfo = (val : TwitterT) => {
     setSel(val)
     onOpen()
   }
@@ -110,7 +113,7 @@ const TwButtons = ({props, onOpen, setSel} : TwButtonsT) => {
   return (
     <>
       {
-        props.map((val : any, id : number) => {
+        props.map((val : TwitterT, id : number) => {
         return <Button key={id} onClick={() => {setInfo(val)}} value={val.name} borderRadius="sm" colorScheme="orange" variant="outline" size="sm" >{val.name}</Button>
       })
       }

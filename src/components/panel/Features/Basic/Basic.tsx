@@ -6,8 +6,12 @@ import ServerP from './ServerP'
 
 import {propBType} from './../../Panel.d'
 
+type BasicT = {
+  prefix: string
+}
+
 const Basic = ({props} : propBType) => {
-  const data = FetchPoint(props.guild, "/api/getGuildInfo")
+  const data : BasicT | string = FetchPoint(props.guild, "/api/getGuildInfo")
 
   return (<>
     {data === "loading" && <Loading/>}
@@ -15,9 +19,10 @@ const Basic = ({props} : propBType) => {
     {data === "error" ? <Error/>
     :
       <>
-      {data !== undefined && data !== "loading" &&
+      {data !== "loading" &&
+      typeof data !== "string" && 
         <>
-          <ServerP props={props} data={data}/>
+          <ServerP props={props} data={data.prefix}/>
         </>
       }
       </>

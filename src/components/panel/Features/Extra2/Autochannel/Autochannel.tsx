@@ -58,6 +58,9 @@ const Autochannel = ({props, data} : AutochannelT) => {
       </Scrollbars>
 
       <Box textAlign="center">
+        {vals.length >= 6 ?
+          "Solo puedes tener 6 auto channels!"
+        :
         <Button 
           marginTop="5px" 
           borderRadius="sm" 
@@ -75,6 +78,7 @@ const Autochannel = ({props, data} : AutochannelT) => {
         >
           Añadir
         </Button>
+      }
       </Box>
 
       <Box textAlign="center"><Control status={updateStatus}/></Box>
@@ -95,7 +99,6 @@ type AutoButtonsT = {
 }
 
 const AutoButtons = ({props, onOpen, setSel, channels} : AutoButtonsT) => {
-
   const setInfo = (val : any) => {
     setSel(val)
     onOpen()

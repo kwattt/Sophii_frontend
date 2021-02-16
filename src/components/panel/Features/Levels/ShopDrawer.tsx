@@ -1,4 +1,4 @@
-import {useState, useEffect} from 'react'
+import {useState, useEffect, Dispatch} from 'react'
 
 import {
   Button,
@@ -26,12 +26,13 @@ import {
 } from "@chakra-ui/react"
 
 import {guildInfoT, ControlT, channelInfoT, roleInfoT, optionChannelT, optionRolesT} from './../../Panel.d'
+import { ShopT } from './Levels.d'
 
 type ShopDrawerT = {
-  props: any,
+  props: ShopT,
   Control: ControlT,
-  Values: any,
-  setValues: any,
+  Values: Array<ShopT>,
+  setValues: Dispatch<ShopT[]>,
   guildInfo: guildInfoT
 }
 
@@ -44,18 +45,18 @@ const ShopDrawer = ({props, Control, Values, setValues, guildInfo} : ShopDrawerT
   }, [props])
 
   const onDelete = () => {
-    if(props.type !== "-1"){
+    if(props.type !== -1){
       var newp = Values.filter((v : any) => {
         return v.name !== newProps.name
       })
-      setValues({...Values, shop: newp})
+      setValues(newp)
     }
   }
 
   const onSave = () => {
     var newp = Values
 
-    if(props.type !== "-1")
+    if(props.type !== -1)
     {
       newp = newp.map((v : any) => 
         v.name === props.name
@@ -66,7 +67,7 @@ const ShopDrawer = ({props, Control, Values, setValues, guildInfo} : ShopDrawerT
     else {
       newp = [...newp, newProps]
     }
-    setValues({...Values, shop: newp})
+    setValues(newp)
   }
 
   return (<>
@@ -81,7 +82,7 @@ const ShopDrawer = ({props, Control, Values, setValues, guildInfo} : ShopDrawerT
         <DrawerCloseButton />
 
           <DrawerHeader>  
-            {props.type !== "-1" 
+            {props.type !== -1
             ? props.name
             : "Nuevo item"}
           </DrawerHeader>
@@ -105,7 +106,7 @@ const ShopDrawer = ({props, Control, Values, setValues, guildInfo} : ShopDrawerT
                 <InputLeftAddon children="Monedas" />
                   <NumberInput 
                     defaultValue={props.price} 
-                    onChange={(v) => {setNewProps({...newProps, price: v})}}>
+                    onChange={(v) => {setNewProps({...newProps, price: Number(v)})}}>
                     <NumberInputField />
                     <NumberInputStepper>
                       <NumberIncrementStepper />
@@ -120,14 +121,14 @@ const ShopDrawer = ({props, Control, Values, setValues, guildInfo} : ShopDrawerT
               mt={2}
               size="sm"
               defaultValue={props.type}
-              onChange={(e) => {setNewProps({...newProps, type: e.target.value})}}
+              onChange={(e) => {setNewProps({...newProps, type: Number(e.target.value)})}}
             >
               <option value="-1" disabled>Seleccionar</option>
               <option value="1">Rol (automático)</option>
               <option value="2">Otro (manual)</option>
             </Select>
 
-            { newProps.type === "1" && <>
+            { newProps.type === 1 && <>
 
               <Box textAlign="center"><Heading as="h4" size="xs" my={2}>Rol</Heading></Box>
 
@@ -165,7 +166,7 @@ const ShopDrawer = ({props, Control, Values, setValues, guildInfo} : ShopDrawerT
               }
 
               {
-                (newProps.type !== "-1") &&
+                (newProps.type !== -1) &&
                   <Button colorScheme="purple" variant="outline"
                   onClick={() => {onSave(); onClose()}}
                   >Guardar</Button>

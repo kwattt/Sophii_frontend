@@ -11,6 +11,7 @@ import fetchPoint from './../panel/Features/fetchPoint'
 
 import { 
   Box,
+  Text,
   Center,
   SimpleGrid,
   Heading,
@@ -44,7 +45,6 @@ const Index = () => {
         </Center>
         <Box textAlign="center">
           <Heading as="h2" size="xl">Sophii 💗</Heading>
-          <Heading as="h4" size="md" fontFamily="sans-serif">---</Heading>
         </Box>
       </Box>
       <br/>
@@ -81,9 +81,9 @@ const Index = () => {
 const Stats = () => {
   const data = fetchPoint("0", '/api/bot')
   return (
-  <Box textAlign="center">
+  <Box textAlign="center" minH="160px">
     <Heading as="h5" size="sm">Stats</Heading>
-    <Stack paddingX="30px" paddingTop="5px">
+    <Stack spacing={10}>
 
       <Skeleton height="20px" isLoaded={data !== "loading"}>
         <b>Servidores activos: </b>{data.guilds}
@@ -93,8 +93,8 @@ const Stats = () => {
         <b>Usuarios activos: </b>{data.users}
       </Skeleton>
 
-      <Skeleton height="20px"  isLoaded={data !== "loading"}>
-        {data.msg}
+      <Skeleton display={{base: "none", sm: "block"}} height="20px"  isLoaded={data !== "loading"}>
+        <Text>{data.msg}</Text>
       </Skeleton>
 
     </Stack>

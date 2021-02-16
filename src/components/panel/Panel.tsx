@@ -53,7 +53,8 @@ const Panel = () => {
       <Box
         display="flex"
         flexDir="column"
-        minH="calc(100vh - 93px)"
+        minH="calc(100vh - 116px)"
+        overflow="hidden"
       >    
       
       { authorized ?
@@ -63,48 +64,68 @@ const Panel = () => {
 
         <div id="Panel">
 
-        <Box display={{sm: "none", base: "block"}} > 
-          {"Una versión para resoluciones menores estará disponible pronto. Una disculpa :("}
-        </Box>
-        
-        <Box marginTop="25px"> 
+          <Box 
+            id="view" 
+            marginTop={{base:"10px", sm:"25px"}} 
+          > 
+            <Box 
+              minWidth={{base: "auto", sm: "120px"}}
+              marginX={{base: "auto", sm: "3vw"}}
+            >
 
-          <Box minWidth="120px" marginX="3vw">
-            <SimpleGrid columns={6} spacing={5}>
-              <Box height="80px">
-                <ServerSelect setSel={setCurrentInfo} setTabIndex={setTabIndex}/>
-
-                {currentInfo.guild !== "0" && 
-                
-                  <Tabs index={tabIndex} onChange={handleTabsChange} orientation="vertical" marginTop="1vw">
-                      <TabList>
-                        <Contents props={tList} />
-                      </TabList>
-                    </Tabs> 
-                }
-              </Box>
-
-              {(currentInfo.guild !== "0") &&
-                <FuncSelect selTab={tList[tabIndex]} props={currentInfo}></FuncSelect> 
+            <Box display={{base: "auto", sm: "none"}}>
+              <Center> <ServerSelect setSel={setCurrentInfo} setTabIndex={setTabIndex}/> </Center>
+              {currentInfo.guild !== "0" && 
+                <Box overflow="scroll" borderBottom="solid 1px white">
+                  <Tabs index={tabIndex} onChange={handleTabsChange} >
+                    <TabList>
+                      <Contents props={tList} />
+                    </TabList>
+                  </Tabs> 
+                </Box>
               }
+            </Box>
 
-            </SimpleGrid>
+              <SimpleGrid columns={{base: 0, sm: 6}} rows={{base: 5, sm: 0}} spacing={5} px={{base: "10px", sm:"auto"}}>
+
+                <Box height={{base: "auto", sm: "80px"}}>
+                  <Center display={{base: "none", sm: "block"}}> <ServerSelect setSel={setCurrentInfo} setTabIndex={setTabIndex}/> </Center>
+
+                  <Box display={{base: "none", sm: "block"}}>
+                    {currentInfo.guild !== "0" && 
+                      <Tabs index={tabIndex} onChange={handleTabsChange} orientation="vertical" marginTop="1vw">
+                          <TabList>
+                            <Contents props={tList} />
+                          </TabList>
+                        </Tabs> 
+                    }
+                  </Box>
+
+                </Box>
+
+                {(currentInfo.guild !== "0") &&
+                  <FuncSelect selTab={tList[tabIndex]} props={currentInfo}></FuncSelect> 
+                }
+
+              </SimpleGrid>
+            </Box>
+
+            {currentInfo.guild === "0" &&
+              <Box textAlign="center">
+                <Heading as="h3" size="lg">Seleccionar servidor.</Heading>
+                <Center><Logo/></Center>
+              </Box>
+            }
           </Box>
-
-          {currentInfo.guild === "0" &&
-            <Center>
-              <Heading as="h3" size="lg">Seleccionar servidor.</Heading>
-              <Logo/>
-            </Center>
-          }
-        </Box>
 
         </div>
       </> 
       : <Center paddingTop={"60px"}> <Spinner size="xl" /> </Center>
     }
     </Box>
-    <Footer/>
+    <Box my={5}>
+      <Footer/>
+    </Box>
 
     </>
   )

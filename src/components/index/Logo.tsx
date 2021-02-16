@@ -184,8 +184,8 @@ const Logo = ({props} : any) => {
           transition={{
             duration: 2.05,
             ease: "easeInOut",
-            yoyo: Infinity
-            
+            repeat: Infinity,
+            repeatType: "reverse"
           }}
           fill={"None"}
           stroke={"#fff"}

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { Dispatch, useState } from 'react'
 import { useDebounce } from 'use-debounce'
 import Scrollbars from 'react-custom-scrollbars-2';
 
@@ -11,32 +11,33 @@ import {
   Center
 } from "@chakra-ui/react"
 
-import UpdatePoint from './../updatePoint'
-import SocialModal from './FacebookDrawer'
+import UpdatePoint from './../../updatePoint'
+import SocialModal from './TwitchDrawer'
 
-import Control from './../Alerts/Control'
-import { guildInfoT } from '../../Panel.d';
+import Control from './../../Alerts/Control'
+import { guildInfoT } from '../../../Panel.d';
+import { TwitchT } from './Twitch.d';
 
-type FacebookT = {
+type StreamT = {
   props: guildInfoT,
-  data: any
+  data: Array<TwitchT>
 }
 
-const Facebook = ({props, data} : FacebookT) => {
+const Twitch = ({props, data} : StreamT) => {
   const [vals, setVals] = useState(data)
   const [vald] = useDebounce(vals, 1000)
 
-  const [sel, setSel] = useState({})
+  const [sel, setSel] = useState<TwitchT | undefined>(undefined)
 
   const {isOpen, onOpen, onClose} = useDisclosure()
-  const updateStatus = UpdatePoint(props.guild, vald, data, "/api/updateSocial")
+  const updateStatus = UpdatePoint(props.guild, vald, data, "/api/updateSocial", "twitch")
 
   return (<>
     <Box 
     borderLeft={lineBox}>
-      <Box textAlign="center"><Heading as="h4" size="md">Facebook</Heading>
-
-        <Heading paddingTop="10px" as="h6" size="xs">Páginas activas</Heading>
+      <Box textAlign="center">
+        <Heading as="h4" size="md">Twitch</Heading>
+        <Heading paddingTop="10px" as="h6" size="xs">Streamers activos</Heading>
       </Box>
 
       <Box
@@ -52,14 +53,14 @@ const Facebook = ({props, data} : FacebookT) => {
           >
 
             <Stack spacing="0px" marginRight="0.4vw" paddingX="1vw">
-              <FbButtons setSel={setSel} props={vals.facebook} onOpen={onOpen}/>
+              <StreamButtons setSel={setSel} props={vals} onOpen={onOpen}/>
             </Stack>
 
           </Scrollbars>
 
       </Box>
-      { vals.facebook.length >= 5 && props.tipo !== 2 ?
-        "Solo puedes tener 5 páginas activos!"
+      { vals.length >= 4 && props.tipo !== 2 ?
+        "Solo puedes tener 4 canales activos!"
       : 
         <Box textAlign="center">
           <Button 
@@ -72,14 +73,14 @@ const Facebook = ({props, data} : FacebookT) => {
             onClick={() => {
               setSel({
                 id: -1,
-                name: "Nueva página",
-                channel: 0,
-                type: "-1"
+                name: "Nuevo stream",
+                type: -1,
+                channel: "0"
               });
               onOpen()
             }}
           >
-            Añadir página
+            Añadir stream
           </Button>
         </Box>
 }
@@ -87,21 +88,25 @@ const Facebook = ({props, data} : FacebookT) => {
       <Center><Control status={updateStatus}/></Center>
 
     </Box>
-    <SocialModal Control={{isOpen, onClose}} guildInfo={props} props={sel} Values={vals.facebook} setValues={setVals} />
+
+    {typeof sel !== "undefined" &&
+      <SocialModal Control={{isOpen, onClose}} guildInfo={props} props={sel} Values={vals} setValues={setVals} />
+    }
 
   </>)
 }
 
 const lineBox = "solid #323136 1px"
 
-type FbButtonsT = {
-  props: any,
-  onOpen: () => void,
-  setSel: any
-} 
+type StreamButtonsT = {
+  props: Array<TwitchT>,
+  setSel: Dispatch<TwitchT>, 
+  onOpen: () => void
+}
 
-const FbButtons = ({props, onOpen, setSel}: FbButtonsT) => {
-  const setInfo = (val : any) => {
+const StreamButtons = ({props, onOpen, setSel} : StreamButtonsT) => {
+  
+  const setInfo = (val : TwitchT) => {
     setSel(val)
     onOpen()
   }
@@ -109,7 +114,7 @@ const FbButtons = ({props, onOpen, setSel}: FbButtonsT) => {
   return (
     <>
       {
-        props.map((val : any, id : number) => {
+        props.map((val : TwitchT, id : number) => {
         return <Button key={id} onClick={() => {setInfo(val)}} value={val.name} borderRadius="sm" colorScheme="orange" variant="outline" size="sm" >{val.name}</Button>
       })
       }
@@ -117,4 +122,4 @@ const FbButtons = ({props, onOpen, setSel}: FbButtonsT) => {
   )
 }
 
-export default Facebook;
+export default Twitch;

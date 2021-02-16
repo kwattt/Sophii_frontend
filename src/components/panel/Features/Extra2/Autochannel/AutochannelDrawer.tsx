@@ -59,8 +59,12 @@ const AutochannelDrawer = ({props, Control, Values, setValues, guildInfo} : Auto
     setValues(newp)
   }
 
+  const randomNumber = (min : number, max : number) : number => {
+    return Math.floor(Math.random() * (max - min)) + min
+  }
+
   if(newProps.origen !== "0" && newProps.target !== "0" && newProps.id === -1 && props.id === -1){
-    setNewProps({...newProps, id: -2})
+    setNewProps({...newProps, id: randomNumber(-999, -3)})
   }
 
   return (<>

@@ -16,13 +16,13 @@ import {guildInfoT} from './../../Panel.d'
 
 type ServerPT = {
   props: guildInfoT,
-  data: any
+  data: string
 }
 
 const ServerP = ({props, data} : ServerPT) => {
-  const [vals, setVals] = useState(data)
+  const [vals, setVals] = useState<string>(data)
   const [vald] = useDebounce(vals, 1000)
-  const updateStatus = UpdatePoint(props.guild, vald, data, "/api/updateGuild")
+  const updateStatus = UpdatePoint(props.guild, vald, data, "/api/updateGuild", "prefix")
 
   return (<>
     <Box 
@@ -38,9 +38,9 @@ const ServerP = ({props, data} : ServerPT) => {
         <InputLeftAddon children="Prefijo"/>
         <Input 
           isInvalid={updateStatus === "invalid"} 
-          defaultValue={data.prefix} 
+          defaultValue={data} 
           maxLength={6}
-          onChange={(e) => {setVals({...vals, prefix: e.target.value})} }
+          onChange={(e) => {setVals(e.target.value)} }
         />
       </InputGroup>
 

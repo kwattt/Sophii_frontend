@@ -18,12 +18,17 @@ import {
 import UpdatePoint from './../updatePoint'
 import Control from './../Alerts/Control'
 
-
 import {guildInfoT, optionChannelT, channelInfoT} from './../../Panel.d'
+
+type BirthdayTD = {
+  bday: string,
+  bdaymsg: string,
+  bdayutc: number
+}
 
 type BirthdayT = {
   props: guildInfoT,
-  data: any
+  data: BirthdayTD
 }
 
 const Birthday = ({props, data} : BirthdayT) => {
@@ -89,7 +94,7 @@ const Birthday = ({props, data} : BirthdayT) => {
           disabled={1}
           inputMode="numeric"
           defaultValue={data.bdayutc}
-          onChange={(e) => {setVals({...vals, bdayutc: e})}}
+          onChange={(e) => {setVals({...vals, bdayutc: Number(e)})}}
         >
           <NumberInputField />
           <NumberInputStepper>

@@ -18,10 +18,11 @@ import UpdatePoint from './../updatePoint'
 import Control from './../Alerts/Control'
 
 import {guildInfoT, optionChannelT, channelInfoT} from './../../Panel.d'
+import { LevelToggleT } from './Levels.d';
 
 type ToggleLevelT = {
   props: guildInfoT,
-  data: any
+  data: LevelToggleT
 }
 
 const ToggleLevel = ({props, data} : ToggleLevelT) => {

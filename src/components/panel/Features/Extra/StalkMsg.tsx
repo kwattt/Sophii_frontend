@@ -17,13 +17,13 @@ import {guildInfoT} from './../../Panel.d'
 
 type StalkMsgT = {
   props: guildInfoT,
-  data: any
+  data: string
 }
 
 const StalkMsg = ({props, data} : StalkMsgT) => {
   const [vals, setVals] = useState(data)
   const [vald] = useDebounce(vals, 1000)
-  const updateVal = UpdatePoint(props.guild, vald, data, "/api/updateExtra")
+  const updateVal = UpdatePoint(props.guild, vald, data, "/api/updateExtra", "msg")
 
   return (<Box
     borderLeft={lineBox}
@@ -31,7 +31,7 @@ const StalkMsg = ({props, data} : StalkMsgT) => {
 
       <Box textAlign="center">
         <Heading as="h4" size="md">Stalk Mensajes</Heading>
-        <Heading my="10px" as="h6" size="xs">Mensaje (r: {1000 - vals.msg.length})</Heading>
+        <Heading my="10px" as="h6" size="xs">Mensaje (r: {1000 - vals.length})</Heading>
       </Box>
 
       <Textarea
@@ -42,8 +42,8 @@ const StalkMsg = ({props, data} : StalkMsgT) => {
           borderRadius="sm"
           borderLeft="solid white 2px"
           resize="vertical"
-          onChange={(e) => {setVals({...vals, msg: e.target.value})}}
-          defaultValue={vals.msg}
+          onChange={(e) => {setVals(e.target.value)}}
+          defaultValue={data}
       height={185}/>
 
       <Alert status="warning"

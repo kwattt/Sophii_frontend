@@ -3,24 +3,30 @@ import { useEffect, useState } from 'react'
 
 const base_url = process.env.REACT_APP_BASE_URL
 
-const UpdatePoint = (guild : string, props : any, ogprops : any, point : string) : string  => {
+const UpdatePoint = (guild : string, props : any, ogprops : any, point : string, key?: string) : string  => {
   const [data, setData] = useState<string>("load")
 
   useEffect(() => {
     let _mounted = true
 
     const sendData = async () => {
+      var nData = props
+      if  (key) {
+        nData = {
+          [key]: props 
+        }
+      }
+
       setData("loading")
       axios.post(base_url + point,
       {
         guild: guild,
-        data: props
+        data: nData
       }).then(() => {
         
         if(_mounted)
           {
             setData("valid")
-
             setTimeout(() => {
               if(_mounted)
                 setData("load")
@@ -51,7 +57,7 @@ const UpdatePoint = (guild : string, props : any, ogprops : any, point : string)
     return () => {
       _mounted = false
     }
-  }, [guild, props, ogprops, point])
+  }, [guild, props, ogprops, point, key])
   
   return data
 }

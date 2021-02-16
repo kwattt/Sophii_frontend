@@ -4,12 +4,12 @@ import Logo from '../../../index/Logo'
 
 const Sophii = () => {
   return (<>
-    <Box>
+    <Box w={{base: "90vw", sm: "100%"}}>
       <Center>
-        <Logo width={200} height={200}/>
+        <Logo/>
       </Center>
     </Box>
   </>)
 }
 
-export default Sophii
+export default Sophii;

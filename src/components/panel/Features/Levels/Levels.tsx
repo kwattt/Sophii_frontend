@@ -7,22 +7,21 @@ import LevelToggle from './LevelToggle'
 import Store from './Shop'
 
 import {propBType} from './../../Panel.d'
+import { LevelsT } from './Levels.d'
 
 const Levels = ({props} : propBType) => {
-  const data = FetchPoint(props.guild, "/api/levels")
+  const data : LevelsT | string = FetchPoint(props.guild, "/api/levels")
   return (<>
     {data === "loading" && <Loading/>}
 
     {data === "error" ? <Error/>
     :
       <>
-      {data !== undefined && data !== "loading" &&
-        
+      {data !== "loading" &&
+      typeof data !== "string" &&  
         <>
-
           <LevelToggle props={props} data={{enabled: data.enabled, channels: data.channels}}/>
-          <Store props={props} data={{shop: data.shop}}/>
-
+          <Store props={props} data={data.shop}/>
         </>
       }
       </>

@@ -13,24 +13,24 @@ import UpdatePoint from './../updatePoint'
 import Control from './../Alerts/Control'
 
 import { guildInfoT } from '../../Panel.d'
+import { join } from './Msg.d'
 
 type JoinT = {
   props: guildInfoT,
-  data: any
+  data: join
 }
-
 
 const Join = ({props, data} : JoinT) => {
   const [vals, setVals] = useState(data)
   const [vald] = useDebounce(vals, 1000)
-  const updateStatus = UpdatePoint(props.guild, vald, data, "/api/updateMsg")
+  const updateStatus = UpdatePoint(props.guild, vald, data, "/api/updateMsg", "join")
 
   return (<Box
     borderLeft={lineBox}>
 
       <Box textAlign="center">
         <Heading as="h4" size="md">Entrada</Heading>
-        <Heading paddingTop="10px" as="h6" size="xs">Mensajes de entrada (r: {1500 - vals.join.length})</Heading>
+        <Heading paddingTop="10px" as="h6" size="xs">Mensajes de entrada (r: {1500 - vals.length})</Heading>
       </Box>
 
       <Box textAlign="center">
@@ -43,8 +43,8 @@ const Join = ({props, data} : JoinT) => {
         borderRadius="sm"
         borderLeft="solid white 2px"
         resize="vertical"
-        onChange={(e) => {setVals({...vals, join: e.target.value})}}
-        defaultValue={vals.join}
+        onChange={(e) => {setVals(e.target.value)}}
+        defaultValue={data}
         height={185}
       />
 

@@ -13,8 +13,7 @@ const Account = () => {
 
   const handleClick = () => {
     const fetchData = async() => {
-      axios.get(base_url + "/api/account",
-      ) 
+      axios.get(base_url + "/api/account") 
       .then((response) => {
         setData(response.data)
         onOpen()
@@ -30,7 +29,7 @@ const Account = () => {
       <Button onClick={handleClick} borderRadius={0} size="sm" marginRight="10px" leftIcon={<BiWrench />} colorScheme="teal" variant="outline">
         Cuenta
       </Button>
-      {data !== undefined &&
+      {typeof data !== "undefined" &&
         <>
           <AccountModal data={data} Control={{isOpen, onClose}}/>
         </>

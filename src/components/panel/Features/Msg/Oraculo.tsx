@@ -14,23 +14,24 @@ import {
 import UpdatePoint from './../updatePoint'
 import Control from './../Alerts/Control'
 import { guildInfoT } from '../../Panel.d'
+import { oraculo } from './Msg.d'
 
 type OraculoT = {
   props : guildInfoT,
-  data: any
+  data: oraculo
 }
 
 const Oraculo = ({props, data} : OraculoT) => {
   const [vals, setVals] = useState(data)
   const [vald] = useDebounce(vals, 1000)
-  const updateStatus = UpdatePoint(props.guild, vald, data, "/api/updateMsg")
+  const updateStatus = UpdatePoint(props.guild, vald, data, "/api/updateMsg", "oraculo")
 
   return (<Box
     borderLeft={lineBox}>
 
       <Box textAlign="center"><Heading as="h4" size="md">Oráculo</Heading>
 
-      <Heading paddingTop="10px" as="h6" size="xs">Mensajes activos  (r: {1500 - vals.oraculo.length})</Heading>
+      <Heading paddingTop="10px" as="h6" size="xs">Mensajes activos  (r: {1500 - vals.length})</Heading>
       </Box>
 
       <Box>
@@ -43,8 +44,8 @@ const Oraculo = ({props, data} : OraculoT) => {
         borderRadius="sm"
         borderLeft="solid white 2px"
         resize="vertical"
-        onChange={(e) => {setVals({...vals, oraculo: e.target.value})}}
-        defaultValue={vals.oraculo}
+        onChange={(e) => {setVals(e.target.value)}}
+        defaultValue={data}
         height={185}
         />
 

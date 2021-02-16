@@ -19,10 +19,16 @@ import {
 import UpdatePoint from './../updatePoint'
 import Control from './../Alerts/Control'
 import {guildInfoT, optionRolesT, roleInfoT} from './../../Panel.d'
+import { roleT } from './Extra.d';
+
+type StalkTD = {
+  stalk: number,
+  role: roleT
+}
 
 type StalkT = {
   props: guildInfoT,
-  data: any
+  data: StalkTD
 }
 
 const Stalk = ({props, data} : StalkT) => {
@@ -46,7 +52,7 @@ return (<>
           min={0} 
           inputMode="numeric"
           defaultValue={data.stalk}
-          onChange={(e) => {setVals({...vals, stalk: e})}}>
+          onChange={(e) => {setVals({...vals, stalk: Number(e)})}}>
           <NumberInputField />
           <NumberInputStepper>
             <NumberIncrementStepper />

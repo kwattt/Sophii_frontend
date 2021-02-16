@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { Dispatch, useState } from 'react'
 import { useDebounce } from 'use-debounce'
 import Scrollbars from 'react-custom-scrollbars-2';
 
@@ -10,22 +10,23 @@ import {
   Stack
 } from "@chakra-ui/react"
 
-import UpdatePoint from './../updatePoint'
+import UpdatePoint from './../../updatePoint'
 import SocialModal from './YoutubeDrawer'
 
-import Control from './../Alerts/Control'
-import { guildInfoT } from '../../Panel.d';
+import Control from './../../Alerts/Control'
+import { guildInfoT } from '../../../Panel.d';
+import { YoutubeT } from './Youtube.d';
 
-type YoutubeT = {
+type YTT = {
   props: guildInfoT,
-  data: any
+  data: Array<YoutubeT>
 }
 
-const Youtube = ({props, data} : YoutubeT) => {
+const Youtube = ({props, data} : YTT) => {
   const [vals, setVals] = useState(data)
   const [vald] = useDebounce(vals, 1000)
 
-  const [sel, setSel] = useState({})
+  const [sel, setSel] = useState<YoutubeT | undefined>(undefined)
 
   const {isOpen, onOpen, onClose} = useDisclosure()
   const updateStatus = UpdatePoint(props.guild, vald, data, "/api/updateSocial")
@@ -51,13 +52,13 @@ const Youtube = ({props, data} : YoutubeT) => {
           >
 
             <Stack spacing="0px" marginRight="0.4vw" paddingX="1vw">
-              <YtButtons setSel={setSel} props={vals.youtube} onOpen={onOpen}/>
+              <YtButtons setSel={setSel} props={vals} onOpen={onOpen}/>
             </Stack>
 
           </Scrollbars>
 
       </Box>
-      { vals.youtube.length >=35 && props.tipo !== 2 ?
+      { vals.length >=35 && props.tipo !== 2 ?
         "Solo puedes tener 3 canales activos!"
       : 
         <Box textAlign="center">
@@ -73,8 +74,8 @@ const Youtube = ({props, data} : YoutubeT) => {
                 id: -1,
                 name: "Nuevo canal",
                 channel_name: "Nuevo canal",
-                type: "-1",
-                channel: 0
+                type: -1,
+                channel: "0"
               });
               onOpen()
             }}
@@ -87,7 +88,9 @@ const Youtube = ({props, data} : YoutubeT) => {
       <Box textAlign="center"><Control status={updateStatus}/></Box>
 
     </Box>
-    <SocialModal Control={{isOpen, onClose}} guildInfo={props} props={sel} Values={vals.youtube} setValues={setVals} />
+    {typeof sel !== "undefined" &&
+      <SocialModal Control={{isOpen, onClose}} guildInfo={props} props={sel} Values={vals} setValues={setVals} />
+    }
 
   </>)
 }
@@ -95,14 +98,14 @@ const Youtube = ({props, data} : YoutubeT) => {
 const lineBox = "solid #323136 1px"
 
 type YtButtonsT = {
-  props: any
+  props: Array<YoutubeT>
   onOpen: () =>  void,
-  setSel: any
+  setSel: Dispatch<YoutubeT>
 }
 
 const YtButtons = ({props, onOpen, setSel} : YtButtonsT) => {
 
-  const setInfo = (val : any) => {
+  const setInfo = (val : YoutubeT) => {
     setSel(val)
     onOpen()
   }
@@ -110,7 +113,7 @@ const YtButtons = ({props, onOpen, setSel} : YtButtonsT) => {
   return (
     <>
       {
-        props.map((val: any, id : number) => {
+        props.map((val: YoutubeT, id : number) => {
         return <Button key={id} onClick={() => {setInfo(val)}} value={val.name} borderRadius="sm" colorScheme="orange" variant="outline" size="sm" >{val.channel_name}</Button>
       })
       }

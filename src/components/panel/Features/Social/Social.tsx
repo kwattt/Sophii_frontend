@@ -3,27 +3,29 @@ import Error from './../Error'
 
 import FetchPoint from './../fetchPoint'
 
-import Twitch from './Twitch'
-import Facebook from './Facebook'
-import Twitter from './Twitter'
-import Youtube from './Youtube'
+import Twitch from './Twitch/Twitch'
+import Facebook from './Facebook/Facebook'
+import Twitter from './Twitter/Twitter'
+import Youtube from './Youtube/Youtube'
 
 import {propBType} from './../../Panel.d'
+import { SocialT } from './Social.d'
 
-const Purge = ({props} : propBType) => {
-  const data = FetchPoint(props.guild, "/api/social")
+const Social = ({props} : propBType) => {
+  const data : SocialT | string = FetchPoint(props.guild, "/api/social")
   return (<>
     {data === "loading" && <Loading/>}
 
     {data === "error" ? <Error/>
     :
       <>
-      {data !== undefined && data !== "loading" &&
+      {data !== "loading" &&
+      typeof data !== "string" && 
         <>
-          <Twitch props={props} data={{"twitch": data.twitch}}/>
-          <Facebook props={props} data={{"facebook": data.facebook}}/>
-          <Twitter props={props} data={{"twitter": data.twitter}}/>
-          <Youtube props={props} data={{"youtube": data.youtube}}/>
+          <Twitch props={props} data={data.twitch}/>
+          <Facebook props={props} data={data.facebook}/>
+          <Twitter props={props} data={data.twitter}/>
+          <Youtube props={props} data={data.youtube}/>
         </>
       }
       </>
@@ -32,4 +34,4 @@ const Purge = ({props} : propBType) => {
   </>)
 }
 
-export default Purge
+export default Social;

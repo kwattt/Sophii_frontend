@@ -12,23 +12,24 @@ import {
 import UpdatePoint from './../updatePoint'
 import Control from './../Alerts/Control'
 import { guildInfoT } from '../../Panel.d'
+import { leave } from './Msg.d'
 
 type LeaveT = {
   props: guildInfoT,
-  data: any
+  data: leave
 }
 
 const Leave = ({props, data} : LeaveT) => {
   const [vals, setVals] = useState(data)
   const [vald] = useDebounce(vals, 1000)
-  const updateStatus = UpdatePoint(props.guild, vald, data, "/api/updateMsg")
+  const updateStatus = UpdatePoint(props.guild, vald, data, "/api/updateMsg", "leave")
 
   return (<Box
     borderLeft={lineBox}>
 
       <Box textAlign="center"><Heading as="h4" size="md">Salida</Heading>
 
-      <Heading paddingTop="10px" as="h6" size="xs">Mensajes de salida  (r: {1500 - vals.leave.length})</Heading>
+      <Heading paddingTop="10px" as="h6" size="xs">Mensajes de salida  (r: {1500 - vals.length})</Heading>
       </Box>
 
       <Box>
@@ -41,8 +42,8 @@ const Leave = ({props, data} : LeaveT) => {
           borderRadius="sm"
           borderLeft="solid white 2px"
           resize="vertical"
-          onChange={(e) => {setVals({...vals, leave: e.target.value})}}
-          defaultValue={vals.leave}
+          onChange={(e) => {setVals(e.target.value)}}
+          defaultValue={data}
           height={185}
         />
       </Box>

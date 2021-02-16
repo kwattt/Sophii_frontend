@@ -1,4 +1,4 @@
-import {useState, useEffect} from 'react'
+import {useState, useEffect, Dispatch} from 'react'
 
 import {
   Button,
@@ -20,18 +20,18 @@ import {
 } from "@chakra-ui/react"
 
 import axios from 'axios'
-import { channelInfoT, ControlT, guildInfoT, optionChannelT } from '../../Panel.d'
+import { channelInfoT, ControlT, guildInfoT, optionChannelT } from '../../../Panel.d'
+import { YoutubeT } from './Youtube.d'
 
 const base_url = process.env.REACT_APP_BASE_URL
 
 type YoutubeDrawerT = {
-  props: any,
+  props: YoutubeT,
   Control: ControlT,
-  Values: any,
-  setValues: any,
+  Values: Array<YoutubeT>,
+  setValues: Dispatch<YoutubeT[]>,
   guildInfo: guildInfoT
 }
-
 
 const YoutubeDrawer = ({props, Control, Values, setValues, guildInfo} : YoutubeDrawerT) => {
   const {isOpen, onClose} = Control
@@ -81,10 +81,10 @@ const YoutubeDrawer = ({props, Control, Values, setValues, guildInfo} : YoutubeD
 
   const onDelete = () => {
     if(props.name !== "Nuevo canal"){
-      var newp = Values.filter((v : any) => {
+      var newp = Values.filter((v : YoutubeT) => {
         return v.name !== newProps.name
       })
-      setValues({youtube: newp})
+      setValues(newp)
     }
   }
 
@@ -92,7 +92,7 @@ const YoutubeDrawer = ({props, Control, Values, setValues, guildInfo} : YoutubeD
     var newp = Values
     if(props.name !== "Nuevo canal")
     {
-      newp = newp.map((v : any) => 
+      newp = newp.map((v : YoutubeT) => 
         v.name === props.name
         ? newProps
         : v
@@ -101,7 +101,7 @@ const YoutubeDrawer = ({props, Control, Values, setValues, guildInfo} : YoutubeD
     else {
       newp = [...newp, newProps]
     }
-    setValues({youtube: newp})
+    setValues(newp)
   }
 
 
@@ -153,8 +153,8 @@ const YoutubeDrawer = ({props, Control, Values, setValues, guildInfo} : YoutubeD
 
           <Box textAlign="center"><Heading my={5} as="h2" size="md">Aviso</Heading></Box>
             <RadioGroup 
-              defaultValue={props.type}
-              onChange={(value) => {setNewProps({...newProps, type: value})}}
+              defaultValue={props.type.toString()}
+              onChange={(value) => {setNewProps({...newProps, type: Number(value)})}}
             >
               <Stack direction="row">
                 <Radio value={"0"}>Ninguno</Radio>
@@ -175,7 +175,7 @@ const YoutubeDrawer = ({props, Control, Values, setValues, guildInfo} : YoutubeD
             }
 
             {
-              (verified && newProps.type !== "-1") &&
+              (verified && newProps.type !== -1) &&
                 <Button colorScheme="purple" variant="outline"
                 onClick={() => {onSave(); onClose()}}
                 >Guardar</Button>

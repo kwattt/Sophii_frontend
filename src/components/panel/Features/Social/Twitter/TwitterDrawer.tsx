@@ -1,4 +1,4 @@
-import {useState, useEffect} from 'react'
+import {useState, useEffect, Dispatch} from 'react'
 
 import {
   Button,
@@ -11,24 +11,24 @@ import {
   DrawerCloseButton,
   Select,
   Input,
-  Box,
   Heading,
   RadioGroup,
   Radio,
-  Stack
+  Stack,
+  Box
 } from "@chakra-ui/react"
+import { optionChannelT, channelInfoT, ControlT, guildInfoT } from '../../../Panel.d'
+import {TwitterT} from './Twitter.d'
 
-import { channelInfoT, ControlT, guildInfoT, optionChannelT } from '../../Panel.d'
-
-type FacebookDrawerT = {
-  props: any,
+type TwitterDrawerT = {
+  props: TwitterT,
   Control: ControlT,
-  Values: any,
-  setValues: any,
+  Values: Array<TwitterT>,
+  setValues: Dispatch<TwitterT[]>,
   guildInfo: guildInfoT
 }
 
-const FacebookDrawer = ({props, Control, Values, setValues, guildInfo} : FacebookDrawerT) => {
+const TwitterDrawer = ({props, Control, Values, setValues, guildInfo} : TwitterDrawerT) => {
   const {isOpen, onClose} = Control
   const [newProps, setNewProps] = useState(props)
 
@@ -37,19 +37,19 @@ const FacebookDrawer = ({props, Control, Values, setValues, guildInfo} : Faceboo
   }, [props])
 
   const onDelete = () => {
-    if(props.name !== "Nueva página"){
-      var newp = Values.filter((v : any) => {
+    if(props.name !== "Nuevo perfil"){
+      var newp = Values.filter((v : TwitterT) => {
         return v.name !== newProps.name
       })
-      setValues({facebook: newp})
+      setValues(newp)
     }
   }
 
   const onSave = () => {
     var newp = Values
-    if(props.name !== "Nueva página")
+    if(props.name !== "Nuevo perfil")
     {
-      newp = newp.map((v : any) => 
+      newp = newp.map((v : TwitterT) => 
         v.name === props.name
         ? newProps
         : v
@@ -58,7 +58,7 @@ const FacebookDrawer = ({props, Control, Values, setValues, guildInfo} : Faceboo
     else {
       newp = [...newp, newProps]
     }
-    setValues({facebook: newp})
+    setValues(newp)
   }
 
   return (<>
@@ -78,46 +78,42 @@ const FacebookDrawer = ({props, Control, Values, setValues, guildInfo} : Faceboo
           <DrawerBody>
 
             <Box textAlign="center"><Heading as="h2" size="md">Canal</Heading></Box>
-
-            <Select 
-              my={5} 
-              defaultValue={props.channel}
-              onChange={(e) => {setNewProps({...newProps, channel: e.target.value})}}
-            >
+            <Select my={5} defaultValue={props.channel}
+            onChange={(e) => {setNewProps({...newProps, channel: e.target.value})}}>
               <OptionChannel props={guildInfo.channels}/>
             </Select>
 
-            <Box textAlign="center"><Heading my={5} as="h2" size="md">Nombre de la página</Heading></Box>
+            <Box textAlign="center"><Heading my={5} as="h2" size="md">Nombre del perfil</Heading></Box>
             <Input placeholder="Ingresar nombre"
               defaultValue={props.name}
-              maxLength={200}
+              maxLength={30}
               onChange={(e) => {setNewProps({...newProps, name: e.target.value})}}
-            />
+            ></Input>
 
             <Box textAlign="center"><Heading my={5} as="h2" size="md">Aviso</Heading></Box>
-            
-            <RadioGroup 
-              defaultValue={props.type}
-              onChange={(value) => {setNewProps({...newProps, type: value})}}
-            >
-              <Stack direction="row">
-                <Radio value={"0"}>Ninguno</Radio>
-                <Radio value={"1"}>@Here</Radio>
-                <Radio value={"2"}>@Everyone</Radio>
-              </Stack>
+              <RadioGroup 
+                defaultValue={props.type.toString()}
+                onChange={(value) => {setNewProps({...newProps, type: Number(value)})}}
+              >
+                <Stack direction="row">
+                  <Radio value={"0"}>Ninguno</Radio>
+                  <Radio value={"1"}>@Here</Radio>
+                  <Radio value={"2"}>@Everyone</Radio>
+                </Stack>
             </RadioGroup>
+
           </DrawerBody>
 
           <DrawerFooter>
             <Button mr={5} onClick={onClose}>Cerrar</Button>
 
-          {props.name !== "Nueva página" &&
+          {props.name !== "Nuevo perfil" &&
             <Button mr={2} colorScheme="red" variant="outline"
             onClick={() => {onDelete(); onClose()}}>Eliminar</Button>
           }
 
             {
-              (newProps.name !== "Nueva página" && newProps.type !== "-1") &&
+              (newProps.name !== "Nuevo perfil" && newProps.type !== -1) &&
                 <Button colorScheme="purple" variant="outline"
                 onClick={() => {onSave(); onClose()}}
                 >Guardar</Button>
@@ -142,4 +138,4 @@ const OptionChannel = ({props} : optionChannelT) => {
   )
 }
 
-export default FacebookDrawer;
+export default TwitterDrawer;
